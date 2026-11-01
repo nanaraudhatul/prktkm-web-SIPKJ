@@ -1,16 +1,46 @@
 // ========================================
-// KONFIGURASI API - GANTI IP JIKA PERLU
+// KONFIGURASI API - PANDUAN UNTUK SHARE KE TEMAN
 // ========================================
+
+// 1. Cara mencari IP Komputer Host (Yang menjalankan XAMPP):
+//    - Windows: Buka CMD, ketik "ipconfig", cari "IPv4 Address" (contoh: 192.168.1.38)
+//    - Mac/Linux: Buka Terminal, ketik "ifconfig" atau "ip a"
+// 2. Ganti nilai di bawah ini dengan IP tersebut.
+// 3. Pastikan Windows Firewall mengizinkan Apache (XAMPP) untuk jaringan Private/Public.
+
+const HOST_IP = '192.168.1.38'; // ⚠️ GANTI INI DENGAN IP KOMPUTER KAMU
+
 const API_CONFIG = {
-    BASE_URL: 'http://192.168.1.38/sipkj/backend',
+    // Gunakan ini jika teman satu jaringan Wi-Fi (Local Network)
+    BASE_URL: `http://${HOST_IP}/sipkj/backend`,
+    
+    // ATAU, jika teman beda jaringan (gunakan Ngrok/Cloudflare Tunnel):
+    // BASE_URL: 'https://xxxx-xx-xx-xx-xx.ngrok-free.app/sipkj/backend',
+
     ENDPOINTS: {
+        // Auth
         LOGIN: '/api/auth/login.php',
         REGISTER: '/api/auth/register.php',
         LOGOUT: '/api/auth/logout.php',
         PROFILE: '/api/auth/profile.php',
-        // Tambahkan endpoint lain jika ada
+        
+        // Pengaduan (Masyarakat)
+        PENGAUDAN_LIST: '/api/pengaduan/list.php',
+        PENGAUDAN_DETAIL: '/api/pengaduan/detail.php',
+        PENGAUDAN_CREATE: '/api/pengaduan/create.php',
+        
+        // Admin
+        ADMIN_STATS: '/api/admin/dashboard-stats.php',
+        ADMIN_USERS: '/api/admin/user-list.php',
+        ADMIN_USER_SAVE: '/api/admin/user-save.php',
+        ADMIN_USER_DELETE: '/api/admin/user-delete.php',
+        ADMIN_VERIFIKASI: '/api/admin/verifikasi-pengaduan.php',
+        ADMIN_LAPORAN: '/api/admin/laporan-stats.php'
     }
 };
+
+// Export agar bisa dipakai di file lain (jika menggunakan module)
+// Atau biarkan global seperti ini untuk script tag biasa.
 
 // ========================================
 // AUTH.JS - Login & Register Handler (Satu Pintu)

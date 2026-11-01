@@ -15,11 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Database Config
-$host = 'localhost';
-$dbname = 'sipkj_db';
-$username = 'root';
-$password = '';
+// ==========================================
+// Database Config (DIPERBARUI)
+// ==========================================
+$host = '10.37.42.111';       // IP Komputer Host
+$dbname = 'sipkj_db';         // Nama Database
+$username = 'sipkj';          // Username yang dibuat di phpMyAdmin
+$password = 'kelompok9';      // Password user tersebut
+// ==========================================
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password, [
@@ -31,7 +34,7 @@ try {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Koneksi database gagal. Pastikan MySQL running di XAMPP.'
+        'message' => 'Koneksi database gagal. Pastikan MySQL running dan user memiliki akses remote.'
     ]);
     exit();
 }

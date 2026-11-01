@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // ==========================================
 // Database Config (DIPERBARUI)
 // ==========================================
-$host = '10.37.42.111';       // IP Komputer Host
+$host = '192.168.1.38';       // IP Komputer Host
 $dbname = 'sipkj_db';         // Nama Database
 $username = 'sipkj';          // Username yang dibuat di phpMyAdmin
 $password = 'kelompok9';      // Password user tersebut

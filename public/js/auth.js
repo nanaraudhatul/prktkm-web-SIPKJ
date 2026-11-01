@@ -1,4 +1,18 @@
 // ========================================
+// KONFIGURASI API - GANTI IP JIKA PERLU
+// ========================================
+const API_CONFIG = {
+    BASE_URL: 'http://192.168.1.38/sipkj/backend',
+    ENDPOINTS: {
+        LOGIN: '/api/auth/login.php',
+        REGISTER: '/api/auth/register.php',
+        LOGOUT: '/api/auth/logout.php',
+        PROFILE: '/api/auth/profile.php',
+        // Tambahkan endpoint lain jika ada
+    }
+};
+
+// ========================================
 // AUTH.JS - Login & Register Handler (Satu Pintu)
 // ========================================
 

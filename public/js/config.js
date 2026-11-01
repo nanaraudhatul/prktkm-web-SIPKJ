@@ -35,7 +35,7 @@ function getBaseUrl() {
 
 // Konfigurasi Utama API
 const API_CONFIG = {
-    BASE_URL: getBaseUrl(),
+    BASE_URL: 'http://localhost/sipkj/backend/api',
     ENDPOINTS: {
         // Auth
         LOGIN: '/auth/login.php',

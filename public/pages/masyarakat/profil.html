@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - SIPKJ</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/profil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
+                <div class="sidebar-logo-container">
+                    <div class="sidebar-logo-box">
+                        <img src="../../images/logo-sipkj.png" alt="SIPKJ Logo"
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;background:#1e3a5f;color:white;font-weight:800;font-size:14px;width:100%;height:100%;border-radius:8px;\'>SIPKJ</div>';">
+                    </div>
+                    <div class="sidebar-brand">
+                        <h2>SIPKJ</h2>
+                        <p>Pengaduan Kerusakan Jalan</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="buat-pengaduan.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                    Buat Pengaduan
+                </a>
+                <a href="pengaduan-saya.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    Pengaduan Saya
+                </a>
+                <a href="profil.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    Profil
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                </div>
+                <div class="topbar-right">
+                    <div class="user-profile" onclick="window.location.href='profil.html'">
+                        <div class="user-avatar">
+                            <!-- IKON PROFIL (orang) -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">Loading...</div>
+                            <div class="user-role">Masyarakat</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div id="viewProfile">
+                    <div class="profile-header-card">
+                        <div class="profile-header-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="profile-header-text">
+                            <h1>Profil Saya</h1>
+                            <p>Kelola informasi akun dan lihat aktivitas pengaduan Anda</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-content-card">
+                        <div class="profile-left">
+                            <div class="profile-avatar-section">
+                                <div class="profile-avatar-large" id="profileAvatar">
+                                    <span id="profileInitials">...</span>
+                                </div>
+                                <h2 class="profile-display-name" id="profileName">Memuat...</h2>
+                                <div class="profile-display-username" id="profileUsername">@username</div>
+                                <div class="profile-role-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                    </svg>
+                                    <span id="profileRole">Masyarakat</span>
+                                </div>
+                                <button class="btn-edit-profile" onclick="showEditProfile()">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                    </svg>
+                                    Edit Profil
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="profile-right">
+                            <h3 class="section-title">Informasi profil</h3>
+                            <div class="info-grid">
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                            <polyline points="22,6 12,13 2,6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="info-content">
+                                        <div class="info-label">Email</div>
+                                        <div class="info-value" id="profileEmail">-</div>
+                                    </div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="info-content">
+                                        <div class="info-label">Nomor Telepon</div>
+                                        <div class="info-value" id="profilePhone">-</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="verification-card">
+                                <div class="verification-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        <path d="M9 12l2 2 4-4"/>
+                                    </svg>
+                                </div>
+                                <div class="verification-text">
+                                    <h4>Akun Terverifikasi</h4>
+                                    <p>Akun Anda sudah terverifikasi dengan aman di sistem SIPKJ.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="editProfile" style="display: none;">
+                    <div class="profile-header-card">
+                        <div class="profile-header-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="profile-header-text">
+                            <h1>Profil Pengguna</h1>
+                            <p>Kelola data diri, kontak, dan pengaturan peran akun SIPKJ Anda</p>
+                        </div>
+                    </div>
+
+                    <div class="edit-form-card">
+                        <div class="edit-profile-header">
+                            <div class="edit-avatar-section">
+                                <div class="edit-avatar-large" id="editAvatar">
+                                    <span id="editInitials">?</span>
+                                </div>
+                                <div>
+                                    <h2 class="edit-display-name" id="editDisplayName">Loading...</h2>
+                                    <div class="edit-username-row">
+                                        <span class="edit-display-username" id="editDisplayUsername">@username</span>
+                                        <span class="edit-role-badge" id="editRoleBadge">Masyarakat</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="editMessage" class="message-box"></div>
+
+                        <form id="editProfileForm">
+                            <div class="form-row-edit">
+                                <div class="form-group-edit">
+                                    <label>USERNAME</label>
+                                    <div class="input-with-icon">
+                                        <span class="input-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="4"/>
+                                                <path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/>
+                                            </svg>
+                                        </span>
+                                        <input type="text" id="editUsername" required>
+                                    </div>
+                                </div>
+                                <div class="form-group-edit">
+                                    <label>NO. TELEPON / WHATSAPP</label>
+                                    <div class="input-with-icon">
+                                        <span class="input-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                                            </svg>
+                                        </span>
+                                        <input type="tel" id="editTelepon" placeholder="08xxxxxxxxxx">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-edit">
+                                <label>EMAIL</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                            <polyline points="22,6 12,13 2,6"/>
+                                        </svg>
+                                    </span>
+                                    <input type="email" id="editEmail" required>
+                                </div>
+                            </div>
+
+                            <div class="form-actions-edit">
+                                <button type="button" class="btn-cancel-edit" onclick="showViewProfile()">Batal</button>
+                                <button type="submit" class="btn-save-edit" id="saveProfileBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                                        <polyline points="17 21 17 13 7 13 7 21"/>
+                                        <polyline points="7 3 7 8 15 8"/>
+                                    </svg>
+                                    Simpan Perubahan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="page-footer">
+                © 2026 SIPKJ (Sistem Pengaduan Kerusakan Jalan). Hak Cipta Dilindungi.
+            </footer>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/profil.js"></script>
+</body>
+</html>

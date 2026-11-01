@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPKJ - Sistem Pengaduan Kerusakan Jalan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #2a5a8f 100%);
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .navbar-brand .logo-img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .navbar-brand .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1e3a5f;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            color: #1e3a5f;
+        }
+
+        .navbar-links .btn-nav {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .navbar-links .btn-login {
+            color: #1e3a5f;
+            border: 2px solid #1e3a5f;
+        }
+
+        .navbar-links .btn-login:hover {
+            background: #1e3a5f;
+            color: white;
+        }
+
+        .navbar-links .btn-register {
+            background: #1e3a5f;
+            color: white;
+            border: 2px solid #1e3a5f;
+        }
+
+        .navbar-links .btn-register:hover {
+            background: #0f172a;
+            border-color: #0f172a;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 80px 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 span {
+            color: #60a5fa;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            background: white;
+            color: #1e3a5f;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #1e3a5f;
+        }
+
+        /* ✅ STATS CARDS DIHAPUS - Tidak ada .hero-stats lagi */
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+/* ✅ LOGO BARU - Dengan kontras yang lebih baik */
+.hero-image .logo-container {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    max-width: 400px;
+    width: 100%;
+}
+
+.logo-container .logo-box {
+    width: 140px;
+    height: 140px;
+    background: white; /* ✅ BACKGROUND PUTIH */
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(30, 58, 95, 0.2);
+    border: 3px solid #e2e8f0; /* ✅ BORDER ABU-ABU MUDA */
+    padding: 20px;
+}
+
+.logo-box img {
+    width: 100px; /* ✅ LEBIH BESAR */
+    height: 100px;
+    object-fit: contain;
+    filter: none; /* ✅ HAPUS FILTER GELAP */
+}
+
+.logo-container .logo-title {
+    font-size: 42px;
+    font-weight: 900;
+    color: #1e3a5f;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ✅ SHADOW UNTUK TEKS */
+}
+
+.logo-container .logo-subtitle {
+    font-size: 16px;
+    color: #64748b;
+    text-align: center;
+    font-weight: 500;
+}
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            background: white;
+            padding: 80px 48px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            padding: 32px;
+            border-radius: 16px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #1e3a5f;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: #eff6ff;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            color: #1e3a5f;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 80px 48px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-card:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -24px;
+            top: 40px;
+            font-size: 32px;
+            color: #94a3b8;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: #1e3a5f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 auto 20px;
+        }
+
+        .step-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .step-card p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a5a8f 100%);
+            padding: 80px 48px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .cta .btn-primary {
+            background: white;
+            color: #1e3a5f;
+        }
+
+        .cta .btn-secondary {
+            border-color: white;
+            color: white;
+        }
+
+        .cta .btn-secondary:hover {
+            background: white;
+            color: #1e3a5f;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: 40px 48px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* ===== ENV INFO ===== */
+        .env-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            font-size: 12px;
+            color: #64748b;
+            z-index: 1000;
+        }
+
+        .env-info .env-label {
+            font-weight: 700;
+            color: #1e3a5f;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .step-card:not(:last-child)::after {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                padding: 16px 24px;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .hero {
+                padding: 40px 24px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .features,
+            .how-it-works,
+            .cta {
+                padding: 60px 24px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .logo-container {
+                padding: 32px;
+            }
+
+            .logo-box {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo-box img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-container .logo-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <img src="public/images/logo-sipkj.png" alt="SIPKJ Logo" class="logo-img">
+            <span class="logo-text">SIPKJ</span>
+        </a>
+        <div class="navbar-links">
+            <a href="#features">Fitur</a>
+            <a href="#how-it-works">Cara Kerja</a>
+            <a href="public/pages/auth/login.html" class="btn-nav btn-login">Masuk</a>
+            <a href="public/pages/auth/register.html" class="btn-nav btn-register">Daftar</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Laporkan Kerusakan Jalan <span>Dengan Cepat & Mudah</span></h1>
+            <p>SIPKJ adalah sistem pengaduan kerusakan jalan yang memungkinkan masyarakat untuk melaporkan kondisi jalan yang rusak secara online. Laporan Anda akan segera ditindaklanjuti oleh tim penanganan jalan.</p>
+            
+            <div class="hero-buttons">
+                <a href="public/pages/auth/register.html" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                    Buat Pengaduan
+                </a>
+                <a href="#features" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="10 8 16 12 10 16 10 8"/>
+                    </svg>
+                    Pelajari Lebih Lanjut
+                </a>
+            </div>
+
+            <!-- ✅ STATS CARDS DIHAPUS -->
+        </div>
+
+        <div class="hero-image">
+            <!-- ✅ LOGO BARU - Sama seperti dashboard -->
+            <div class="logo-container">
+                <div class="logo-box">
+                    <img src="public/images/logo-sipkj.png" alt="SIPKJ Logo">
+                </div>
+                <div class="logo-title">SIPKJ</div>
+                <div class="logo-subtitle">Sistem Pengaduan Kerusakan Jalan</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Mengapa Memilih SIPKJ?</h2>
+            <p>Sistem pengaduan yang modern, transparan, dan efisien untuk perbaikan jalan di wilayah Anda</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                </div>
+                <h3>Pengaduan Cepat</h3>
+                <p>Laporkan kerusakan jalan hanya dalam beberapa menit. Proses yang sederhana dan mudah dipahami oleh semua pengguna.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <h3>Transparan & Terlacak</h3>
+                <p>Pantau status pengaduan Anda secara real-time. Dari laporan masuk hingga perbaikan selesai, semua tercatat dengan jelas.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                </div>
+                <h3>Kolaborasi Masyarakat</h3>
+                <p>Bergabung dengan ribuan masyarakat lainnya dalam upaya perbaikan infrastruktur jalan. Setiap laporan berharga.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <h3>Lokasi Presisi</h3>
+                <p>Integrasi dengan Google Maps untuk memastikan lokasi kerusakan tercatat dengan akurat dan mudah ditemukan tim penanganan.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                </div>
+                <h3>Laporan & Statistik</h3>
+                <p>Dashboard admin dengan visualisasi data lengkap untuk monitoring dan evaluasi penanganan pengaduan secara menyeluruh.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <h3>Aman & Terpercaya</h3>
+                <p>Data Anda dilindungi dengan sistem keamanan modern. Privasi pengguna adalah prioritas utama kami.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <h2>Cara Kerja SIPKJ</h2>
+            <p>Laporkan kerusakan jalan dalam 4 langkah mudah</p>
+        </div>
+
+        <div class="steps">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Daftar Akun</h3>
+                <p>Buat akun baru dengan mengisi data diri Anda</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Buat Pengaduan</h3>
+                <p>Isi form pengaduan dengan detail kerusakan dan foto bukti</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Pantau Status</h3>
+                <p>Ikuti perkembangan penanganan pengaduan Anda</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Selesai</h3>
+                <p>Kerusakan jalan diperbaiki oleh tim penanganan</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Siap Membuat Perubahan?</h2>
+        <p>Bergabunglah dengan ribuan masyarakat lainnya dalam upaya perbaikan jalan. Setiap laporan Anda berharga!</p>
+        <div class="cta-buttons">
+            <a href="public/pages/auth/register.html" class="btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+                Daftar Sekarang
+            </a>
+            <a href="public/pages/auth/login.html" class="btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                </svg>
+                Masuk ke Akun
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 SIPKJ - Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <!-- Environment Info -->
+    <div class="env-info">
+        <span class="env-label">Environment:</span> <span id="envName">Detecting...</span> | 
+        <span class="env-label">URL:</span> <span id="baseUrl">...</span>
+    </div>
+
+    <script>
+        // Auto-detect environment
+        function detectEnvironment() {
+            const hostname = window.location.hostname;
+            const port = window.location.port;
+            const pathname = window.location.pathname;
+            
+            let envName = 'Unknown';
+            let baseUrl = window.location.origin;
+
+            if ((port === '80' || port === '') && pathname.includes('/sipkj/')) {
+                envName = 'XAMPP Apache';
+                baseUrl = 'http://localhost/sipkj';
+            }
+            else if (port === '8000') {
+                envName = 'PHP Built-in Server';
+                baseUrl = 'http://localhost:8000';
+            }
+            else if (port === '3000') {
+                envName = 'Node.js Express';
+                baseUrl = 'http://localhost:3000';
+            }
+            else if (port === '5500') {
+                envName = 'VS Code Live Server';
+                baseUrl = `http://${hostname}:${port}`;
+            }
+            else {
+                envName = `Custom (${port || '80'})`;
+            }
+
+            document.getElementById('envName').textContent = envName;
+            document.getElementById('baseUrl').textContent = baseUrl;
+
+            localStorage.setItem('sipkj_base_url', baseUrl);
+            localStorage.setItem('sipkj_env', envName);
+
+            console.log('Environment detected:', envName);
+            console.log('Base URL:', baseUrl);
+        }
+
+        document.addEventListener('DOMContentLoaded', detectEnvironment);
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

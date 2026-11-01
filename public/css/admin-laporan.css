@@ -1,0 +1,400 @@
+/* ========================================
+   ADMIN LAPORAN - STYLES
+   ======================================== */
+
+/* Filter Card */
+.filter-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.filter-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.filter-item label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 10px 36px 10px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #f8fafc;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: all 0.2s;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #1e3a5f;
+    background-color: white;
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn-reset-filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: white;
+    color: #64748b;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-reset-filter:hover {
+    border-color: #1e3a5f;
+    color: #1e3a5f;
+}
+
+.btn-apply-filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-apply-filter:hover {
+    background: #0f172a;
+}
+
+/* ========================================
+   CHARTS ROW
+   ======================================== */
+
+.charts-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.chart-card.large {
+    min-height: 450px;
+}
+
+.chart-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.chart-card-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+}
+
+.chart-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+.chart-period {
+    background: #eff6ff;
+    color: #1e3a5f;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.chart-total-label {
+    background: #eff6ff;
+    color: #1e3a5f;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.chart-card-body {
+    padding: 24px;
+}
+
+/* Trend Legend */
+.trend-legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.trend-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-dot.gray { background: #cbd5e1; }
+.legend-dot.green { background: #10b981; }
+
+/* Trend Chart */
+.trend-chart-container {
+    position: relative;
+    height: 250px;
+    margin-bottom: 16px;
+}
+
+.chart-insight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #64748b;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.insight-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.insight-item.right {
+    margin-left: auto;
+}
+
+.insight-badge {
+    background: #1e3a5f;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+/* Donut Chart */
+.donut-with-legend {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.donut-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+}
+
+.donut-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.donut-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+}
+
+.donut-total {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1;
+}
+
+.donut-label {
+    font-size: 10px;
+    color: #94a3b8;
+    margin-top: 2px;
+    font-weight: 600;
+}
+
+.category-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+.legend-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-color.permukaan { background: #3b82f6; }
+.legend-color.fasilitas { background: #10b981; }
+.legend-color.drainase { background: #f59e0b; }
+.legend-color.marka { background: #ef4444; }
+.legend-color.lainnya { background: #8b5cf6; }
+
+.legend-label {
+    flex: 1;
+    color: #475569;
+    font-weight: 500;
+}
+
+.legend-value {
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 13px;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* Top Wilayah */
+.top-wilayah {
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.top-wilayah h4 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 12px 0;
+}
+
+.wilayah-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.wilayah-rank {
+    width: 20px;
+    font-weight: 700;
+    color: #64748b;
+    flex-shrink: 0;
+}
+
+.wilayah-name {
+    flex: 1;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.wilayah-bar-container {
+    flex: 2;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.wilayah-bar {
+    height: 100%;
+    background: #1e3a5f;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.wilayah-count {
+    font-weight: 700;
+    color: #1e293b;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .charts-row {
+        grid-template-columns: 1fr;
+    }
+    .filter-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+    .donut-with-legend {
+        flex-direction: column;
+    }
+}

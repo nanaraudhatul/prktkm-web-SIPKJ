@@ -1,0 +1,397 @@
+/* ========================================
+   DETAIL PENGADUAN - STYLES (FIXED)
+   ======================================== */
+
+.page-content {
+    padding: 24px 32px;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: white;
+    color: #1e293b;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    margin-bottom: 20px;
+}
+
+.btn-back:hover {
+    border-color: #1e3a5f;
+    color: #1e3a5f;
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+}
+
+/* Detail Main */
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.detail-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.status-badge {
+    display: inline-flex;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    background: #1e3a5f;
+}
+
+.status-badge.diajukan,
+.status-badge.baru { background: #1e3a5f; }
+.status-badge.verifikasi { background: #d97706; }
+.status-badge.proses { background: #d97706; }
+.status-badge.selesai { background: #059669; }
+.status-badge.ditolak { background: #dc2626; }
+
+.pelapor-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.pelapor-info strong {
+    color: #1e293b;
+}
+
+.detail-date {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.detail-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 16px 0 12px 0;
+    line-height: 1.3;
+}
+
+.kategori-badge {
+    display: inline-flex;
+    padding: 8px 16px;
+    background: #eff6ff;
+    color: #1e3a5f;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.detail-divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 24px 0;
+}
+
+/* Sections */
+.detail-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+}
+
+.section-content {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Lokasi */
+.lokasi-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.lokasi-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: #475569;
+}
+
+.lokasi-dot {
+    width: 8px;
+    height: 8px;
+    background: #1e3a5f;
+    border-radius: 50%;
+}
+
+.maps-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #1e3a5f;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.maps-link:hover {
+    text-decoration: underline;
+}
+
+/* Foto Grid */
+.foto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.foto-item {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: #f1f5f9;
+}
+
+.foto-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.foto-item img:hover {
+    transform: scale(1.05);
+}
+
+/* ========================================
+   STATUS TIMELINE - PERBAIKAN TOTAL
+   (Hanya 1 garis, status aktif hijau)
+   ======================================== */
+
+.status-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 24px;
+}
+
+.status-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.status-timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 16px;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 14px;
+    position: relative;
+    padding-bottom: 24px;
+    z-index: 1;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+/* GARIS VERTIKAL - HANYA 1 (pakai ::before) */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 32px;
+    bottom: -8px;
+    width: 2px;
+    background: #e2e8f0;
+    z-index: 0;
+}
+
+.timeline-item:last-child::before {
+    display: none;
+}
+
+.timeline-item.completed::before {
+    background: #10b981;
+}
+
+.timeline-item.active::before {
+    background: linear-gradient(to bottom, #10b981 50%, #e2e8f0 50%);
+}
+
+.timeline-item.rejected::before {
+    background: #dc2626;
+}
+
+/* Icon */
+.timeline-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    color: #94a3b8;
+    transition: all 0.3s ease;
+}
+
+.timeline-item.pending .timeline-icon {
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    color: #94a3b8;
+}
+
+.timeline-item.completed .timeline-icon {
+    background: #10b981;
+    border: 2px solid #10b981;
+    color: white;
+}
+
+.timeline-item.active .timeline-icon {
+    background: #10b981;
+    border: 2px solid #10b981;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    animation: pulse-green 2s infinite;
+}
+
+.timeline-item.rejected .timeline-icon,
+.icon-rejected {
+    background: #dc2626 !important;
+    border: 2px solid #dc2626 !important;
+    color: white !important;
+}
+
+/* Content */
+.timeline-content {
+    flex: 1;
+    padding-top: 6px;
+}
+
+.timeline-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    transition: color 0.3s;
+}
+
+.timeline-item.pending .timeline-title {
+    color: #94a3b8;
+}
+
+.timeline-item.completed .timeline-title {
+    color: #10b981;
+}
+
+.timeline-item.active .timeline-title {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.title-rejected {
+    color: #dc2626 !important;
+    font-weight: 700 !important;
+}
+
+.timeline-date {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.timeline-item.completed .timeline-date,
+.timeline-item.active .timeline-date {
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Animasi pulse untuk status aktif */
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+    .status-card {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-content {
+        padding: 16px;
+    }
+    .detail-card {
+        padding: 20px;
+    }
+    .detail-title {
+        font-size: 22px;
+    }
+}

@@ -1,9 +1,9 @@
 // ========================================
-// AUTH.JS - Login & Register Handler (Satu Pintu)
+// AUTH.JS - Login, Register & Toggle Password
 // ========================================
 
 // ========================================
-// TOGGLE PASSWORD VISIBILITY
+// 1. TOGGLE PASSWORD VISIBILITY (FITUR MATA)
 // ========================================
 function togglePasswordVisibility(inputId, btn) {
     const input = document.getElementById(inputId);
@@ -12,24 +12,24 @@ function togglePasswordVisibility(inputId, btn) {
     if (!input || !iconSvg) return;
 
     if (input.type === 'password') {
-        input.type = 'text';
-        // Icon mata dicoret (terlihat)
+        input.type = 'text'; // Tampilkan password
         iconSvg.innerHTML = `
             <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
             <line x1="1" y1="1" x2="23" y2="23"/>
         `;
+        btn.setAttribute('title', 'Sembunyikan kata sandi');
     } else {
-        input.type = 'password';
-        // Icon mata normal (tersembunyi)
+        input.type = 'password'; // Sembunyikan password
         iconSvg.innerHTML = `
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
             <circle cx="12" cy="12" r="3"/>
         `;
+        btn.setAttribute('title', 'Lihat kata sandi');
     }
 }
 
 // ========================================
-// LOGIN FORM HANDLER
+// 2. LOGIN FORM HANDLER
 // ========================================
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
@@ -40,7 +40,7 @@ if (loginForm) {
         const errorMsg = document.getElementById('errorMessage');
         
         if (!btn) {
-            console.error('Tombol login tidak ditemukan!');
+            console.error('❌ Tombol login tidak ditemukan!');
             return;
         }
         
@@ -48,7 +48,6 @@ if (loginForm) {
         btn.innerHTML = 'Memproses...';
         btn.disabled = true;
 
-        // Hide error message
         if (errorMsg) {
             errorMsg.style.display = 'none';
             errorMsg.textContent = '';
@@ -57,42 +56,46 @@ if (loginForm) {
         const emailOrUsername = document.getElementById('loginUsername').value.trim();
         const password = document.getElementById('loginPassword').value;
 
+        // 🔍 DEBUG: Lihat URL apa yang sebenarnya dipanggil
+        const targetUrl = API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.LOGIN;
         console.log('🔐 Login attempt:', { emailOrUsername });
+        console.log('🌐 Mengirim request ke URL:', targetUrl);
 
         try {
-            const response = await fetch(API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.LOGIN, {
+            const response = await fetch(targetUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: emailOrUsername, // Backend akan mendeteksi ini sebagai email atau username
+                    email: emailOrUsername,
                     password: password
                 })
             });
+
+            // Cek jika response bukan JSON (misal error 404 HTML dari Apache)
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                throw new Error("Server tidak merespon dengan JSON. Pastikan XAMPP Apache sudah START dan URL benar.");
+            }
 
             const result = await response.json();
             console.log('📡 Login response:', result);
 
             if (response.ok && result.success) {
                 const user = result.data;
-                // Ambil role, default ke 'masyarakat' jika tidak ada
                 const role = user.role ? user.role.toLowerCase() : 'masyarakat';
 
-                // Simpan ke localStorage
                 localStorage.setItem('sipkj_token', result.token);
                 localStorage.setItem('sipkj_user', JSON.stringify(user));
                 localStorage.setItem('sipkj_role', role);
 
                 console.log('💾 Saved to localStorage. Role:', role);
 
-                // 🚀 REDIRECT OTOMATIS BERDASARKAN ROLE
                 if (role === 'admin') {
-                    console.log('🚀 Redirecting to ADMIN dashboard...');
                     window.location.href = '../admin/dashboard.html';
                 } else {
-                    console.log('🚀 Redirecting to MASYARAKAT dashboard...');
                     window.location.href = '../masyarakat/dashboard.html';
                 }
             } else {
@@ -102,14 +105,18 @@ if (loginForm) {
         } catch (error) {
             console.error('❌ Login error:', error);
             
+            let errorMessage = error.message;
+            if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                errorMessage = "Gagal terhubung ke server. Pastikan: 1) XAMPP Apache sudah START (Hijau), 2) Nama folder 'sipkj' benar.";
+            }
+
             if (errorMsg) {
-                errorMsg.textContent = error.message;
+                errorMsg.textContent = errorMessage;
                 errorMsg.style.display = 'flex';
             } else {
-                alert('❌ Login gagal: ' + error.message);
+                alert('❌ Login gagal: ' + errorMessage);
             }
             
-            // Reset button
             btn.innerHTML = originalText;
             btn.disabled = false;
         }
@@ -117,7 +124,7 @@ if (loginForm) {
 }
 
 // ========================================
-// REGISTER FORM HANDLER
+// 3. REGISTER FORM HANDLER
 // ========================================
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
@@ -135,7 +142,7 @@ if (registerForm) {
         const confirmPassword = document.getElementById('regPasswordConfirm')?.value || '';
         
         if (password !== confirmPassword) {
-            alert('❌ Kata sandi tidak cocok!');
+            alert('❌ Kata sandi konfirmasi tidak cocok!');
             btn.innerHTML = originalText;
             btn.disabled = false;
             return;
@@ -167,8 +174,11 @@ if (registerForm) {
             role: role
         };
 
+        const targetUrl = API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.REGISTER;
+        console.log('🌐 Register URL:', targetUrl);
+
         try {
-            const response = await fetch(API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.REGISTER, {
+            const response = await fetch(targetUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -176,6 +186,11 @@ if (registerForm) {
                 },
                 body: JSON.stringify(formData)
             });
+
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                throw new Error("Server tidak merespon dengan JSON. Pastikan XAMPP Apache sudah START.");
+            }
 
             const result = await response.json();
 
@@ -187,7 +202,13 @@ if (registerForm) {
             }
         } catch (error) {
             console.error('❌ Register error:', error);
-            alert('❌ Pendaftaran gagal: ' + error.message);
+            
+            let errorMessage = error.message;
+            if (error.message.includes('Failed to fetch')) {
+                errorMessage = "Gagal terhubung ke server. Pastikan XAMPP Apache sudah START (Hijau).";
+            }
+            
+            alert('❌ Pendaftaran gagal: ' + errorMessage);
         } finally {
             btn.innerHTML = originalText;
             btn.disabled = false;
@@ -196,7 +217,7 @@ if (registerForm) {
 }
 
 // ========================================
-// ROLE SELECTOR (Untuk Halaman Register)
+// 4. ROLE SELECTOR (Untuk Halaman Register)
 // ========================================
 function selectRole(el) {
     document.querySelectorAll('.role-option').forEach(r => r.classList.remove('active'));

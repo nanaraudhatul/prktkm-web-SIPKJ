@@ -16,12 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // ==========================================
-// Database Config (DIPERBARUI)
+// Database Config (STABIL & TIDAK TERGANTUNG IP)
 // ==========================================
-$host = '192.168.1.38';       // IP Komputer Host
-$dbname = 'sipkj_db';         // Nama Database
-$username = 'sipkj';          // Username yang dibuat di phpMyAdmin
-$password = 'kelompok9';      // Password user tersebut
+// PENTING: Gunakan '127.0.0.1' atau 'localhost'. 
+// Ini akan selalu berhasil selama MySQL XAMPP berwarna HIJAU, 
+// terlepas dari berapa pun port Apache (80/8080) atau IP jaringan Anda.
+$host = '127.0.0.1';       
+$dbname = 'sipkj_db';      
+
+// Default XAMPP adalah 'root' dan password kosong. 
+// Jika Anda sudah membuat user khusus 'sipkj', kembalikan ke 'sipkj'.
+$username = 'root';        
+$password = '';            
+
 // ==========================================
 
 try {
@@ -34,7 +41,7 @@ try {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Koneksi database gagal. Pastikan MySQL running dan user memiliki akses remote.'
+        'message' => 'Koneksi database gagal. Pastikan: 1) MySQL XAMPP sudah START (Hijau), 2) Nama database "sipkj_db" sudah dibuat.'
     ]);
     exit();
 }
@@ -60,6 +67,7 @@ function validateToken($pdo) {
     
     list($userId, $timestamp) = explode(':', $decoded);
     
+    // Token berlaku selama 24 jam (86400 detik)
     if (time() - $timestamp > 86400) {
         return false;
     }

@@ -5,7 +5,7 @@
 // ========================================
 // 1. TOGGLE PASSWORD VISIBILITY (FITUR MATA)
 // ========================================
-function togglePasswordVisibility(inputId, btn) {
+function togglePassword(inputId, btn) {
     const input = document.getElementById(inputId);
     const iconSvg = btn.querySelector('.eye-icon');
     
@@ -85,17 +85,26 @@ if (loginForm) {
 
             if (response.ok && result.success) {
                 const user = result.data;
-                const role = user.role ? user.role.toLowerCase() : 'masyarakat';
+                
+                // ✅ PERBAIKAN PENTING: Tambahkan .trim() untuk menghapus spasi tidak sengaja dari database
+                const role = user.role ? user.role.toLowerCase().trim() : 'masyarakat';
 
                 localStorage.setItem('sipkj_token', result.token);
                 localStorage.setItem('sipkj_user', JSON.stringify(user));
                 localStorage.setItem('sipkj_role', role);
 
-                console.log('💾 Saved to localStorage. Role:', role);
+                // 🔍 DEBUG: Tanda | | akan menunjukkan jika ada spasi tersembunyi
+                console.log('🔍 Nilai role sebelum redirect: |' + role + '|');
 
+                // 🚀 REDIRECT OTOMATIS BERDASARKAN ROLE
                 if (role === 'admin') {
+                    console.log('🚀 Redirecting to ADMIN dashboard...');
                     window.location.href = '../admin/dashboard.html';
+                } else if (role === 'petugas') {
+                    console.log('🚀 Redirecting to PETUGAS dashboard...');
+                    window.location.href = '../petugas/dashboard.html';
                 } else {
+                    console.log('🚀 Redirecting to MASYARAKAT dashboard...');
                     window.location.href = '../masyarakat/dashboard.html';
                 }
             } else {
@@ -163,8 +172,8 @@ if (registerForm) {
             return;
         }
 
-        const activeRole = document.querySelector('.role-option.active');
-        const role = activeRole ? activeRole.dataset.role : 'masyarakat';
+        // Untuk register, role default adalah masyarakat (karena pilihan role sudah dihapus dari UI)
+        const role = 'masyarakat';
 
         const formData = {
             email: document.getElementById('regEmail').value.trim(),
@@ -214,12 +223,4 @@ if (registerForm) {
             btn.disabled = false;
         }
     });
-}
-
-// ========================================
-// 4. ROLE SELECTOR (Untuk Halaman Register)
-// ========================================
-function selectRole(el) {
-    document.querySelectorAll('.role-option').forEach(r => r.classList.remove('active'));
-    el.classList.add('active');
 }

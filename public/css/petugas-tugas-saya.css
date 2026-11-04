@@ -1,5 +1,5 @@
 /* =========================================
-   TUGAS SAYA - SIPKJ
+   TUGAS SAYA - SIPKJ (COMPACT VERSION)
    ========================================= */
 
 * {
@@ -33,8 +33,9 @@ a {
     min-height: 100vh;
 }
 
-/* SIDEBAR */
-
+/* =========================================
+   SIDEBAR (STATIS / TIDAK BERUBAH)
+   ========================================= */
 .sidebar {
     width: 184px;
     min-width: 184px;
@@ -136,8 +137,9 @@ a {
     font-size: 10px;
 }
 
-/* HEADER */
-
+/* =========================================
+   HEADER (COMPACT)
+   ========================================= */
 .main-area {
     flex: 1;
     min-width: 0;
@@ -146,24 +148,24 @@ a {
 }
 
 .topbar {
-    height: 55px;
-    min-height: 55px;
+    height: 50px; /* Diperkecil */
+    min-height: 50px;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px 0 25px;
+    padding: 0 20px 0 16px;
     border-bottom: 1px solid #e9edf2;
 }
 
 .topbar-left {
     display: flex;
     align-items: center;
-    gap: 17px;
+    gap: 12px;
 }
 
 .topbar-left h1 {
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 700;
     color: #253247;
 }
@@ -180,14 +182,14 @@ a {
 .topbar-profile {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     border-left: 1px solid #e8edf4;
-    padding-left: 10px;
+    padding-left: 8px;
 }
 
 .profile-avatar {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: #f4f7fc;
     border: 1px solid #e7edf6;
@@ -201,89 +203,90 @@ a {
     display: block;
     color: #263449;
     font-size: 11px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .profile-text span {
     display: inline-block;
-    padding: 3px 8px;
-    border-radius: 10px;
+    padding: 2px 6px;
+    border-radius: 8px;
     background: #edf2ff;
     color: #36517d;
     font-size: 8px;
     font-weight: 600;
 }
 
-/* KONTEN UTAMA */
-
+/* =========================================
+   KONTEN UTAMA (SANGAT COMPACT)
+   ========================================= */
 .content-area {
-    padding: 18px 19px 20px;
+    padding: 12px 16px 16px; /* Diperkecil drastis */
     flex: 1;
 }
 
 .intro-card {
-    min-height: 105px;
+    min-height: 75px; /* Diperkecil */
     background: #fff;
     border: 1px solid #e8edf4;
-    border-radius: 13px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    padding: 19px 22px;
-    gap: 16px;
-    margin-bottom: 18px;
+    padding: 12px 16px;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .intro-icon {
-    width: 45px;
-    height: 45px;
-    min-width: 45px;
-    border-radius: 12px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 8px;
     background: #1b3b67;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 5px 10px rgba(28,59,103,.16);
+    box-shadow: 0 3px 8px rgba(28,59,103,.16);
 }
 
 .intro-text {
     flex: 1;
-    min-width: 180px;
+    min-width: 150px;
 }
 
 .intro-text h2 {
-    font-size: 19px;
+    font-size: 16px; /* Diperkecil */
     font-weight: 800;
     color: #253247;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .intro-text p {
-    font-size: 10px;
-    line-height: 1.7;
+    font-size: 10px; /* Diperkecil */
+    line-height: 1.5;
     color: #66758c;
 }
 
 .intro-info {
     display: flex;
-    gap: 12px;
+    gap: 10px;
 }
 
 .info-chip {
-    min-height: 47px;
-    padding: 8px 12px;
+    min-height: 38px; /* Diperkecil */
+    padding: 6px 10px;
     border: 1px solid #e4eaf4;
-    border-radius: 10px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
     white-space: nowrap;
 }
 
 .chip-icon {
-    width: 29px;
-    height: 29px;
-    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -301,23 +304,22 @@ a {
 
 .info-chip span {
     display: block;
-    font-size: 9px;
+    font-size: 8px; /* Diperkecil */
     color: #8492a8;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .info-chip strong {
     display: block;
-    font-size: 9px;
+    font-size: 9px; /* Diperkecil */
     color: #34445c;
 }
 
 /* GRID PANEL */
-
 .main-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.42fr) minmax(330px, 1fr);
-    gap: 18px;
+    grid-template-columns: minmax(0, 1.4fr) minmax(300px, 1fr);
+    gap: 12px; /* Diperkecil */
     align-items: stretch;
 }
 
@@ -325,32 +327,31 @@ a {
 .detail-card {
     background: #fff;
     border: 1px solid #e8edf4;
-    border-radius: 13px;
+    border-radius: 10px;
     min-width: 0;
-    min-height: 450px;
-    padding: 19px;
+    /* min-height: 450px DIHAPUS agar menyesuaikan tinggi layar */
+    padding: 14px; /* Diperkecil */
 }
 
 /* TAB STATUS */
-
 .task-tabs {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-bottom: 18px;
+    gap: 6px;
+    margin-bottom: 12px;
     overflow-x: auto;
 }
 
 .tab {
     border: 1px solid #e7edf5;
     background: #f8fafc;
-    border-radius: 10px;
-    padding: 7px 11px;
+    border-radius: 8px;
+    padding: 6px 10px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     color: #607087;
-    font-size: 9px;
+    font-size: 10px;
     white-space: nowrap;
 }
 
@@ -371,24 +372,23 @@ a {
 .orange-dot { background: #f3a000; }
 
 /* FILTER */
-
 .filter-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 6px;
+    margin-bottom: 12px;
 }
 
 .filter-control {
-    height: 29px;
-    max-width: 145px;
+    height: 32px; /* Diperkecil */
+    max-width: 130px;
     min-width: 0;
     border: 1px solid #e4eaf2;
-    border-radius: 8px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 0 8px;
+    gap: 4px;
+    padding: 0 6px;
     color: #665cff;
 }
 
@@ -399,26 +399,25 @@ a {
     outline: 0;
     background: transparent;
     color: #607087;
-    font-size: 9px;
+    font-size: 10px;
     appearance: none;
 }
 
 .reset-btn {
     margin-left: auto;
-    height: 29px;
-    padding: 0 10px;
+    height: 32px;
+    padding: 0 8px;
     border: 1px solid #e4eaf2;
-    border-radius: 9px;
+    border-radius: 6px;
     background: #fff;
     color: #6358fa;
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 9px;
+    gap: 4px;
+    font-size: 10px;
 }
 
-/* TABEL */
-
+/* TABEL (SANGAT COMPACT) */
 .table-wrap {
     width: 100%;
     overflow-x: auto;
@@ -434,17 +433,17 @@ table {
 thead { background: #f8fafc; }
 
 th {
-    padding: 11px 8px;
+    padding: 8px 6px; /* Diperkecil */
     color: #3d4b60;
     font-size: 9px;
     font-weight: 700;
 }
 
 td {
-    padding: 11px 8px;
+    padding: 8px 6px; /* Diperkecil */
     border-bottom: 1px solid #edf1f5;
     color: #40516a;
-    font-size: 9px;
+    font-size: 10px;
     vertical-align: middle;
 }
 
@@ -461,33 +460,33 @@ td {
 td strong {
     display: block;
     color: #28364c;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 td small {
     display: block;
     color: #9aa9bd;
-    font-size: 8px;
-    margin-top: 4px;
+    font-size: 9px;
+    margin-top: 2px;
 }
 
 .location {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     color: #52627a;
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .priority {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 5px 8px;
+    padding: 3px 6px;
     border-radius: 20px;
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -508,12 +507,12 @@ td small {
 }
 
 .work-btn {
-    padding: 5px 9px;
+    padding: 4px 8px;
     border: 1px solid #1c3c67;
-    border-radius: 7px;
+    border-radius: 6px;
     background: #1c3c67;
     color: #fff;
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 600;
     white-space: nowrap;
     display: inline-flex;
@@ -530,25 +529,24 @@ td small {
     display: none;
     text-align: center;
     color: #91a0b3;
-    padding: 25px 10px;
+    padding: 20px 10px;
     font-size: 10px;
 }
 
 /* PAGINATION */
-
 .pagination {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 5px;
-    margin-top: 12px;
+    gap: 4px;
+    margin-top: 10px;
 }
 
 .pagination button {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     border: 1px solid #e5ebf3;
-    border-radius: 7px;
+    border-radius: 6px;
     background: #fff;
     color: #718096;
     display: flex;
@@ -563,42 +561,40 @@ td small {
     font-weight: 700;
 }
 
-/* DETAIL TUGAS */
-
-.detail-card { padding: 20px; }
+/* DETAIL TUGAS (COMPACT) */
+.detail-card { padding: 14px; }
 
 .detail-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
-    padding-bottom: 13px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #edf0f5;
 }
 
 .eyebrow {
     color: #655aff;
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 800;
     letter-spacing: .5px;
 }
 
 .detail-heading h2 {
     color: #263449;
-    font-size: 15px;
-    margin-top: 7px;
+    font-size: 14px;
+    margin-top: 4px;
     font-weight: 700;
 }
 
 /* PROGRES TUGAS */
-
 .progress-card {
-    margin-top: 16px;
+    margin-top: 12px;
     background: #f8fafc;
     border: 1px solid #edf1f6;
-    border-radius: 11px;
-    min-height: 63px;
-    padding: 11px 12px;
+    border-radius: 8px;
+    min-height: 50px;
+    padding: 8px 10px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -608,15 +604,15 @@ td small {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     color: #94a3b8;
     font-size: 8px;
-    min-width: 43px;
+    min-width: 36px;
 }
 
 .step-icon {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     background: #e8edf4;
     color: #9aabc0;
     border-radius: 50%;
@@ -633,39 +629,38 @@ td small {
     flex: 1;
     height: 2px;
     background: #dfe6ef;
-    margin: 10px 5px 0;
+    margin: 8px 4px 0;
 }
 
 .progress-track.done { background: #675cff; }
 
 /* INFORMASI WAKTU DAN STATUS */
-
 .detail-info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin-top: 15px;
+    gap: 8px;
+    margin-top: 12px;
 }
 
 .mini-info {
     min-width: 0;
     background: #f8fafc;
     border: 1px solid #edf1f6;
-    border-radius: 10px;
-    padding: 11px 10px;
+    border-radius: 8px;
+    padding: 8px;
 }
 
 .mini-info > span {
     display: block;
     color: #9aa8ba;
     font-size: 8px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .mini-info strong {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     color: #34445b;
     font-size: 9px;
     font-weight: 600;
@@ -674,43 +669,41 @@ td small {
 .mini-info .current-status { color: #2874ed; }
 
 /* DESKRIPSI */
-
-.description { margin-top: 20px; }
+.description { margin-top: 14px; }
 
 .description h3,
 .location-title h3 {
     color: #34445b;
     font-size: 10px;
     font-weight: 700;
-    margin-bottom: 9px;
+    margin-bottom: 6px;
 }
 
 .description p {
     background: #f8fafc;
     border: 1px solid #edf1f6;
-    border-radius: 10px;
-    padding: 11px;
+    border-radius: 8px;
+    padding: 8px;
     color: #78879c;
     font-size: 9px;
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
 /* LOKASI */
-
-.location-detail { margin-top: 17px; }
+.location-detail { margin-top: 12px; }
 
 .location-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
 }
 
 .location-title h3 {
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-bottom: 8px;
+    gap: 4px;
+    margin-bottom: 6px;
 }
 
 .location-title a {
@@ -733,33 +726,31 @@ td small {
     text-align: right;
     color: #a0adbf;
     font-size: 8px;
-    margin-top: -11px;
+    margin-top: -8px;
 }
 
 /* TOMBOL UPDATE */
-
 .update-btn {
     width: 100%;
-    height: 33px;
-    margin-top: 24px;
+    height: 30px;
+    margin-top: 16px;
     border: none;
-    border-radius: 9px;
+    border-radius: 8px;
     background: #1c3c67;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 6px;
     font-size: 9px;
     font-weight: 700;
-    box-shadow: 0 3px 5px rgba(28,60,103,.18);
+    box-shadow: 0 2px 4px rgba(28,60,103,.18);
 }
 
 /* FOOTER */
-
 .footer {
-    height: 84px;
-    min-height: 84px;
+    height: 45px;
+    min-height: 45px;
     background: #fff;
     display: flex;
     align-items: center;
@@ -770,7 +761,6 @@ td small {
 }
 
 /* MODAL */
-
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -786,10 +776,10 @@ td small {
 
 .modal {
     width: 100%;
-    max-width: 360px;
+    max-width: 340px;
     background: #fff;
-    border-radius: 13px;
-    padding: 21px;
+    border-radius: 10px;
+    padding: 18px;
     box-shadow: 0 15px 45px rgba(0,0,0,.15);
 }
 
@@ -797,43 +787,44 @@ td small {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
-.modal-header h3 { font-size: 15px; }
+.modal-header h3 { font-size: 14px; }
 
 .modal-header button {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 22px;
     color: #8a97a8;
 }
 
 .modal > p {
     font-size: 11px;
     color: #8491a3;
-    margin-bottom: 13px;
+    margin-bottom: 12px;
 }
 
 .modal select {
     width: 100%;
-    height: 38px;
+    height: 34px;
     border: 1px solid #e1e7ef;
-    border-radius: 7px;
-    padding: 0 10px;
+    border-radius: 6px;
+    padding: 0 8px;
     color: #40516a;
+    font-size: 12px;
 }
 
 .modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    margin-top: 18px;
+    margin-top: 16px;
 }
 
 .modal-actions button {
-    border-radius: 7px;
-    padding: 9px 14px;
+    border-radius: 6px;
+    padding: 8px 12px;
     font-size: 10px;
     font-weight: 600;
 }
@@ -850,14 +841,15 @@ td small {
     color: #fff;
 }
 
-/* PERBAIKAN IKON LUCIDE */
-
+/* =========================================
+   PERBAIKAN IKON LUCIDE (COMPACT)
+   ========================================= */
 svg.lucide {
     display: inline-block;
     flex-shrink: 0;
     vertical-align: middle;
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     stroke-width: 1.8;
 }
 
@@ -868,87 +860,88 @@ svg.lucide {
 }
 
 .menu-toggle svg.lucide {
-    width: 17px;
-    height: 17px;
-}
-
-.profile-avatar svg.lucide {
     width: 16px;
     height: 16px;
 }
 
+.profile-avatar svg.lucide {
+    width: 15px;
+    height: 15px;
+}
+
 .intro-icon svg.lucide {
-    width: 23px;
-    height: 23px;
+    width: 20px;
+    height: 20px;
     stroke-width: 2;
 }
 
 .chip-icon svg.lucide {
-    width: 15px;
-    height: 15px;
+    width: 13px;
+    height: 13px;
 }
 
 .tab svg.lucide {
-    width: 12px;
-    height: 12px;
-}
-
-.tab.active svg.lucide {
-    width: 19px;
-    height: 19px;
-}
-
-.filter-control svg.lucide {
     width: 11px;
     height: 11px;
 }
 
-.reset-btn svg.lucide {
-    width: 13px;
-    height: 13px;
-}
-
-.location svg.lucide {
-    width: 12px;
-    height: 12px;
-    color: #665cff;
-}
-
-.work-btn svg.lucide {
-    width: 10px;
-    height: 10px;
-}
-
-.step-icon svg.lucide {
-    width: 13px;
-    height: 13px;
-}
-
-.mini-info svg.lucide {
-    width: 16px;
-    height: 16px;
-}
-
-.location-title svg.lucide {
-    width: 15px;
-    height: 15px;
-}
-
-.update-btn svg.lucide {
-    width: 18px;
-    height: 18px;
-}
-
-.pagination svg.lucide {
+.tab.active svg.lucide {
     width: 14px;
     height: 14px;
 }
 
-/* RESPONSIVE */
+.filter-control svg.lucide {
+    width: 10px;
+    height: 10px;
+}
 
+.reset-btn svg.lucide {
+    width: 12px;
+    height: 12px;
+}
+
+.location svg.lucide {
+    width: 11px;
+    height: 11px;
+    color: #665cff;
+}
+
+.work-btn svg.lucide {
+    width: 9px;
+    height: 9px;
+}
+
+.step-icon svg.lucide {
+    width: 11px;
+    height: 11px;
+}
+
+.mini-info svg.lucide {
+    width: 14px;
+    height: 14px;
+}
+
+.location-title svg.lucide {
+    width: 13px;
+    height: 13px;
+}
+
+.update-btn svg.lucide {
+    width: 14px;
+    height: 14px;
+}
+
+.pagination svg.lucide {
+    width: 12px;
+    height: 12px;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 @media (max-width: 1100px) {
     .intro-card { flex-wrap: wrap; }
-    .intro-info { margin-left: 61px; }
+    .intro-info { margin-left: 48px; }
     .main-grid { grid-template-columns: 1fr; }
     .detail-card { min-height: auto; }
 }
@@ -983,11 +976,11 @@ svg.lucide {
 
     .logout { justify-content: center; }
 
-    .topbar { padding: 0 13px; }
+    .topbar { padding: 0 12px; }
 
-    .content-area { padding: 13px 10px; }
+    .content-area { padding: 10px; }
 
-    .intro-card { padding: 15px; }
+    .intro-card { padding: 12px; }
 
     .intro-info {
         margin-left: 0;
@@ -995,7 +988,7 @@ svg.lucide {
     }
 
     .task-card,
-    .detail-card { padding: 13px; }
+    .detail-card { padding: 12px; }
 
     .filter-row { flex-wrap: wrap; }
 
@@ -1005,8 +998,8 @@ svg.lucide {
     }
 
     .footer {
-        height: 60px;
-        min-height: 60px;
+        height: 45px;
+        min-height: 45px;
         font-size: 8px;
         text-align: center;
         padding: 0 8px;

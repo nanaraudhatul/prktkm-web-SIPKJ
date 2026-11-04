@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Saya | SIPKJ</title>
+    <link rel="stylesheet" href="../../css/petugas-tugas-saya.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="../../images/logo-sipkj.png" alt="Logo SIPKJ">
+            <div class="brand-text">
+                <h2>SIPKJ</h2>
+                <span>Sistem Pengaduan<br>Kerusakan Jalan</span>
+            </div>
+        </div>
+
+        <div class="menu-area">
+            <p class="menu-title">MENU UTAMA</p>
+
+            <a href="dashboard-petugas.html" class="menu-link">
+                <i data-lucide="house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="tugas-saya.html" class="menu-link active">
+                <i data-lucide="clipboard-check"></i>
+                <span>Tugas Saya</span>
+                <b class="menu-badge">3</b>
+            </a>
+
+            <a href="riwayat-tugas.html" class="menu-link">
+                <i data-lucide="history"></i>
+                <span>Riwayat Tugas</span>
+            </a>
+
+            <a href="profil.html" class="menu-link">
+                <i data-lucide="user-round"></i>
+                <span>Profil</span>
+            </a>
+        </div>
+
+        <a href="../login.html" class="logout">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+        </a>
+    </aside>
+
+    <main class="main-area">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" aria-label="Buka menu">
+                    <i data-lucide="menu"></i>
+                </button>
+                <h1>Tugas Saya</h1>
+            </div>
+
+            <div class="topbar-profile">
+                <div class="profile-avatar">
+                    <i data-lucide="user-round"></i>
+                </div>
+                <div class="profile-text">
+                    <strong>Ahmad</strong>
+                    <span>Petugas Lapangan</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-area">
+
+            <section class="intro-card">
+                <div class="intro-icon">
+                    <i data-lucide="clipboard-check"></i>
+                </div>
+
+                <div class="intro-text">
+                    <h2>Tugas Saya</h2>
+                    <p>Kelola dan selesaikan tugas pengaduan lapangan yang telah ditugaskan kepada<br class="desktop-break"> Anda secara efisien.</p>
+                </div>
+
+                <div class="intro-info">
+                    <div class="info-chip">
+                        <div class="chip-icon assigned">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div>
+                            <span>Petugas Ditugaskan</span>
+                            <strong>Ahmad Lapangan (Tim A)</strong>
+                        </div>
+                    </div>
+
+                    <div class="info-chip">
+                        <div class="chip-icon active-task">
+                            <i data-lucide="shield-check"></i>
+                        </div>
+                        <div>
+                            <span>Tugas Aktif</span>
+                            <strong>5 Pengaduan</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="main-grid">
+
+                <section class="task-card">
+
+                    <div class="task-tabs">
+                        <button class="tab active" data-status="semua">
+                            <i data-lucide="list"></i> Semua Tugas
+                        </button>
+                        <button class="tab" data-status="Dalam Proses">
+                            <span class="dot blue-dot"></span> Dalam Proses
+                        </button>
+                        <button class="tab" data-status="Menunggu">
+                            <span class="dot orange-dot"></span> Menunggu
+                        </button>
+                        <button class="tab" data-status="Selesai">
+                            <i data-lucide="circle-check"></i> Selesai
+                        </button>
+                    </div>
+
+                    <div class="filter-row">
+                        <label class="filter-control">
+                            <i data-lucide="calendar-days"></i>
+                            <select id="dateFilter">
+                                <option value="semua">Filter Tanggal</option>
+                                <option value="20 Okt 2026">20 Oktober 2026</option>
+                                <option value="19 Okt 2026">19 Oktober 2026</option>
+                                <option value="18 Okt 2026">18 Oktober 2026</option>
+                                <option value="17 Okt 2026">17 Oktober 2026</option>
+                            </select>
+                            <i data-lucide="chevron-down"></i>
+                        </label>
+
+                        <label class="filter-control">
+                            <i data-lucide="map-pin"></i>
+                            <select id="locationFilter">
+                                <option value="semua">Semua Lokasi</option>
+                                <option value="Ternate Tengah">Ternate Tengah</option>
+                                <option value="Pulau Ternate">Pulau Ternate</option>
+                                <option value="Ternate Selatan">Ternate Selatan</option>
+                                <option value="Ternate Utara">Ternate Utara</option>
+                            </select>
+                            <i data-lucide="chevron-down"></i>
+                        </label>
+
+                        <label class="filter-control">
+                            <i data-lucide="flag"></i>
+                            <select id="priorityFilter">
+                                <option value="semua">Semua Prioritas</option>
+                                <option value="Tinggi">Prioritas Tinggi</option>
+                                <option value="Sedang">Sedang</option>
+                                <option value="Rendah">Rendah</option>
+                            </select>
+                            <i data-lucide="chevron-down"></i>
+                        </label>
+
+                        <button class="reset-btn" id="resetFilter">
+                            <i data-lucide="rotate-ccw"></i>
+                            Reset
+                        </button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Judul Pengaduan</th>
+                                    <th>Lokasi</th>
+                                    <th>Prioritas</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="taskTable">
+
+                                <tr class="task-row selected"
+                                    data-title="Lampu jalan mati" data-id="#156"
+                                    data-date="20 Okt 2026" data-location="Jl. Sudirman"
+                                    data-area="Ternate Tengah" data-priority="Tinggi"
+                                    data-status="Dalam Proses"
+                                    data-deadline="20 Okt 2026, 23:59"
+                                    data-description="Lampu penerangan jalan padam di pertigaan dekat toko swalayan sejak 3 hari lalu. Kondisi jalan sangat gelap di malam hari dan membahayakan pengendara roda dua.">
+                                    <td>1</td>
+                                    <td><strong>Lampu jalan mati</strong><small>ID: #156 · 20 Okt 2026</small></td>
+                                    <td><span class="location"><i data-lucide="map-pin"></i> Jl. Sudirman</span><small>Ternate Tengah</small></td>
+                                    <td><span class="priority high">● Prioritas Tinggi</span></td>
+                                    <td><button class="work-btn"><i data-lucide="hammer"></i> Kerjakan</button></td>
+                                </tr>
+
+                                <tr class="task-row"
+                                    data-title="Rambu roboh" data-id="#152"
+                                    data-date="19 Okt 2026" data-location="Jl. Raya Kastela"
+                                    data-area="Pulau Ternate" data-priority="Sedang"
+                                    data-status="Menunggu"
+                                    data-deadline="21 Okt 2026, 23:59"
+                                    data-description="Rambu lalu lintas di pinggir jalan ditemukan roboh dan perlu diperiksa serta dipasang kembali agar tidak membahayakan pengguna jalan.">
+                                    <td>2</td>
+                                    <td><strong>Rambu roboh</strong><small>ID: #152 · 19 Okt 2026</small></td>
+                                    <td><span class="location"><i data-lucide="map-pin"></i> Jl. Raya Kastela</span><small>Pulau Ternate</small></td>
+                                    <td><span class="priority medium">● Sedang</span></td>
+                                    <td><button class="work-btn"><i data-lucide="hammer"></i> Kerjakan</button></td>
+                                </tr>
+
+                                <tr class="task-row"
+                                    data-title="Trotoar rusak" data-id="#149"
+                                    data-date="19 Okt 2026" data-location="Jl. Ahmad Yani"
+                                    data-area="Ternate Selatan" data-priority="Rendah"
+                                    data-status="Dalam Proses"
+                                    data-deadline="22 Okt 2026, 23:59"
+                                    data-description="Terdapat bagian trotoar yang rusak dan berlubang sehingga mengganggu kenyamanan pejalan kaki. Perlu dilakukan pemeriksaan dan perbaikan.">
+                                    <td>3</td>
+                                    <td><strong>Trotoar rusak</strong><small>ID: #149 · 19 Okt 2026</small></td>
+                                    <td><span class="location"><i data-lucide="map-pin"></i> Jl. Ahmad Yani</span><small>Ternate Selatan</small></td>
+                                    <td><span class="priority low">● Rendah</span></td>
+                                    <td><button class="work-btn"><i data-lucide="hammer"></i> Kerjakan</button></td>
+                                </tr>
+
+                                <tr class="task-row"
+                                    data-title="Drainase tersumbat" data-id="#145"
+                                    data-date="18 Okt 2026" data-location="Jl. Kelapa"
+                                    data-area="Ternate Utara" data-priority="Sedang"
+                                    data-status="Menunggu"
+                                    data-deadline="23 Okt 2026, 23:59"
+                                    data-description="Saluran drainase tersumbat oleh sampah dan endapan tanah sehingga aliran air tidak lancar. Dibutuhkan pemeriksaan dan pembersihan saluran.">
+                                    <td>4</td>
+                                    <td><strong>Drainase tersumbat</strong><small>ID: #145 · 18 Okt 2026</small></td>
+                                    <td><span class="location"><i data-lucide="map-pin"></i> Jl. Kelapa</span><small>Ternate Utara</small></td>
+                                    <td><span class="priority medium">● Sedang</span></td>
+                                    <td><button class="work-btn"><i data-lucide="hammer"></i> Kerjakan</button></td>
+                                </tr>
+
+                                <tr class="task-row"
+                                    data-title="Jalan berlubang" data-id="#141"
+                                    data-date="17 Okt 2026" data-location="Jl. Maluku Utara"
+                                    data-area="Ternate Tengah" data-priority="Tinggi"
+                                    data-status="Selesai"
+                                    data-deadline="18 Okt 2026, 23:59"
+                                    data-description="Terdapat beberapa lubang pada permukaan jalan yang berpotensi membahayakan pengendara. Perbaikan telah selesai dilakukan.">
+                                    <td>5</td>
+                                    <td><strong>Jalan berlubang</strong><small>ID: #141 · 17 Okt 2026</small></td>
+                                    <td><span class="location"><i data-lucide="map-pin"></i> Jl. Maluku Utara</span><small>Ternate Tengah</small></td>
+                                    <td><span class="priority high">● Prioritas Tinggi</span></td>
+                                    <td><button class="work-btn"><i data-lucide="hammer"></i> Kerjakan</button></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="no-data" id="noData">Tidak ada tugas yang sesuai dengan filter.</div>
+                    </div>
+
+                    <div class="pagination">
+                        <button disabled><i data-lucide="chevron-left"></i></button>
+                        <button class="page-active">1</button>
+                        <button><i data-lucide="chevron-right"></i></button>
+                    </div>
+                </section>
+
+                <section class="detail-card">
+                    <div class="detail-heading">
+                        <div>
+                            <span class="eyebrow">RINCIAN TUGAS</span>
+                            <h2 id="detailTitle">Lampu jalan mati</h2>
+                        </div>
+                        <span class="priority high" id="detailPriority">● Prioritas Tinggi</span>
+                    </div>
+
+                    <div class="progress-card">
+                        <div class="progress-step done" id="step1">
+                            <span class="step-icon"><i data-lucide="check"></i></span>
+                            <small>Diterima</small>
+                        </div>
+                        <div class="progress-track" id="line1"></div>
+                        <div class="progress-step current" id="step2">
+                            <span class="step-icon"><i data-lucide="check-circle"></i></span>
+                            <small>Dikerjakan</small>
+                        </div>
+                        <div class="progress-track" id="line2"></div>
+                        <div class="progress-step" id="step3">
+                            <span class="step-icon"><i data-lucide="check-circle"></i></span>
+                            <small>Selesai</small>
+                        </div>
+                    </div>
+
+                    <div class="detail-info-grid">
+                        <div class="mini-info">
+                            <span>Tenggat Waktu</span>
+                            <strong><i data-lucide="clock"></i><b id="detailDeadline">20 Okt 2026, 23:59</b></strong>
+                        </div>
+                        <div class="mini-info">
+                            <span>Status Sekarang</span>
+                            <strong class="current-status" id="detailStatus"><i data-lucide="circle-dot"></i> Dalam Proses</strong>
+                        </div>
+                    </div>
+
+                    <div class="description">
+                        <h3>Deskripsi Pengaduan</h3>
+                        <p id="detailDescription">Lampu penerangan jalan padam di pertigaan dekat toko swalayan sejak 3 hari lalu. Kondisi jalan sangat gelap di malam hari dan membahayakan pengendara roda dua.</p>
+                    </div>
+
+                    <div class="location-detail">
+                        <div class="location-title">
+                            <h3><i data-lucide="map-pin"></i> Lokasi Pengaduan</h3>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Sudirman+Ternate" target="_blank" id="mapLink">
+                                Buka di Google Maps <i data-lucide="external-link"></i>
+                            </a>
+                        </div>
+                        <p id="detailLocation">Jl. Sudirman, Kota Ternate</p>
+                        <span id="detailArea">Ternate Tengah</span>
+                    </div>
+
+                    <button class="update-btn" id="updateStatus">
+                        <i data-lucide="refresh-cw"></i> Update Status Tugas
+                    </button>
+                </section>
+            </div>
+        </div>
+
+        <footer class="footer">
+            © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
+        </footer>
+    </main>
+</div>
+
+<div class="modal-overlay" id="statusModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Update Status Tugas</h3>
+            <button id="closeModal">&times;</button>
+        </div>
+        <p>Pilih status terbaru untuk tugas ini.</p>
+        <select id="newStatus">
+            <option value="Menunggu">Menunggu</option>
+            <option value="Dalam Proses">Dalam Proses</option>
+            <option value="Selesai">Selesai</option>
+        </select>
+        <div class="modal-actions">
+            <button class="cancel-btn" id="cancelModal">Batal</button>
+            <button class="save-btn" id="saveStatus">Simpan</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const rows = [...document.querySelectorAll(".task-row")];
+    const tabs = document.querySelectorAll(".tab");
+    const dateFilter = document.getElementById("dateFilter");
+    const locationFilter = document.getElementById("locationFilter");
+    const priorityFilter = document.getElementById("priorityFilter");
+    const noData = document.getElementById("noData");
+
+    let currentTab = "semua";
+    let selectedRow = rows[0];
+
+    function icons() {
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function showDetail(row) {
+        if (!row) return;
+
+        selectedRow = row;
+        rows.forEach(item => item.classList.remove("selected"));
+        row.classList.add("selected");
+
+        document.getElementById("detailTitle").textContent = row.dataset.title;
+        document.getElementById("detailDeadline").textContent = row.dataset.deadline;
+        document.getElementById("detailDescription").textContent = row.dataset.description;
+        document.getElementById("detailLocation").textContent = row.dataset.location + ", Kota Ternate";
+        document.getElementById("detailArea").textContent = row.dataset.area;
+
+        const priority = document.getElementById("detailPriority");
+        priority.textContent = "● Prioritas " + row.dataset.priority;
+        priority.className = "priority " + row.dataset.priority.toLowerCase();
+
+        document.getElementById("detailStatus").innerHTML =
+            '<i data-lucide="circle-dot"></i> ' + row.dataset.status;
+
+        document.getElementById("mapLink").href =
+            "https://www.google.com/maps/search/?api=1&query=" +
+            encodeURIComponent(row.dataset.location + ", Ternate");
+
+        const progress = row.dataset.status === "Menunggu" ? 1 :
+            row.dataset.status === "Dalam Proses" ? 2 : 3;
+
+        updateProgress(progress);
+        icons();
+    }
+
+    function updateProgress(progress) {
+        for (let i = 1; i <= 3; i++) {
+            const step = document.getElementById("step" + i);
+            step.classList.remove("done", "current");
+
+            if (i < progress || progress === 3) {
+                step.classList.add("done");
+            } else if (i === progress) {
+                step.classList.add("current");
+            }
+        }
+
+        document.getElementById("line1").classList.toggle("done", progress >= 2);
+        document.getElementById("line2").classList.toggle("done", progress >= 3);
+    }
+
+    function filterRows() {
+        let count = 0;
+
+        rows.forEach(row => {
+            const matchTab = currentTab === "semua" || row.dataset.status === currentTab;
+            const matchDate = dateFilter.value === "semua" || row.dataset.date === dateFilter.value;
+            const matchLocation = locationFilter.value === "semua" || row.dataset.area === locationFilter.value;
+            const matchPriority = priorityFilter.value === "semua" || row.dataset.priority === priorityFilter.value;
+
+            const visible = matchTab && matchDate && matchLocation && matchPriority;
+            row.style.display = visible ? "" : "none";
+            if (visible) count++;
+        });
+
+        noData.style.display = count ? "none" : "block";
+
+        if (selectedRow && selectedRow.style.display === "none") {
+            const firstVisible = rows.find(row => row.style.display !== "none");
+            if (firstVisible) showDetail(firstVisible);
+        }
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            tabs.forEach(item => item.classList.remove("active"));
+            tab.classList.add("active");
+            currentTab = tab.dataset.status;
+            filterRows();
+        });
+    });
+
+    [dateFilter, locationFilter, priorityFilter].forEach(filter => {
+        filter.addEventListener("change", filterRows);
+    });
+
+    document.getElementById("resetFilter").addEventListener("click", () => {
+        dateFilter.value = "semua";
+        locationFilter.value = "semua";
+        priorityFilter.value = "semua";
+        currentTab = "semua";
+
+        tabs.forEach(tab => {
+            tab.classList.toggle("active", tab.dataset.status === "semua");
+        });
+
+        filterRows();
+    });
+
+    rows.forEach(row => {
+        row.addEventListener("click", () => showDetail(row));
+        row.querySelector(".work-btn").addEventListener("click", event => {
+            event.stopPropagation();
+            showDetail(row);
+        });
+    });
+
+    const modal = document.getElementById("statusModal");
+
+    document.getElementById("updateStatus").addEventListener("click", () => {
+        document.getElementById("newStatus").value = selectedRow.dataset.status;
+        modal.classList.add("show");
+    });
+
+    function closeModal() {
+        modal.classList.remove("show");
+    }
+
+    document.getElementById("closeModal").addEventListener("click", closeModal);
+    document.getElementById("cancelModal").addEventListener("click", closeModal);
+
+    document.getElementById("saveStatus").addEventListener("click", () => {
+        selectedRow.dataset.status = document.getElementById("newStatus").value;
+        closeModal();
+        showDetail(selectedRow);
+        filterRows();
+    });
+
+    document.querySelector(".menu-toggle").addEventListener("click", () => {
+        document.querySelector(".sidebar").classList.toggle("collapsed");
+    });
+
+    icons();
+    showDetail(rows[0]);
+</script>
+
+</body>
+</html>

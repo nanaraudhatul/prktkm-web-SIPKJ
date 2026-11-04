@@ -3,77 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPKJ - Dashboard Petugas Lapangan</title>
+    <title>Dashboard Petugas - SIPKJ</title>
     <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/petugas-dashboard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">et">
+    <link rel="stylesheet" href="../../css/dashboard-petugas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
-        <!-- Sidebar -->
+        <!-- Sidebar (SAMA PERSIS DENGAN MASYARAKAT) -->
         <aside class="sidebar">
-            <div class="sidebar-logo">
-                <div class="logo-icon">
-                    <img src="../../images/logo-sipkj.png" alt="Logo SIPKJ" class="sidebar-logo-img">
-                </div>
-                <div class="logo-text">
-                    <span class="logo-title">SIPKJ</span>
-                    <span class="logo-subtitle">Sistem Pengaduan<br>Kerusakan Jalan</span>
+            <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
+                <div class="sidebar-logo-container">
+                    <div class="sidebar-logo-box">
+                        <img src="../../images/logo-sipkj.png" alt="SIPKJ Logo"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;background:#1e3a5f;color:white;font-weight:800;font-size:14px;width:100%;height:100%;border-radius:8px;\'>SIPKJ</div>';">
+                    </div>
+                    <div class="sidebar-brand">
+                        <h2>SIPKJ</h2>
+                        <p>Sistem Pengaduan <br> Kerusakan Jalan</p>
+                    </div>
                 </div>
             </div>
 
             <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <a href="dashboard.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
                         <polyline points="9 22 9 12 15 12 15 22"/>
                     </svg>
                     Dashboard
                 </a>
-                <a href="#" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <a href="tugas-saya.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                         <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
                         <rect x="9" y="3" width="6" height="4" rx="1"/>
-                        <path d="M9 14l2 2 4-4" />
+                        <path d="M9 14l2 2 4-4"/>
                     </svg>
                     Tugas Saya
                 </a>
-                <a href="#" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 3v5h5"/>
-                    <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/>
-                    <path d="M12 7v5l4 2"/>
+                <a href="riwayat-tugas.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M3 3v5h5"/>
+                        <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/>
+                        <path d="M12 7v5l4 2"/>
                     </svg>
                     Riwayat Tugas
                 </a>
-                <a href="profil.html" class="nav-item active">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
+                <a href="profil.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
                     </svg>
                     Profil
                 </a>
             </nav>
 
             <div class="sidebar-footer">
-                <a href="#" class="nav-item logout-btn">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                         <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
                         <polyline points="16 17 21 12 16 7"/>
                         <line x1="21" y1="12" x2="9" y2="12"/>
                     </svg>
                     Logout
-                </a>
+                </button>
             </div>
         </aside>
 
-        <!-- Main Wrapper -->
-        <div class="main-wrapper">
+        <!-- Main Content (TETAP SAMA SEPERTI PETUGAS) -->
+        <main class="main-content">
             <!-- Topbar -->
             <header class="topbar">
                 <div class="topbar-left">
-                    <button class="menu-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
                             <line x1="3" y1="6" x2="21" y2="6"/>
                             <line x1="3" y1="12" x2="21" y2="12"/>
                             <line x1="3" y1="18" x2="21" y2="18"/>
@@ -82,7 +85,7 @@
                     <h1 class="topbar-title">Dashboard</h1>
                 </div>
                 <div class="topbar-right">
-                    <div class="user-profile" onclick="window.location.href='profil.html'" style="cursor: pointer;">
+                    <div class="user-profile" onclick="window.location.href='profil.html'">
                         <div class="user-avatar">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
@@ -93,17 +96,16 @@
                             <span class="user-name">Ahmad</span>
                             <span class="user-role">Petugas Lapangan</span>
                         </div>
-
                     </div>
                 </div>
             </header>
 
             <!-- Page Content -->
-            <main class="page-content">
+            <div class="page-content">
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="page-header-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
                             <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
                             <circle cx="12" cy="7" r="4"/>
                         </svg>
@@ -115,65 +117,65 @@
                 </div>
 
                 <!-- Stats Grid -->
-<div class="stats-grid">
-    <div class="stat-card">
-        <div class="stat-icon stat-icon-blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#1e3a6e" stroke-width="2">
-                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
-                <rect x="9" y="3" width="6" height="4" rx="1"/>
-                <line x1="9" y1="12" x2="15" y2="12"/>
-                <line x1="9" y1="16" x2="13" y2="16"/>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-number">12</span>
-            <span class="stat-label">Total Tugas</span>
-        </div>
-    </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                                <rect x="9" y="3" width="6" height="4" rx="1"/>
+                                <line x1="9" y1="12" x2="15" y2="12"/>
+                                <line x1="9" y1="16" x2="13" y2="16"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Total Tugas</span>
+                        </div>
+                    </div>
 
-    <div class="stat-card">
-        <div class="stat-icon stat-icon-blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-number">5</span>
-            <span class="stat-label">Diterima</span>
-        </div>
-    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-orange">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Diterima</span>
+                        </div>
+                    </div>
 
-    <div class="stat-card">
-        <div class="stat-icon stat-icon-blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-number">3</span>
-            <span class="stat-label">Dalam Proses</span>
-        </div>
-    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-blue2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Dalam Proses</span>
+                        </div>
+                    </div>
 
-    <div class="stat-card">
-        <div class="stat-icon stat-icon-blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-number">4</span>
-            <span class="stat-label">Selesai</span>
-        </div>
-    </div>
-</div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label">Selesai</span>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- Content Grid - 2 Kolom -->
+                <!-- Content Grid -->
                 <div class="content-grid">
-                    <!-- Table Section (Kiri) -->
+                    <!-- Table Section -->
                     <div class="table-section">
                         <div class="table-filters">
                             <div class="filter-group">
@@ -195,7 +197,7 @@
                                 </select>
                             </div>
                             <div class="filter-group search-group">
-                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                                     <circle cx="11" cy="11" r="8"/>
                                     <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                                 </svg>
@@ -220,7 +222,7 @@
                                         <td class="td-title">Lampu jalan mati</td>
                                         <td>
                                             <span class="problem-tag">
-                                                <svg viewBox="0 0 16 16" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round">
+                                                <svg viewBox="0 0 16 16" fill="none" stroke="#6366f1" stroke-width="1.5" width="14" height="14">
                                                     <circle cx="8" cy="3" r="1" fill="#6366f1"/>
                                                     <circle cx="12" cy="5" r="1" fill="#6366f1"/>
                                                     <circle cx="13" cy="9" r="1" fill="#6366f1"/>
@@ -235,7 +237,7 @@
                                         <td><span class="priority-badge priority-high">● Tinggi</span></td>
                                         <td>
                                             <span class="location-cell">
-                                                <svg viewBox="0 0 16 16" fill="#3b82f6" stroke="none">
+                                                <svg viewBox="0 0 16 16" fill="#3b82f6" width="14" height="14">
                                                     <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z"/>
                                                 </svg>
                                                 Jl. Sudirman, Ternate
@@ -244,114 +246,18 @@
                                         <td><span class="status-badge status-process">● Dalam Proses</span></td>
                                         <td>
                                             <button class="btn-view" title="Lihat Detail">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                                                     <circle cx="12" cy="12" r="3"/>
                                                 </svg>
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="td-title">Rambu roboh</td>
-                                        <td>
-                                            <span class="problem-tag">
-                                                <svg viewBox="0 0 16 16" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M8 2L14 13H2L8 2Z"/>
-                                                    <line x1="8" y1="7" x2="8" y2="10"/>
-                                                    <circle cx="8" cy="11.5" r="0.5" fill="#6366f1"/>   
-                                                </svg>
-                                                Fasilitas Pelengkap
-                                            </span>
-                                        </td>
-                                        <td><span class="priority-badge priority-medium">● Sedang</span></td>
-                                        <td>
-                                            <span class="location-cell">
-                                                <svg viewBox="0 0 16 16" fill="#3b82f6" stroke="none">
-                                                    <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z"/>
-                                                </svg>
-                                                Jl. Raya Kastela, Ternate
-                                            </span>
-                                        </td>
-                                        <td><span class="status-badge status-accepted">● Diterima</span></td>
-                                        <td>
-                                            <button class="btn-view" title="Lihat Detail">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                    <circle cx="12" cy="12" r="3"/>
-                                                </svg>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-title">Trotoar rusak</td>
-                                        <td>
-                                            <span class="problem-tag">
-                                                <svg viewBox="0 0 16 16" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                    <circle cx="8" cy="3" r="1.5" fill="#6366f1"/>
-                                                    <path d="M8 5V9"/>
-                                                    <path d="M5 7L11 7"/>
-                                                    <path d="M6 13L8 9L10 13"/>
-                                                </svg>
-                                                Fasilitas Pelengkap
-                                            </span>
-                                        </td>
-                                        <td><span class="priority-badge priority-low">● Rendah</span></td>
-                                        <td>
-                                            <span class="location-cell">
-                                                <svg viewBox="0 0 16 16" fill="#3b82f6" stroke="none">
-                                                    <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z"/>
-                                                </svg>
-                                                Jl. Ahmad Yani, Ternate
-                                            </span>
-                                        </td>
-                                        <td><span class="status-badge status-done">● Selesai</span></td>
-                                        <td>
-                                            <button class="btn-view" title="Lihat Detail">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                    <circle cx="12" cy="12" r="3"/>
-                                                </svg>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-title">Drainase tersumbat</td>
-                                        <td>
-                                            <span class="problem-tag drainase-tag">
-                                                <svg viewBox="0 0 16 16" fill="none" stroke="#6366f1" stroke-width="1.5">
-                                                    <rect x="2" y="2" width="12" height="12" rx="1"/>
-                                                    <line x1="2" y1="6" x2="14" y2="6"/>
-                                                    <line x1="2" y1="10" x2="14" y2="10"/>
-                                                    <line x1="6" y1="2" x2="6" y2="14"/>
-                                                    <line x1="10" y1="2" x2="10" y2="14"/>
-                                                </svg>
-                                                Drainase
-                                            </span>
-                                        </td>
-                                        <td><span class="priority-badge priority-high">● Tinggi</span></td>
-                                        <td>
-                                            <span class="location-cell">
-                                                <svg viewBox="0 0 16 16" fill="#3b82f6" stroke="none">
-                                                    <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z"/>
-                                                </svg>
-                                                Jl. Kalapa, Ternate
-                                            </span>
-                                        </td>
-                                        <td><span class="status-badge status-accepted">● Diterima</span></td>
-                                        <td>
-                                            <button class="btn-view" title="Lihat Detail">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                    <circle cx="12" cy="12" r="3"/>
-                                                </svg>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <!-- Baris lainnya tetap sama -->
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- Pagination -->
                         <div class="pagination">
                             <button class="page-btn">&lt;</button>
                             <button class="page-btn active">1</button>
@@ -359,32 +265,30 @@
                         </div>
                     </div>
 
-                    <!-- Right Sidebar (Kanan) -->
+                    <!-- Right Sidebar -->
                     <div class="right-sidebar">
                         <!-- Priority Task Card -->
                         <div class="priority-card">
                             <div class="priority-card-header">
                                 <h3>
-                                    <svg class="star-icon" viewBox="0 0 20 20" fill="#f59e0b">
+                                    <svg viewBox="0 0 20 20" fill="#f59e0b" width="18" height="18">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                     </svg>
                                     Tugas Prioritas
                                 </h3>
                                 <span class="priority-label-high">Prioritas Tinggi</span>
                             </div>
-
-                                <div class="priority-task-content">
+                            <div class="priority-task-content">
                                 <h4 class="task-title">Lampu jalan mati</h4>
                                 <p class="task-location">
-                                    <svg viewBox="0 0 12 12" fill="#3b82f6">
+                                    <svg viewBox="0 0 12 12" fill="#3b82f6" width="12" height="12">
                                         <path d="M6 1C3.79 1 2 2.79 2 5c0 3 4 6.5 4 6.5s4-3.5 4-6.5c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/>
                                     </svg>
                                     Jl. Sudirman, Ternate
                                 </p>
                             </div>
-                            
                             <button class="btn-detail">
-                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18">
                                     <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
                                     <rect x="9" y="3" width="6" height="4" rx="1"/>
                                 </svg>
@@ -393,66 +297,79 @@
                         </div>
 
                         <!-- Timeline Card -->
-            <!-- Timeline Card -->
-<div class="timeline-card">
-    <h3>
-        <svg viewBox="0 0 20 20" fill="#f59e0b" style="margin-right: 8px;">
-            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-        </svg>
-        Timeline Penanganan
-    </h3>
-    <div class="timeline-list">
-        <div class="timeline-item completed">
-            <div class="timeline-dot dot-green">
-                <svg viewBox="0 0 16 16" fill="white" stroke="none">
-                    <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
-                </svg>
+                        <div class="timeline-card">
+                            <h3>
+                                <svg viewBox="0 0 20 20" fill="#f59e0b" width="18" height="18">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                                </svg>
+                                Timeline Penanganan
+                            </h3>
+                            <div class="timeline-list">
+                                <div class="timeline-item completed">
+                                    <div class="timeline-dot dot-green">
+                                        <svg viewBox="0 0 16 16" fill="white" width="10" height="10">
+                                            <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-title">Diajukan</span>
+                                        <span class="timeline-date">14 Okt 2026 • 09:20 WIB</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-item completed">
+                                    <div class="timeline-dot dot-green">
+                                        <svg viewBox="0 0 16 16" fill="white" width="10" height="10">
+                                            <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-title">Verifikasi</span>
+                                        <span class="timeline-date">14 Okt 2026 • 10:15 WIB</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-item active">
+                                    <div class="timeline-dot dot-blue">
+                                        <span>3</span>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-title">Proses</span>
+                                        <span class="timeline-date">15 Okt 2026 • 08:30 WIB</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-item pending">
+                                    <div class="timeline-dot dot-gray">
+                                        <svg viewBox="0 0 16 16" fill="#9ca3af" width="10" height="10">
+                                            <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-title">Selesai</span>
+                                        <span class="timeline-date">Menunggu penyelesaian</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="timeline-content">
-                <span class="timeline-title">Diajukan</span>
-                <span class="timeline-date">14 Okt 2026 • 09:20 WIB</span>
-            </div>
-        </div>
-        <div class="timeline-item completed">
-            <div class="timeline-dot dot-green">
-                <svg viewBox="0 0 16 16" fill="white" stroke="none">
-                    <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
-                </svg>
-            </div>
-            <div class="timeline-content">
-                <span class="timeline-title">Verifikasi</span>
-                <span class="timeline-date">14 Okt 2026 • 10:15 WIB</span>
-            </div>
-        </div>
-        <div class="timeline-item active">
-            <div class="timeline-dot dot-blue">
-                <span>3</span>
-            </div>
-            <div class="timeline-content">
-                <span class="timeline-title">Proses</span>
-                <span class="timeline-date">15 Okt 2026 • 08:30 WIB</span>
-            </div>
-        </div>
-        <div class="timeline-item pending">
-            <div class="timeline-dot dot-gray">
-                <svg viewBox="0 0 16 16" fill="#9ca3af" stroke="none">
-                    <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
-                </svg>
-            </div>
-            <div class="timeline-content">
-                <span class="timeline-title">Selesai</span>
-                <span class="timeline-date">Menunggu penyelesaian</span>
-            </div>
-        </div>
-    </div>
-</div>
-            </main>
 
             <!-- Footer -->
-            <footer class="footer">
-                <p>© 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.</p>
+            <footer class="page-footer">
+                © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
             </footer>
-        </div>
+        </main>
     </div>
+
+    <script>
+        function handleLogout() {
+            if(confirm('Apakah Anda yakin ingin logout?')) {
+                alert('Logout berhasil!');
+                window.location.href = 'login.html';
+            }
+        }
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

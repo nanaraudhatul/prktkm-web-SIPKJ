@@ -1,0 +1,864 @@
+/* =========================================
+   RESET DAN PENGATURAN DASAR
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef0f3;
+    color: #1b2940;
+    font-size: 13px;
+    overflow-x: hidden;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================================
+   LAYOUT UTAMA FULL SCREEN
+========================================= */
+.app-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #eff0f2;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+.sidebar {
+    width: 265px;
+    min-width: 265px;
+    min-height: 100vh;
+    padding: 28px 23px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    background: linear-gradient(115deg, #142b49, #1c4e80, #2869a9);
+    color: white;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 45px;
+}
+
+.brand img {
+    width: 58px;
+    height: 52px;
+    object-fit: contain;
+    background: white;
+}
+
+.brand-text h2 {
+    color: white;
+    font-size: 23px;
+    margin-bottom: 4px;
+}
+
+.brand-text p {
+    color: #d0ddec;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav-link {
+    min-height: 45px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border-radius: 11px;
+    color: #b9cce2;
+    text-decoration: none;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,.10);
+    color: white;
+}
+
+.nav-link.active {
+    background: #173e72;
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+
+.nav-link svg {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    stroke-width: 2;
+}
+
+.logout {
+    margin-top: auto;
+    min-height: 43px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #c3d2e5;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.logout:hover {
+    color: white;
+}
+
+.logout svg {
+    width: 19px;
+    height: 19px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+.topbar {
+    width: 100%;
+    height: 68px;
+    min-height: 68px;
+    padding: 0 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-bottom: 1px solid #e9edf2;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.topbar-left h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #1c2940;
+}
+
+.menu-button {
+    width: 25px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #263b58;
+}
+
+.menu-button svg {
+    width: 21px;
+    height: 21px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 15px;
+    border-left: 1px solid #e8edf3;
+}
+
+.user-avatar {
+    width: 43px;
+    height: 43px;
+    border: 1px solid #e3eaf5;
+    border-radius: 50%;
+    background: #f7f9fc;
+    color: #94a5bb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar svg {
+    width: 23px;
+    height: 23px;
+}
+
+.user-info h4 {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #26364d;
+}
+
+.user-info span {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #edf2ff;
+    color: #284777;
+    font-size: 10px;
+}
+
+/* =========================================
+   AREA KONTEN
+========================================= */
+.content-area {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 32px 32px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================
+   BANNER RIWAYAT TUGAS
+========================================= */
+.page-intro {
+    min-height: 139px;
+    flex-shrink: 0;
+    margin-bottom: 22px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    border: 1px solid #dce5f8;
+    border-radius: 16px;
+}
+
+.intro-icon {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    color: #1d416f;
+    background: white;
+    box-shadow: 0 3px 15px rgba(28,60,100,.05);
+}
+
+.intro-icon svg {
+    width: 36px;
+    height: 36px;
+    stroke-width: 2.5;
+}
+
+.intro-description h1 {
+    margin-bottom: 7px;
+    color: #17243b;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.intro-description p {
+    color: #52627c;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   FILTER
+========================================= */
+.filter-card {
+    min-height: 101px;
+    flex-shrink: 0;
+    margin-bottom: 17px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    background: white;
+    border-radius: 16px;
+}
+
+.filter-group {
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.date-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    padding-left: 12px;
+    color: #899bb4;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .4px;
+}
+
+.filter-control,
+.select-control {
+    position: relative;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e1e8f0;
+    border-radius: 13px;
+    background: #f8fafc;
+}
+
+.date-control {
+    gap: 12px;
+    padding: 0 14px;
+}
+
+.date-control svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: #28466e;
+}
+
+.date-control input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #34445e;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.date-control svg:last-child {
+    margin-left: auto;
+    color: #899bb4;
+}
+
+.select-control select {
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 34px 0 13px;
+    border: none;
+    outline: none;
+    border-radius: 13px;
+    background: transparent;
+    color: #34445e;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.select-control svg {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: #899bb4;
+    pointer-events: none;
+}
+
+.search-button {
+    height: 55px;
+    min-width: 92px;
+    padding: 0 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: none;
+    border-radius: 13px;
+    background: #193d70;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 3px 7px rgba(25,61,112,.17);
+}
+
+.search-button:hover {
+    background: #245b9c;
+}
+
+.search-button svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* =========================================
+   TABEL RIWAYAT
+========================================= */
+.table-card {
+    width: 100%;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.025);
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th:nth-child(1) { width: 5%; }
+th:nth-child(2) { width: 18%; }
+th:nth-child(3) { width: 19%; }
+th:nth-child(4) { width: 14%; }
+th:nth-child(5) { width: 11%; }
+th:nth-child(6) { width: 19%; }
+th:nth-child(7) { width: 14%; }
+
+thead th {
+    height: 48px;
+    padding: 12px 13px;
+    text-align: left;
+    color: #34435c;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .35px;
+    white-space: nowrap;
+    border-bottom: 1px solid #edf0f4;
+}
+
+thead th:first-child,
+tbody td:first-child {
+    padding-left: 17px;
+}
+
+thead th:last-child,
+tbody td:last-child {
+    text-align: center;
+}
+
+tbody td {
+    height: 56px;
+    padding: 11px 13px;
+    color: #475974;
+    font-size: 12px;
+    white-space: nowrap;
+    border-bottom: 1px solid #edf0f4;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #fafcff;
+}
+
+tbody td:first-child {
+    color: #607798;
+}
+
+.title-cell {
+    color: #1d2c43;
+    font-weight: 600;
+}
+
+/* =========================================
+   PRIORITAS
+========================================= */
+.priority {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.priority svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+}
+
+.priority.high {
+    background: #fff0f2;
+    color: #e11d48;
+    border: 1px solid #ffdae1;
+}
+
+.priority.medium {
+    background: #fff8e8;
+    color: #c17a00;
+    border: 1px solid #ffedc5;
+}
+
+.priority.low {
+    background: #eafff5;
+    color: #07966c;
+    border: 1px solid #cdf5e3;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+.status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+}
+
+.status.completed {
+    background: #e9fff6;
+    color: #07966c;
+    border: 1px solid #c9f4e2;
+}
+
+/* =========================================
+   TANGGAL SELESAI
+========================================= */
+.date-cell {
+    color: #4b5e79;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.date-cell small {
+    display: block;
+    color: #91a1b7;
+    font-size: 10px;
+}
+
+/* =========================================
+   TOMBOL LIHAT
+========================================= */
+.view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 7px 13px;
+    border: 1px solid #294d7c;
+    border-radius: 25px;
+    background: white;
+    color: #244777;
+    font-size: 11px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.view-button svg {
+    width: 15px;
+    height: 15px;
+}
+
+.view-button:hover {
+    background: #193d70;
+    color: white;
+}
+
+/* =========================================
+   DATA KOSONG
+========================================= */
+.empty-message {
+    padding: 30px;
+    text-align: center;
+    color: #899bb4;
+    font-size: 13px;
+}
+
+.empty-message[hidden] {
+    display: none;
+}
+
+/* =========================================
+   PAGINATION
+========================================= */
+.pagination {
+    min-height: 55px;
+    padding: 10px 12px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+}
+
+.pagination button {
+    width: 33px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dce5ef;
+    border-radius: 9px;
+    background: white;
+    color: #7c91ae;
+}
+
+.pagination button svg {
+    width: 17px;
+    height: 17px;
+}
+
+.pagination button:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.pagination button.active-page {
+    background: #193d70;
+    color: white;
+    border-color: #193d70;
+    font-weight: 600;
+}
+
+/* =========================================
+   COPYRIGHT DAN FOOTER
+========================================= */
+.content-copyright {
+    margin-top: auto;
+    padding: 18px 5px 14px;
+    text-align: center;
+    color: #f8f9fb;
+    font-size: 10px;
+}
+
+.footer {
+    width: 100%;
+    min-height: 84px;
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: #95a5ba;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* =========================================
+   COLLAPSE SIDEBAR
+========================================= */
+.sidebar.collapsed {
+    width: 75px;
+    min-width: 75px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sidebar.collapsed .brand {
+    justify-content: center;
+}
+
+.sidebar.collapsed .brand-text,
+.sidebar.collapsed .nav-link span,
+.sidebar.collapsed .logout span {
+    display: none;
+}
+
+.sidebar.collapsed .nav-link,
+.sidebar.collapsed .logout {
+    justify-content: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* =========================================
+   RESPONSIVE TABLET
+========================================= */
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 205px;
+        min-width: 205px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .content-area {
+        padding: 22px 18px 0;
+    }
+
+    .page-intro {
+        min-height: 115px;
+    }
+
+    .filter-card {
+        flex-wrap: wrap;
+    }
+
+    .date-group {
+        flex-basis: 100%;
+    }
+
+    .filter-group:not(.date-group) {
+        flex: 1;
+    }
+}
+
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
+@media (max-width: 600px) {
+    .sidebar {
+        width: 65px;
+        min-width: 65px;
+        padding: 17px 8px;
+    }
+
+    .brand {
+        justify-content: center;
+        margin-bottom: 35px;
+    }
+
+    .brand img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .brand-text,
+    .nav-link span,
+    .logout span {
+        display: none;
+    }
+
+    .nav-link,
+    .logout {
+        justify-content: center;
+        padding: 10px 5px;
+    }
+
+    .nav-link svg,
+    .logout svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .topbar {
+        height: 58px;
+        min-height: 58px;
+        padding: 0 12px;
+    }
+
+    .topbar-left {
+        gap: 9px;
+    }
+
+    .topbar-left h2 {
+        font-size: 15px;
+    }
+
+    .user-profile {
+        padding-left: 8px;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .content-area {
+        padding: 14px 11px 0;
+    }
+
+    .page-intro {
+        min-height: 95px;
+        padding: 14px 11px;
+        gap: 10px;
+    }
+
+    .intro-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .intro-icon svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .intro-description h1 {
+        font-size: 17px;
+    }
+
+    .intro-description p {
+        font-size: 10px;
+    }
+
+    .filter-card {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+    }
+
+    .filter-group,
+    .date-group {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+
+    .content-copyright {
+        color: #95a5ba;
+    }
+
+    .footer {
+        min-height: 60px;
+        font-size: 9px;
+    }
+}

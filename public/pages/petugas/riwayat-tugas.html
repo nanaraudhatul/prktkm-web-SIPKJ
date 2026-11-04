@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Tugas | SIPKJ</title>
+
+    <link rel="stylesheet" href="../../css/petugas-riwayat-tugas.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="../../images/logo-sipkj.png" alt="Logo SIPKJ">
+            <div class="brand-text">
+                <h2>SIPKJ</h2>
+                <p>Sistem Pengaduan<br>Kerusakan Jalan</p>
+            </div>
+        </div>
+
+        <nav class="navigation">
+            <a href="#" class="nav-link">
+                <i data-lucide="house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="tugas-saya.html" class="nav-link">
+                <i data-lucide="clipboard-check"></i>
+                <span>Tugas Saya</span>
+            </a>
+
+            <a href="riwayat-tugas.html" class="nav-link active">
+                <i data-lucide="history"></i>
+                <span>Riwayat Tugas</span>
+            </a>
+
+            <a href="profil.html" class="nav-link">
+                <i data-lucide="user-round"></i>
+                <span>Profil</span>
+            </a>
+        </nav>
+
+        <a href="../auth/login.html" class="logout">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+        </a>
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" aria-label="Menu">
+                    <i data-lucide="menu"></i>
+                </button>
+                <h2>Riwayat Tugas</h2>
+            </div>
+
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user-round"></i>
+                </div>
+
+                <div class="user-info">
+                    <h4>Ahmad</h4>
+                    <span>Petugas Lapangan</span>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="content-area">
+
+            <!-- PAGE INTRO -->
+            <div class="page-intro">
+                <div class="intro-icon">
+                    <i data-lucide="history"></i>
+                </div>
+
+                <div class="intro-description">
+                    <h1>Riwayat Tugas</h1>
+                    <p>
+                        Lihat seluruh riwayat tugas pengaduan yang pernah Anda kerjakan.
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- FILTER -->
+            <div class="filter-card">
+
+                <div class="filter-group date-group">
+                    <label>RENTANG WAKTU</label>
+                    <div class="filter-control date-control">
+                        <i data-lucide="calendar-days"></i>
+                        <input type="text" value="01 Okt 2025 – 31 Okt 2025" readonly>
+                        <i data-lucide="chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="filter-group status-group">
+                    <label>STATUS</label>
+                    <div class="select-control">
+                        <select id="statusFilter">
+                            <option value="semua">Semua Status</option>
+                            <option value="Selesai">Selesai</option>
+                        </select>
+                        <i data-lucide="chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="filter-group priority-group">
+                    <label>PRIORITAS</label>
+                    <div class="select-control">
+                        <select id="priorityFilter">
+                            <option value="semua">Semua Prioritas</option>
+                            <option value="Tinggi">Tinggi</option>
+                            <option value="Sedang">Sedang</option>
+                            <option value="Rendah">Rendah</option>
+                        </select>
+                        <i data-lucide="chevron-down"></i>
+                    </div>
+                </div>
+
+                <button class="search-button" id="searchButton">
+                    <i data-lucide="search"></i>
+                    <span>Cari</span>
+                </button>
+            </div>
+
+
+            <!-- TABLE -->
+            <div class="table-card">
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>JUDUL PENGADUAN</th>
+                                <th>LOKASI</th>
+                                <th>PRIORITAS</th>
+                                <th>STATUS</th>
+                                <th>TANGGAL SELESAI</th>
+                                <th>AKSI</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="historyTable">
+
+                            <tr data-status="Selesai" data-priority="Tinggi">
+                                <td>1</td>
+                                <td class="title-cell">Lampu jalan mati</td>
+                                <td>Jl. Sudirman, Ternate</td>
+                                <td>
+                                    <span class="priority high">
+                                        <i data-lucide="triangle-alert"></i>
+                                        Prioritas Tinggi
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        <i data-lucide="check-circle"></i>
+                                        Selesai
+                                    </span>
+                                </td>
+                                <td class="date-cell">
+                                    20 Okt 2025
+                                    <small>14:30</small>
+                                </td>
+                                <td>
+                                    <button class="view-button"
+                                        onclick="viewDetail('Lampu jalan mati')">
+                                        <i data-lucide="eye"></i>
+                                        Lihat
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr data-status="Selesai" data-priority="Sedang">
+                                <td>2</td>
+                                <td class="title-cell">Rambu roboh</td>
+                                <td>Jl. Raya Kastela, Ternate</td>
+                                <td>
+                                    <span class="priority medium">
+                                        <i data-lucide="circle-dot"></i>
+                                        Sedang
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        <i data-lucide="check-circle"></i>
+                                        Selesai
+                                    </span>
+                                </td>
+                                <td class="date-cell">
+                                    18 Okt 2025
+                                    <small>16:20</small>
+                                </td>
+                                <td>
+                                    <button class="view-button"
+                                        onclick="viewDetail('Rambu roboh')">
+                                        <i data-lucide="eye"></i>
+                                        Lihat
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr data-status="Selesai" data-priority="Rendah">
+                                <td>6</td>
+                                <td class="title-cell">Jalan bergelombang</td>
+                                <td>Jl. A. Yani, Ternate</td>
+                                <td>
+                                    <span class="priority low">
+                                        <i data-lucide="circle-dot"></i>
+                                        Rendah
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status completed">
+                                        <i data-lucide="check-circle"></i>
+                                        Selesai
+                                    </span>
+                                </td>
+                                <td class="date-cell">
+                                    12 Okt 2025
+                                    <small>15:50</small>
+                                </td>
+                                <td>
+                                    <button class="view-button"
+                                        onclick="viewDetail('Jalan bergelombang')">
+                                        <i data-lucide="eye"></i>
+                                        Lihat
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="emptyMessage" class="empty-message" hidden>
+                    Tidak ada riwayat tugas ditemukan.
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="pagination">
+                    <button disabled aria-label="Halaman sebelumnya">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="active-page">1</button>
+                    <button disabled aria-label="Halaman selanjutnya">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="content-copyright">
+                © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
+        </footer>
+
+    </main>
+</div>
+
+
+<script>
+    lucide.createIcons();
+
+    // FILTER RIWAYAT
+    document.getElementById("searchButton").addEventListener("click", function () {
+        const status = document.getElementById("statusFilter").value;
+        const priority = document.getElementById("priorityFilter").value;
+        const rows = document.querySelectorAll("#historyTable tr");
+
+        let visible = 0;
+
+        rows.forEach(row => {
+            const statusMatch =
+                status === "semua" || row.dataset.status === status;
+
+            const priorityMatch =
+                priority === "semua" || row.dataset.priority === priority;
+
+            row.style.display = statusMatch && priorityMatch ? "" : "none";
+
+            if (statusMatch && priorityMatch) visible++;
+        });
+
+        document.getElementById("emptyMessage").hidden = visible !== 0;
+    });
+
+    // DETAIL RIWAYAT
+    function viewDetail(title) {
+        alert("Detail riwayat tugas: " + title);
+    }
+
+    // TOGGLE SIDEBAR
+    document.querySelector(".menu-button").addEventListener("click", function () {
+        document.querySelector(".sidebar").classList.toggle("collapsed");
+    });
+</script>
+
+</body>
+</html>

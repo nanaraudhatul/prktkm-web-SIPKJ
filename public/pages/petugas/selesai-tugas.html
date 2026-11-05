@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selesaikan Tugas Penanganan - SIPKJ</title>
+    <link rel="stylesheet" href="../../css/petugas-selesai-tugas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (SAMA PERSIS DENGAN DASHBOARD PETUGAS) -->
+        <aside class="sidebar">
+            <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
+                <div class="sidebar-logo-container">
+                    <div class="sidebar-logo-box">
+                        <img src="../../images/logo-sipkj.png" alt="SIPKJ Logo">
+                    </div>
+                    <div class="sidebar-brand">
+                        <h2>SIPKJ</h2>
+                        <p>Sistem Pengaduan <br> Kerusakan Jalan</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="tugas-saya.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                        <rect x="9" y="3" width="6" height="4" rx="1"/>
+                        <path d="M9 14l2 2 4-4"/>
+                    </svg>
+                    Tugas Saya
+                </a>
+                <a href="riwayat-tugas.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+                        <path d="M3 3v5h5"/>
+                        <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/>
+                        <path d="M12 7v5l4 2"/>
+                    </svg>
+                    Riwayat Tugas
+                </a>
+                <a href="profil.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    Profil
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Breadcrumb Bar -->
+            <div class="breadcrumb-bar">
+                <div class="breadcrumb">
+                    <a href="tugas-saya.html">Tugas Saya</a>
+                    <span class="separator">/</span>
+                    <span class="current">Selesaikan Tugas Penanganan</span>
+                </div>
+                <div class="page-title-row">
+                    <h1 class="page-title">Selesaikan Tugas Penanganan</h1>
+                    <span class="page-subtitle">Tahap Akhir Penanganan</span>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <div class="completion-card">
+                    <!-- Card Header -->
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <h2>Selesaikan Tugas Penanganan</h2>
+                            <button class="close-btn" onclick="window.history.back()">✕</button>
+                        </div>
+                        <p class="card-desc">Lengkapi bukti dokumentasi pengerjaan fisik, material terpakai, dan rincian perbaikan teknis sebelum diteruskan ke Pengawas/Admin SIPKJ untuk validasi akhir.</p>
+                    </div>
+
+                    <!-- Info Boxes -->
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="info-label">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="color: #f59e0b;">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                                KENDALA
+                            </div>
+                            <div class="info-value">Lampu Jalan Mati</div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info-label">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="color: #ef4444;">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                LOKASI
+                            </div>
+                            <div class="info-value">Jl. Sudirman, Ternate</div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info-label">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="color: #10b981;">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                PELAPOR
+                            </div>
+                            <div class="info-value">Budi Santoso</div>
+                        </div>
+                    </div>
+
+                    <!-- Stepper -->
+                    <div class="stepper-wrapper">
+                        <div class="stepper">
+                            <div class="step completed">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 16 16" fill="white" width="12" height="12">
+                                        <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="step-details">
+                                    <span class="step-title">1. Diajukan</span>
+                                    <span class="step-date">08:15 WIB • Sistem</span>
+                                </div>
+                            </div>
+                            <div class="step-connector"></div>
+                            <div class="step completed">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 16 16" fill="white" width="12" height="12">
+                                        <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="step-details">
+                                    <span class="step-title">2. Verifikasi</span>
+                                    <span class="step-date">08:30 WIB • Ahmad F.</span>
+                                </div>
+                            </div>
+                            <div class="step-connector"></div>
+                            <div class="step completed">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 16 16" fill="white" width="12" height="12">
+                                        <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="step-details">
+                                    <span class="step-title">3. Proses</span>
+                                    <span class="step-date">08:30 WIB • Ahmad F.</span>
+                                </div>
+                            </div>
+                            <div class="step-connector"></div>
+                            <div class="step active">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 16 16" fill="white" width="12" height="12">
+                                        <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="step-details">
+                                    <span class="step-title">4. Selesai</span>
+                                    <span class="step-date">Siap Kirim Validasi</span>
+                                </div>
+                                <span class="step-badge">Aktif</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Section -->
+                    <div class="section-block">
+                        <div class="section-title">
+                            <div class="title-pill"></div>
+                            <h3>Dokumentasi Hasil Perbaikan Fisik (Foto 100% Selesai)</h3>
+                        </div>
+                        <div class="upload-area">
+                            <div class="upload-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+                                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+                                    <path d="M12 12v9"/>
+                                    <path d="m16 16-4-4-4 4"/>
+                                </svg>
+                            </div>
+                            <p class="upload-text"><strong>Klik untuk mengunggah foto</strong> atau drag and drop</p>
+                            <p class="upload-hint">Wajib mengunggah minimal 1 foto bukti kerusakan/jalan yang jelas (PNG, JPG, JPEG maks. 5MB)</p>
+                        </div>
+                        <div class="uploaded-files">
+                            <div class="file-item">
+                                <div class="file-preview">
+                                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop" alt="Preview">
+                                    <button class="remove-file">✕</button>
+                                    <span class="file-size-badge">2.2 MB</span>
+                                </div>
+                                <span class="file-status">1 file terunggah siap ditampilkan</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BAP Section -->
+                    <div class="section-block">
+                        <div class="section-title-row">
+                            <div class="section-title">
+                                <div class="title-pill"></div>
+                                <h3>Catatan Berita Acara Pengerjaan (BAP)</h3>
+                            </div>
+                            <span class="section-note">Sesuai fakta pengerjaan fisik di lapangan</span>
+                        </div>
+                        <div class="bap-content">
+                            <p>Telah dilakukan penggantian trafo MCB 10A dan pemasangan bohlam LED Philips 120W pada tiang PJU #04 & #05. Jalur kabel suplai bawah tanah diperiksa dan normal. Uji coba nyala lampu berhasil dan berfungsi baik.</p>
+                            <div class="char-count">
+                                <span class="status-dot"></span>
+                                <span>184 karakter • Auto-saved</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SOP Checkbox -->
+                    <div class="sop-section">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" checked>
+                            <div class="checkbox-box">
+                                <svg viewBox="0 0 16 16" fill="white" width="12" height="12">
+                                    <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+                                </svg>
+                            </div>
+                            <div class="checkbox-content">
+                                <strong>Pernyataan Tanggung Jawab & Kepatuhan SOP Petugas</strong>
+                                <p>Saya menyatakan bahwa pekerjaan perbaikan telah selesai dilaksanakan sesuai SOP keselamatan TRC, material terpasang secara tepat, pengujian kelayakan telah berhasil, dan laporan siap diverifikasi oleh Pengawas/Admin SIPKJ.</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" onclick="window.history.back()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <line x1="19" y1="12" x2="5" y2="12"/>
+                                <polyline points="12 19 5 12 12 5"/>
+                            </svg>
+                            Batal / Kembali
+                        </button>
+                        <button class="btn btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            Konfirmasi & Selesaikan Tugas
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="page-footer">
+                © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        function handleLogout() {
+            if(confirm('Apakah Anda yakin ingin logout?')) {
+                alert('Logout berhasil!');
+                window.location.href = '../auth/login.html';
+            }
+        }
+    </script>
+</body>
+</html>

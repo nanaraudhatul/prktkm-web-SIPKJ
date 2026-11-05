@@ -37,11 +37,14 @@ a {
    SIDEBAR (STATIS / TIDAK BERUBAH)
    ========================================= */
 .sidebar {
-    width: 184px;
+    width: 280px;
     min-width: 184px;
     min-height: 100vh;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    z-index: 100;
+    
     align-self: flex-start;
     background: linear-gradient(160deg, #2869a8, #174477 48%, #102b4d);
     color: #fff;

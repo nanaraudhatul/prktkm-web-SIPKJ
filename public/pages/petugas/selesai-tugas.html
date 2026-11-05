@@ -256,7 +256,7 @@
                             </svg>
                             Batal / Kembali
                         </button>
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" onclick="konfirmasiSelesai()">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                                 <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
                                 <polyline points="22 4 12 14.01 9 11.01"/>
@@ -282,5 +282,15 @@
             }
         }
     </script>
+
+    <script>
+    function konfirmasiSelesai() {
+        // Tampilkan konfirmasi dulu (opsional)
+        if(confirm('Apakah Anda yakin ingin menyelesaikan tugas ini?')) {
+            // Arahkan ke halaman Tugas Saya
+            window.location.href = 'tugas-saya.html';
+        }
+    }
+</script>
 </body>
 </html>

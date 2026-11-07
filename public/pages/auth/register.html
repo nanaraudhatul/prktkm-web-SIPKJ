@@ -134,16 +134,19 @@
                 </div>
             </div>
 
+            <!-- Tipe Akun Statis -->
             <div class="form-group">
-                <label>DAFTAR SEBAGAI / ROLE <span class="required">*</span></label>
-                <div class="role-selector">
-                    <div class="role-option active" onclick="selectRole(this)" data-role="masyarakat">
-                        <div class="role-radio"></div>
-                        Masyarakat
-                    </div>
-                    <div class="role-option" onclick="selectRole(this)" data-role="petugas">
-                        <div class="role-radio"></div>
-                        Petugas
+                <label>TIPE AKUN</label>
+                <div style="background: #f0f4ff; border: 1.5px solid #1e3a5f; border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 12px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                    <div>
+                        <div style="font-size: 15px; font-weight: 700; color: #1e3a5f;">Masyarakat</div>
+                        <div style="font-size: 12px; color: #64748b;">Akun ini digunakan untuk melaporkan kerusakan jalan</div>
                     </div>
                 </div>
             </div>
@@ -174,152 +177,11 @@
         </svg>
         Solusi untuk Jalan yang Lebih Baik!
     </div>
-    <div class="copyright">© 2025 SIPKJ • Sistem Pengaduan Kerusakan Jalan</div>
+    <div class="copyright">© 2026 SIPKJ • Sistem Pengaduan Kerusakan Jalan</div>
 
+    <!-- External JS -->
     <script src="../../js/config.js"></script>
     <script src="../../js/api.js"></script>
-    <script>
-        // Toggle Password Visibility untuk Register
-        function togglePassword(inputId, btn) {
-            const input = document.getElementById(inputId);
-            const iconSvg = btn.querySelector('.eye-icon');
-            
-            if (!input || !iconSvg) return;
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                // Ganti icon jadi mata dicoret
-                iconSvg.innerHTML = `
-                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                    <line x1="1" y1="1" x2="23" y2="23"/>
-                `;
-                btn.setAttribute('title', 'Sembunyikan kata sandi');
-            } else {
-                input.type = 'password';
-                // Ganti icon jadi mata normal
-                iconSvg.innerHTML = `
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                `;
-                btn.setAttribute('title', 'Lihat kata sandi');
-            }
-        }
-
-        // ===== REGISTER LOGIC =====
-        let selectedRole = 'masyarakat';
-
-        function selectRole(el) {
-            document.querySelectorAll('.role-option').forEach(r => r.classList.remove('active'));
-            el.classList.add('active');
-            selectedRole = el.dataset.role;
-        }
-
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            const successDiv = document.getElementById('successMessage');
-            successDiv.classList.remove('show');
-            errorDiv.textContent = message;
-            errorDiv.classList.add('show');
-            
-            setTimeout(() => {
-                errorDiv.classList.remove('show');
-            }, 5000);
-        }
-
-        function showSuccess(message) {
-            const successDiv = document.getElementById('successMessage');
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.classList.remove('show');
-            successDiv.textContent = message;
-            successDiv.classList.add('show');
-        }
-
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const btn = document.getElementById('registerBtn');
-            const originalText = btn.textContent;
-            btn.textContent = 'MEMPROSES...';
-            btn.disabled = true;
-
-            const password = document.getElementById('regPassword').value;
-            const confirmPassword = document.getElementById('regPasswordConfirm').value;
-
-            if (password !== confirmPassword) {
-                showError('Kata sandi konfirmasi tidak cocok!');
-                btn.textContent = originalText;
-                btn.disabled = false;
-                return;
-            }
-
-            if (password.length < 8) {
-                showError('Kata sandi minimal 8 karakter!');
-                btn.textContent = originalText;
-                btn.disabled = false;
-                return;
-            }
-
-            if (!document.getElementById('agreeTerms').checked) {
-                showError('Anda harus menyetujui Syarat dan Ketentuan!');
-                btn.textContent = originalText;
-                btn.disabled = false;
-                return;
-            }
-
-            const formData = {
-                email: document.getElementById('regEmail').value.trim(),
-                username: document.getElementById('regUsername').value.trim(),
-                telepon: document.getElementById('regTelepon').value.trim(),
-                password: password,
-                role: selectedRole
-            };
-
-            console.log('Mengirim data ke backend...');
-            console.log('Data:', formData);
-
-            try {
-                const response = await fetch('http://localhost/sipkj/backend/api/auth/register.php', {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                const contentType = response.headers.get('content-type');
-                console.log('Response status:', response.status);
-                console.log('Content-Type:', contentType);
-
-                let data;
-                
-                if (contentType && contentType.includes('application/json')) {
-                    data = await response.json();
-                } else {
-                    const text = await response.text();
-                    console.error('Server response (bukan JSON):', text);
-                    throw new Error('Server mengembalikan HTML error. Cek console untuk detail.');
-                }
-
-                console.log('Response data:', data);
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Pendaftaran gagal');
-                }
-
-                showSuccess(data.message || 'Pendaftaran berhasil! Mengalihkan ke halaman login...');
-                
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
-                
-            } catch (error) {
-                console.error('Register error:', error);
-                showError(error.message || 'Tidak dapat terhubung ke server');
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-        });
-    </script>
+    <script src="../../js/auth.js"></script>
 </body>
 </html>

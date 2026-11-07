@@ -5,267 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tugas Saya - SIPKJ</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* =========================================
-           TUGAS SAYA - ULTRA COMPACT VERSION
-           ========================================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            color: #1e293b;
-            background: #f5f7fa;
-            line-height: 1.4;
-        }
-        button, select, input { font-family: inherit; }
-        button { cursor: pointer; }
-        a { text-decoration: none; color: inherit; }
-
-        .app-container { display: flex; min-height: 100vh; }
-
-        /* SIDEBAR (STATIC 280px - TIDAK BERUBAH) */
-        .sidebar {
-            width: 280px;
-            min-width: 280px;
-            min-height: 100vh;
-            background: linear-gradient(180deg, #1a2744 0%, #1e3a6e 100%);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 100;
-        }
-        .sidebar-header { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .sidebar-logo-container { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-        .sidebar-logo-box {
-            width: 56px; height: 56px; background: #fff; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px;
-        }
-        .sidebar-logo-box img { width: 100%; height: 100%; object-fit: contain; }
-        .sidebar-brand h2 { font-size: 18px; font-weight: 800; color: white; margin: 0; line-height: 1.2; }
-        .sidebar-brand p { font-size: 10px; color: rgba(255,255,255,0.7); margin: 0; line-height: 1.3; }
-
-        .sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
-        .nav-item {
-            display: flex; align-items: center; gap: 12px; padding: 10px 14px;
-            border-radius: 8px; color: rgba(255,255,255,0.7); font-size: 13px;
-            font-weight: 500; margin-bottom: 4px; text-decoration: none; transition: all 0.2s;
-        }
-        .nav-item:hover { background: rgba(255,255,255,0.1); color: white; }
-        .nav-item.active { background: rgba(255,255,255,0.15); color: white; font-weight: 600; }
-        .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-        .sidebar-footer { padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: auto; }
-        .logout-btn {
-            display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px;
-            color: rgba(255,255,255,0.7); font-size: 13px; background: none; border: none; width: 100%;
-            text-align: left; transition: all 0.2s;
-        }
-        .logout-btn:hover { background: rgba(239,68,68,0.15); color: #ef4444; }
-        .logout-btn svg { width: 18px; height: 18px; }
-
-        /* MAIN CONTENT */
-        .main-content { margin-left: 280px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; background: #f5f7fa; }
-
-        .topbar {
-            height: 50px; background: white; padding: 0 16px; display: flex;
-            justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0;
-        }
-        .topbar-left { display: flex; align-items: center; gap: 10px; }
-        .menu-toggle { background: none; border: none; cursor: pointer; color: #64748b; padding: 4px; display: none; }
-        .topbar-title { font-size: 16px; font-weight: 700; color: #1e293b; }
-        .topbar-right { display: flex; align-items: center; }
-        .user-profile {
-            display: flex; align-items: center; gap: 8px; padding: 4px 10px 4px 4px;
-            background: #f8fafc; border-radius: 50px; border: 1px solid #e2e8f0; cursor: pointer;
-        }
-        .user-avatar {
-            width: 32px; height: 32px; border-radius: 50%; background: #1A365D;
-            display: flex; align-items: center; justify-content: center; color: white;
-        }
-        .user-avatar svg { width: 18px; height: 18px; stroke: white; }
-        .user-info { display: flex; flex-direction: column; }
-        .user-name { font-size: 12px; font-weight: 700; color: #1e293b; }
-        .user-role { font-size: 9px; color: #64748b; background: #f1f5f9; padding: 1px 6px; border-radius: 6px; margin-top: 2px; }
-
-        .page-content { flex: 1; padding: 12px 16px; }
-
-        /* COMPACT HEADER */
-        .page-header {
-            background: white; border-radius: 10px; padding: 12px 16px; display: flex;
-            align-items: center; gap: 12px; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .page-header-icon {
-            width: 40px; height: 40px; background: linear-gradient(135deg, #0F172A 0%, #1A365D 100%);
-            border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;
-        }
-        .page-header-icon svg { width: 20px; height: 20px; }
-        .page-header-text h2 { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 2px; }
-        .page-header-text p { font-size: 11px; color: #64748b; }
-
-        /* COMPACT STATS */
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
-        .stat-card {
-            background: white; border-radius: 8px; padding: 10px 12px; display: flex;
-            align-items: center; gap: 10px; border: 1px solid #f0f0f0;
-        }
-        .stat-icon {
-            width: 36px; height: 36px; border-radius: 8px; display: flex;
-            align-items: center; justify-content: center; flex-shrink: 0;
-        }
-        .stat-icon svg { width: 18px; height: 18px; }
-        .stat-icon-blue { background: #eff6ff; color: #1e3a5f; }
-        .stat-icon-orange { background: #fff7ed; color: #f59e0b; }
-        .stat-icon-blue2 { background: #dbeafe; color: #2563eb; }
-        .stat-icon-green { background: #ecfdf5; color: #059669; }
-        .stat-info { display: flex; flex-direction: column; gap: 2px; }
-        .stat-number { font-size: 22px; font-weight: 800; color: #1e293b; line-height: 1; }
-        .stat-label { font-size: 11px; color: #64748b; font-weight: 500; }
-
-        /* COMPACT GRID */
-        .content-grid { display: grid; grid-template-columns: 1fr 300px; gap: 12px; align-items: start; }
-
-        /* COMPACT TABLE SECTION */
-        .table-section { background: white; border-radius: 10px; padding: 12px; border: 1px solid #f0f0f0; }
-        .table-filters { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-        .filter-group { display: flex; flex-direction: column; gap: 3px; }
-        .filter-group label { font-size: 10px; font-weight: 600; color: #64748b; text-transform: uppercase; }
-        .filter-select, .filter-search {
-            padding: 6px 10px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 11px;
-            background: white; min-width: 120px;
-        }
-        .filter-select {
-            padding-right: 28px; appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 8px center;
-        }
-        .search-group { flex: 1; min-width: 150px; position: relative; }
-        .search-group label { visibility: hidden; height: 0; }
-        .filter-search { width: 100%; padding-left: 30px; }
-        .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: #94a3b8; }
-
-        .table-container { overflow-x: auto; }
-        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        .data-table th {
-            padding: 8px 10px; text-align: left; font-size: 10px; font-weight: 700;
-            color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; background: #f8fafc;
-        }
-        .data-table td {
-            padding: 8px 10px; font-size: 11px; color: #374151; border-bottom: 1px solid #e2e8f0; vertical-align: middle;
-        }
-        .data-table tr:last-child td { border-bottom: none; }
-        .data-table tr:hover { background: #f8fafc; }
-
-        .td-title { font-weight: 600; color: #1e293b; font-size: 11px; }
-        .priority-badge, .status-badge {
-            display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px;
-            border-radius: 12px; font-size: 10px; font-weight: 600;
-        }
-        .priority-high { background: #fef2f2; color: #e11d48; }
-        .priority-medium { background: #fffbeb; color: #d97706; }
-        .priority-low { background: #f0fdf4; color: #059669; }
-        .status-process { background: #dbeafe; color: #2563eb; }
-        .status-accepted { background: #fef3c7; color: #d97706; }
-        .status-done { background: #d1fae5; color: #059669; }
-
-        .location-cell { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #4b5563; }
-        .location-cell svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-        .btn-view {
-            background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px;
-            color: #1e293b; display: inline-flex; align-items: center; gap: 4px; font-size: 11px;
-        }
-        .btn-view:hover { background: #eff6ff; color: #1A365D; }
-        .btn-view svg { width: 14px; height: 14px; }
-
-        .pagination { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 10px; }
-        .page-btn {
-            width: 28px; height: 28px; border: 1px solid #e2e8f0; border-radius: 6px; background: white;
-            font-size: 11px; color: #374151; display: flex; align-items: center; justify-content: center;
-        }
-        .page-btn.active { background: #1A365D; color: white; border-color: #1A365D; }
-
-        /* COMPACT RIGHT SIDEBAR (DETAIL PANEL) */
-        .right-sidebar { display: flex; flex-direction: column; gap: 10px; }
-        .detail-card { background: white; border-radius: 10px; padding: 12px; border: 1px solid #f0f0f0; }
-
-        .detail-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; margin-bottom: 10px; }
-        .eyebrow { font-size: 9px; font-weight: 700; color: #6456fa; text-transform: uppercase; }
-        .detail-heading h3 { font-size: 14px; font-weight: 700; color: #1e293b; margin: 4px 0 0 0; }
-
-        .progress-card {
-            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; position: relative;
-        }
-        .progress-track-bg { position: absolute; left: 24px; right: 24px; top: 19px; height: 2px; background: #e2e8f0; }
-        .progress-track-fill { height: 100%; background: #675cff; transition: width 0.3s; }
-        .progress-step { display: flex; flex-direction: column; align-items: center; gap: 4px; z-index: 1; }
-        .step-icon {
-            width: 18px; height: 18px; background: #e2e8f0; color: #94a3b8; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .step-icon svg { width: 10px; height: 10px; }
-        .progress-step.done .step-icon { background: #0dbb8a; color: white; }
-        .progress-step.current .step-icon { background: #1e3a5f; color: white; }
-        .progress-step span { font-size: 9px; font-weight: 600; color: #64748b; }
-        .progress-step.done span, .progress-step.current span { color: #1e293b; }
-
-        .mini-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-        .mini-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; }
-        .mini-info > span { display: block; font-size: 9px; color: #94a3b8; margin-bottom: 3px; }
-        .mini-info strong { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #1e293b; font-weight: 600; }
-        .mini-info strong svg { width: 12px; height: 12px; }
-
-        .description-box { margin-bottom: 10px; }
-        .description-box h4 { font-size: 10px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
-        .description-box p {
-            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px;
-            font-size: 10px; color: #64748b; line-height: 1.5; margin: 0;
-        }
-
-        .location-box { margin-bottom: 12px; }
-        .location-box h4 { font-size: 10px; font-weight: 700; color: #1e293b; margin-bottom: 6px; display: flex; align-items: center; gap: 4px; }
-        .location-box h4 svg { width: 12px; height: 12px; color: #3b82f6; }
-        .location-box p { font-size: 10px; color: #4b5563; margin-bottom: 2px; }
-        .location-box span { display: block; text-align: right; font-size: 9px; color: #94a3b8; margin-top: -4px; }
-
-        .update-btn {
-            width: 100%; height: 32px; background: #1e3a5f; color: white; border: none; border-radius: 6px;
-            font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;
-        }
-        .update-btn svg { width: 14px; height: 14px; }
-
-        .page-footer { text-align: center; padding: 10px 16px; background: white; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 10px; margin-top: auto; }
-
-        /* RESPONSIVE */
-        @media (max-width: 1100px) {
-            .content-grid { grid-template-columns: 1fr; }
-            .right-sidebar { flex-direction: row; }
-            .detail-card { flex: 1; }
-        }
-        @media (max-width: 900px) {
-            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
-            .sidebar.active { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-            .menu-toggle { display: flex; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .page-content { padding: 10px; }
-            .table-filters { flex-direction: column; align-items: stretch; }
-            .filter-select, .search-group { min-width: 100%; }
-            .user-info { display: none; }
-        }
-    </style>
+    <link rel="stylesheet" href="../../css/petugas-tugas-saya.css">
 </head>
 <body>
     <div class="app-container">
-        <!-- Sidebar (STATIC) -->
+        <!-- Sidebar (STANDAR 280px) -->
         <aside class="sidebar">
-            <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
+            <div class="sidebar-header">
                 <div class="sidebar-logo-container">
                     <div class="sidebar-logo-box">
                         <img src="../../images/logo-sipkj.png" alt="SIPKJ Logo"
@@ -273,11 +19,10 @@
                     </div>
                     <div class="sidebar-brand">
                         <h2>SIPKJ</h2>
-                        <p>Sistem Pengaduan <br> Kerusakan Jalan</p>
+                        <p>Sistem Pengaduan<br>Kerusakan Jalan</p>
                     </div>
                 </div>
             </div>
-
             <nav class="sidebar-nav">
                 <a href="dashboard.html" class="nav-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -296,7 +41,6 @@
                     Profil
                 </a>
             </nav>
-
             <div class="sidebar-footer">
                 <button class="logout-btn" onclick="handleLogout()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -305,19 +49,26 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
+        <!-- Main Area -->
+        <main class="main-area">
             <header class="topbar">
                 <div class="topbar-left">
                     <button class="menu-toggle" onclick="toggleSidebar()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
                     </button>
                     <h1 class="topbar-title">Tugas Saya</h1>
                 </div>
                 <div class="topbar-right">
-                    <div class="user-profile" onclick="window.location.href='profil.html'">
+                    <div class="user-profile">
                         <div class="user-avatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
                         </div>
                         <div class="user-info">
                             <span class="user-name">Ahmad</span>
@@ -327,11 +78,15 @@
                 </div>
             </header>
 
-            <div class="page-content">
-                <!-- Compact Header -->
+            <div class="content-area">
+                <!-- Page Header -->
                 <div class="page-header">
                     <div class="page-header-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                            <rect x="9" y="3" width="6" height="4" rx="1"/>
+                            <path d="M9 14l2 2 4-4"/>
+                        </svg>
                     </div>
                     <div class="page-header-text">
                         <h2>Tugas Saya</h2>
@@ -339,213 +94,411 @@
                     </div>
                 </div>
 
-                <!-- Content Grid -->
                 <div class="content-grid">
                     <!-- Left: Task List -->
-                    <div class="table-section">
+                    <div class="task-card">
                         <div class="table-filters">
-                            <div class="filter-group">
-                                <label>Tanggal</label>
-                                <select id="dateFilter" class="filter-select">
-                                    <option value="semua">Semua Tanggal</option>
-                                    <option value="20 Okt 2026">20 Oktober 2026</option>
-                                    <option value="19 Okt 2026">19 Oktober 2026</option>
+                            <div class="filter-control">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                <select>
+                                    <option>Semua Tanggal</option>
+                                    <option>20 Oktober 2026</option>
                                 </select>
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
                             </div>
-                            <div class="filter-group">
-                                <label>Lokasi</label>
-                                <select id="locationFilter" class="filter-select">
-                                    <option value="semua">Semua Lokasi</option>
-                                    <option value="Ternate Tengah">Ternate Tengah</option>
-                                    <option value="Pulau Ternate">Pulau Ternate</option>
+                            <div class="filter-control">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <select>
+                                    <option>Semua Lokasi</option>
+                                    <option>Ternate Tengah</option>
                                 </select>
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
                             </div>
-                            <div class="filter-group">
-                                <label>Prioritas</label>
-                                <select id="priorityFilter" class="filter-select">
-                                    <option value="semua">Semua Prioritas</option>
-                                    <option value="Tinggi">Tinggi</option>
-                                    <option value="Sedang">Sedang</option>
-                                    <option value="Rendah">Rendah</option>
+                            <div class="filter-control">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                                    <line x1="4" y1="22" x2="4" y2="15"/>
+                                </svg>
+                                <select>
+                                    <option>Semua Prioritas</option>
+                                    <option>Tinggi</option>
                                 </select>
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
                             </div>
-                            <div class="filter-group search-group">
-                                <label>&nbsp;</label>
-                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                <input type="text" class="filter-search" placeholder="Cari ID atau judul...">
-                            </div>
-                            <div class="filter-group">
-                                <label>&nbsp;</label>
-                                <button onclick="resetFilters()" style="height: 30px; padding: 0 12px; background: white; border: 1px solid #e2e8f0; border-radius: 6px; color: #6456fa; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
-                                    Reset
-                                </button>
-                            </div>
+                            <button class="reset-btn">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="1 4 1 10 7 10"/>
+                                    <polyline points="23 20 23 14 17 14"/>
+                                    <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/>
+                                </svg>
+                                Reset
+                            </button>
                         </div>
 
                         <div class="table-container">
                             <table class="data-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 40px;">No</th>
-                                        <th>Judul Pengaduan</th>
-                                        <th>Lokasi</th>
-                                        <th>Prioritas</th>
-                                        <th style="width: 90px; text-align: center;">Aksi</th>
+                                        <th style="width: 40px;">NO</th>
+                                        <th>JUDUL PENGADUAN</th>
+                                        <th>LOKASI</th>
+                                        <th>PRIORITAS</th>
+                                        <th style="width: 90px; text-align: center;">AKSI</th>
                                     </tr>
                                 </thead>
                                 <tbody id="taskTable">
-                                    <tr data-status="Dalam Proses" data-priority="Tinggi" data-date="20 Okt 2026" data-location="Ternate Tengah" onclick="selectRow(this, 1)">
+                                    <tr onclick="selectTask(1)" id="row-1">
                                         <td>1</td>
-                                        <td><div class="td-title">Lampu jalan mati</div><small style="color:#94a3b8; font-size:10px;">ID: #156 · 20 Okt</small></td>
-                                        <td><div class="location-cell"><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Jl. Sudirman</div><small style="color:#94a3b8; font-size:10px;">Ternate Tengah</small></td>
-                                        <td><span class="priority-badge priority-high">● Tinggi</span></td>
-                                        <td style="text-align: center;"><button class="btn-view" onclick="event.stopPropagation(); kerjakanTugas()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg> Kerjakan</button></td>
+                                        <td>
+                                            <strong>Lampu jalan mati</strong>
+                                        </td>
+                                        <td>
+                                            <div class="location">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                                    <circle cx="12" cy="10" r="3"/>
+                                                </svg>
+                                                Jl. Sudirman
+                                            </div>
+                                            <small>Ternate Tengah</small>
+                                        </td>
+                                        <td><span class="priority high">● Tinggi</span></td>
+                                        <td style="text-align: center;">
+                                            <button class="btn-kerjakan" onclick="event.stopPropagation(); kerjakanTask(1)">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                                                </svg>
+                                                Kerjakan
+                                            </button>
+                                        </td>
                                     </tr>
-                                    <tr data-status="Diterima" data-priority="Sedang" data-date="19 Okt 2026" data-location="Pulau Ternate" onclick="selectRow(this, 2)">
+                                    <tr onclick="selectTask(2)" id="row-2">
                                         <td>2</td>
-                                        <td><div class="td-title">Rambu roboh</div><small style="color:#94a3b8; font-size:10px;">ID: #152 · 19 Okt</small></td>
-                                        <td><div class="location-cell"><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Jl. Raya Kastela</div><small style="color:#94a3b8; font-size:10px;">Pulau Ternate</small></td>
-                                        <td><span class="priority-badge priority-medium">● Sedang</span></td>
-                                        <td style="text-align: center;"><button class="btn-view" onclick="event.stopPropagation(); kerjakanTugas()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg> Kerjakan</button></td>
+                                        <td>
+                                            <strong>Rambu roboh</strong>
+                                        </td>
+                                        <td>
+                                            <div class="location">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                                    <circle cx="12" cy="10" r="3"/>
+                                                </svg>
+                                                Jl. Raya Kastela
+                                            </div>
+                                            <small>Pulau Ternate</small>
+                                        </td>
+                                        <td><span class="priority medium">● Sedang</span></td>
+                                        <td style="text-align: center;">
+                                            <button class="btn-kerjakan" onclick="event.stopPropagation(); kerjakanTask(2)">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                                                </svg>
+                                                Kerjakan
+                                            </button>
+                                        </td>
                                     </tr>
-                                    <tr data-status="Selesai" data-priority="Rendah" data-date="17 Okt 2026" data-location="Ternate Tengah" onclick="selectRow(this, 3)">
+                                    <tr onclick="selectTask(3)" id="row-3">
                                         <td>3</td>
-                                        <td><div class="td-title">Jalan berlubang</div><small style="color:#94a3b8; font-size:10px;">ID: #141 · 17 Okt</small></td>
-                                        <td><div class="location-cell"><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Jl. Maluku Utara</div><small style="color:#94a3b8; font-size:10px;">Ternate Tengah</small></td>
-                                        <td><span class="priority-badge priority-low">● Rendah</span></td>
-                                        <td style="text-align: center;"><button class="btn-view" onclick="event.stopPropagation(); kerjakanTugas()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg> Kerjakan</button></td>
+                                        <td>
+                                            <strong>Jalan berlubang</strong>
+                                        </td>
+                                        <td>
+                                            <div class="location">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                                    <circle cx="12" cy="10" r="3"/>
+                                                </svg>
+                                                Jl. Maluku Utara
+                                            </div>
+                                            <small>Ternate Tengah</small>
+                                        </td>
+                                        <td><span class="priority low">● Rendah</span></td>
+                                        <td style="text-align: center;">
+                                            <button class="btn-kerjakan" onclick="event.stopPropagation(); kerjakanTask(3)">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                                                </svg>
+                                                Kerjakan
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
                         <div class="pagination">
-                            <button class="page-btn" disabled><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+                            <button class="page-btn" disabled>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"/>
+                                </svg>
+                            </button>
                             <button class="page-btn active">1</button>
-                            <button class="page-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+                            <button class="page-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Right: Detail Panel -->
-                    <div class="right-sidebar">
-                        <div class="detail-card">
-                            <div class="detail-heading">
-                                <div>
-                                    <div class="eyebrow">RINCIAN TUGAS</div>
-                                    <h3 id="detailTitle">Lampu jalan mati</h3>
-                                </div>
-                                <span id="detailPriority" class="priority-badge priority-high">● Tinggi</span>
+                    <div class="detail-card" id="detailPanel">
+                        <div class="detail-heading">
+                            <div>
+                                <div class="eyebrow">RINCIAN TUGAS</div>
+                                <h3 id="detailTitle">Lampu jalan mati</h3>
                             </div>
-
-                            <div class="progress-card">
-                                <div class="progress-track-bg"><div id="progressLine" class="progress-track-fill" style="width: 33%;"></div></div>
-                                <div class="progress-step done" id="step1">
-                                    <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-                                    <span>Diterima</span>
-                                </div>
-                                <div class="progress-step current" id="step2">
-                                    <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                                    <span>Dikerjakan</span>
-                                </div>
-                                <div class="progress-step" id="step3">
-                                    <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                                    <span>Selesai</span>
-                                </div>
-                            </div>
-
-                            <div class="mini-info-grid">
-                                <div class="mini-info">
-                                    <span>Tenggat Waktu</span>
-                                    <strong id="detailDeadline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 20 Okt, 23:59</strong>
-                                </div>
-                                <div class="mini-info">
-                                    <span>Status</span>
-                                    <strong id="detailStatus" style="color: #3b82f6;"><span style="width:6px;height:6px;background:#3b82f6;border-radius:50%;display:inline-block;"></span> Proses</strong>
-                                </div>
-                            </div>
-
-                            <div class="description-box">
-                                <h4>Deskripsi</h4>
-                                <p id="detailDescription">Lampu penerangan jalan padam di pertigaan dekat toko swalayan sejak 3 hari lalu. Kondisi jalan sangat gelap di malam hari.</p>
-                            </div>
-
-                            <div class="location-box">
-                                <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi</h4>
-                                <p id="detailLocation">Jl. Sudirman No.15</p>
-                                <span id="detailArea">Ternate Tengah</span>
-                            </div>
-
-                            <a href="selesai-tugas.html" class="update-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-    Update Status
-</a>
+                            <span class="detail-priority" id="detailPriority">● Tinggi</span>
                         </div>
+
+                        <!-- PROGRESS STEPS (4 TAHAP) -->
+                        <div class="progress-card">
+                            <div class="progress-track" id="progressTrack" style="width: 50%;"></div>
+                            <div class="progress-step done" id="step1">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <span>Diajukan</span>
+                            </div>
+                            <div class="progress-step done" id="step2">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <span>Diverifikasi</span>
+                            </div>
+                            <div class="progress-step current" id="step3">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                </div>
+                                <span>Proses</span>
+                            </div>
+                            <div class="progress-step" id="step4">
+                                <div class="step-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                </div>
+                                <span>Selesai</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-info-grid">
+                            <div class="mini-info">
+                                <span>Tenggat Waktu</span>
+                                <strong id="detailDeadline">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                    20 Okt, 23:59
+                                </strong>
+                            </div>
+                            <div class="mini-info">
+                                <span>Status</span>
+                                <strong class="current-status" id="detailStatus">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                    Proses
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="description">
+                            <h3>Deskripsi</h3>
+                            <p id="detailDesc">Lampu penerangan jalan padam di pertigaan dekat toko swalayan sejak 3 hari lalu. Kondisi jalan sangat gelap di malam hari.</p>
+                        </div>
+
+                        <div class="location-detail">
+                            <div class="location-title">
+                                <h3>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    Lokasi
+                                </h3>
+                            </div>
+                            <p id="detailLocation">Jl. Sudirman No.15</p>
+                            <span id="detailArea">Ternate Tengah</span>
+                        </div>
+
+                        <!-- TOMBOL UPDATE STATUS -->
+                        <button class="update-btn" onclick="updateStatus()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <polyline points="1 20 1 14 7 14"/>
+                                <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                            </svg>
+                            Update Status
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <footer class="page-footer">
+            <footer class="footer">
                 © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
             </footer>
         </main>
     </div>
 
     <script>
+        let selectedTaskId = 1;
+
         function handleLogout() {
-            if(confirm('Apakah Anda yakin ingin logout?')) window.location.href = '../auth/login.html';
+            if(confirm('Apakah Anda yakin ingin logout?')) {
+                window.location.href = '../auth/login.html';
+            }
         }
+
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('active');
         }
-        
-        let selectedTaskId = 1;
+
+        function selectTask(id) {
+            document.querySelectorAll('.data-table tr').forEach(row => row.classList.remove('selected'));
+            const selectedRow = document.getElementById(`row-${id}`);
+            if (selectedRow) {
+                selectedRow.classList.add('selected');
+            }
+            selectedTaskId = id;
+            updateDetailPanel(id);
+        }
+
+        function kerjakanTask(id) {
+            window.location.href = `tindak-lanjut-tugas.html?id=${id}`;
+        }
+
+        // ✅ FUNGSI UPDATE STATUS: Redirect ke halaman selesai-tugas.html
+        function updateStatus() {
+            const currentId = selectedTaskId || 1;
+            window.location.href = `selesai-tugas.html?id=${currentId}`;
+        }
+
+        // Data Tugas dengan nilai progress untuk 4 tahap (25%, 50%, 75%, 100%)
         const taskData = {
-            1: { title: 'Lampu jalan mati', priority: 'Tinggi', deadline: '20 Okt, 23:59', status: 'Proses', desc: 'Lampu penerangan jalan padam di pertigaan dekat toko swalayan sejak 3 hari lalu.', loc: 'Jl. Sudirman No.15', area: 'Ternate Tengah', progress: 33 },
-            2: { title: 'Rambu roboh', priority: 'Sedang', deadline: '21 Okt, 23:59', status: 'Menunggu', desc: 'Rambu lalu lintas di pinggir jalan ditemukan roboh.', loc: 'Jl. Raya Kastela', area: 'Pulau Ternate', progress: 0 },
-            3: { title: 'Jalan berlubang', priority: 'Rendah', deadline: '18 Okt, 23:59', status: 'Selesai', desc: 'Perbaikan lubang jalan telah selesai dilakukan.', loc: 'Jl. Maluku Utara', area: 'Ternate Tengah', progress: 100 }
+            1: { 
+                title: 'Lampu jalan mati', 
+                priority: 'Tinggi', 
+                priorityClass: 'high', 
+                deadline: '20 Okt, 23:59', 
+                desc: 'Lampu penerangan jalan padam di pertigaan dekat toko swalayan sejak 3 hari lalu.', 
+                loc: 'Jl. Sudirman No.15', 
+                area: 'Ternate Tengah', 
+                progress: 50 // 50% = Diverifikasi, masuk ke Proses
+            },
+            2: { 
+                title: 'Rambu roboh', 
+                priority: 'Sedang', 
+                priorityClass: 'medium', 
+                deadline: '21 Okt, 23:59', 
+                desc: 'Rambu lalu lintas di pinggir jalan ditemukan roboh.', 
+                loc: 'Jl. Raya Kastela', 
+                area: 'Pulau Ternate', 
+                progress: 25 // 25% = Baru Diajukan
+            },
+            3: { 
+                title: 'Jalan berlubang', 
+                priority: 'Rendah', 
+                priorityClass: 'low', 
+                deadline: '18 Okt, 23:59', 
+                desc: 'Perbaikan lubang jalan telah selesai dilakukan.', 
+                loc: 'Jl. Maluku Utara', 
+                area: 'Ternate Tengah', 
+                progress: 100 // 100% = Selesai
+            }
         };
 
-        function selectRow(row, id) {
-            document.querySelectorAll('tbody tr').forEach(r => r.style.background = '');
-            row.style.background = '#eff6ff';
-            selectedTaskId = id;
+        function updateDetailPanel(id) {
             const task = taskData[id];
+            if (!task) return;
             
             document.getElementById('detailTitle').textContent = task.title;
-            document.getElementById('detailDeadline').innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ${task.deadline}`;
-            document.getElementById('detailDescription').textContent = task.desc;
+            
+            const priorityEl = document.getElementById('detailPriority');
+            priorityEl.textContent = '● ' + task.priority;
+            priorityEl.className = 'detail-priority ' + task.priorityClass;
+            
+            document.getElementById('detailDeadline').innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+                ${task.deadline}
+            `;
+            
+            document.getElementById('detailDesc').textContent = task.desc;
             document.getElementById('detailLocation').textContent = task.loc;
             document.getElementById('detailArea').textContent = task.area;
-            document.getElementById('progressLine').style.width = task.progress + '%';
             
-            // Reset steps
-            ['step1','step2','step3'].forEach(s => {
-                document.getElementById(s).className = 'progress-step';
+            // Update progress bar dan steps
+            updateProgress(task.progress);
+        }
+
+        // ✅ FUNGSI UPDATE PROGRESS UNTUK 4 TAHAP
+        function updateProgress(progress) {
+            const progressLine = document.getElementById('progressTrack');
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            const step4 = document.getElementById('step4');
+            
+            // Reset semua class step
+            [step1, step2, step3, step4].forEach(step => {
+                step.className = 'progress-step';
             });
-            if (task.progress >= 33) document.getElementById('step1').classList.add('done');
-            if (task.progress >= 66) {
-                document.getElementById('step2').classList.add('current');
-            } else if (task.progress >= 33) {
-                document.getElementById('step2').classList.add('current');
+            
+            // Update lebar garis progress
+            progressLine.style.width = progress + '%';
+            
+            // Terapkan class berdasarkan persentase progress
+            if (progress >= 100) {
+                step1.classList.add('done');
+                step2.classList.add('done');
+                step3.classList.add('done');
+                step4.classList.add('done');
+            } else if (progress >= 75) {
+                step1.classList.add('done');
+                step2.classList.add('done');
+                step3.classList.add('done');
+                step4.classList.add('current');
+            } else if (progress >= 50) {
+                step1.classList.add('done');
+                step2.classList.add('done');
+                step3.classList.add('current');
+            } else if (progress >= 25) {
+                step1.classList.add('done');
+                step2.classList.add('current');
+            } else {
+                step1.classList.add('current');
             }
-            if (task.progress >= 100) document.getElementById('step3').classList.add('done');
         }
 
-        function kerjakanTugas() { alert('Membuka form pengerjaan...'); }
-        function updateStatus() { alert('Update status tugas #' + selectedTaskId); }
-        function resetFilters() { 
-            document.getElementById('dateFilter').value = 'semua';
-            document.getElementById('locationFilter').value = 'semua';
-            document.getElementById('priorityFilter').value = 'semua';
-        }
-
-        document.addEventListener('click', function(e) {
-            const sidebar = document.querySelector('.sidebar');
-            const menuToggle = document.querySelector('.menu-toggle');
-            if (window.innerWidth <= 900 && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                sidebar.classList.remove('active');
-            }
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            selectTask(1);
         });
     </script>
 </body>

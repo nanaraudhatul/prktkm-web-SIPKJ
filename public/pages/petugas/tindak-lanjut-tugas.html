@@ -4,255 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tindak Lanjut Tugas | SIPKJ</title>
-
+    <link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/petugas-tindak-lanjut.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
 </head>
-
 <body>
-
-<div class="app-container">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-        <div class="brand">
-            <img src="../../images/logo-sipkj.png" alt="Logo SIPKJ">
-
-            <div class="brand-text">
-                <h2>SIPKJ</h2>
-                <p>Sistem Pengaduan<br>Kerusakan Jalan</p>
-            </div>
-        </div>
-
-        <div class="menu-heading">MENU UTAMA</div>
-
-        <nav class="sidebar-menu">
-
-            <a href="dashboard.html" class="menu-item">
-                <i data-lucide="house"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="tugas-saya.html" class="menu-item active">
-                <i data-lucide="clipboard-check"></i>
-                <span>Tugas Saya</span>
-            </a>
-
-            <a href="riwayat-tugas.html" class="menu-item">
-                <i data-lucide="history"></i>
-                <span>Riwayat Tugas</span>
-            </a>
-
-            <a href="profil.html" class="menu-item">
-                <i data-lucide="user-round"></i>
-                <span>Profil</span>
-            </a>
-
-        </nav>
-
-        <div class="sidebar-bottom">
-            <a href="#" class="menu-item logout">
-                <i data-lucide="log-out"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-
-    </aside>
-
-
-    <!-- BAGIAN UTAMA -->
-    <div class="main-wrapper">
-
-        <!-- HEADER -->
-        <header class="topbar">
-
-            <div class="page-heading">
-                <span class="breadcrumb">Tugas Saya</span>
-                <h1>Tindak Lanjut Tugas</h1>
-            </div>
-
-            <div class="profile-area">
-
-                <div class="profile-icon">
-                    <i data-lucide="user-round"></i>
+    <div class="app-container">
+        <!-- Sidebar (STANDAR 280px) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo-container">
+                    <div class="sidebar-logo-box">
+                        <img src="../../images/logo-sipkj.png" alt="SIPKJ Logo"
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;background:#1e3a5f;color:white;font-weight:800;font-size:14px;width:100%;height:100%;border-radius:8px;\'>SIPKJ</div>';">
+                    </div>
+                    <div class="sidebar-brand">
+                        <h2>SIPKJ</h2>
+                        <p>Sistem Pengaduan<br>Kerusakan Jalan</p>
+                    </div>
                 </div>
-
-                <div class="profile-info">
-                    <h3>Ahmad</h3>
-                    <span>Petugas Lapangan</span>
-                </div>
-
             </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Dashboard
+                </a>
+                <a href="tugas-saya.html" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+                    Tugas Saya
+                </a>
+                <a href="riwayat-tugas.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+                    Riwayat Tugas
+                </a>
+                <a href="profil.html" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Profil
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
 
-        </header>
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <header class="topbar">
+                <div class="page-heading">
+                    <span class="breadcrumb">Tugas Saya</span>
+                    <h1>Tindak Lanjut Tugas</h1>
+                </div>
+                <div class="profile-area">
+                    <div class="profile-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="profile-info">
+                        <h3>Ahmad</h3>
+                        <span>Petugas Lapangan</span>
+                    </div>
+                </div>
+            </header>
 
-
-        <!-- KONTEN -->
-        <main class="content">
-
-            <section class="task-card">
-
-                <!-- JUDUL KARTU -->
-                <div class="card-heading">
-
-                    <div class="heading-left">
-                        <div class="heading-icon">
-                            <i data-lucide="clipboard-list"></i>
+            <main class="content">
+                <section class="task-card" id="taskCard">
+                    <div class="card-heading">
+                        <div class="heading-left">
+                            <div class="heading-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+                            </div>
+                            <h2>Detail Tugas</h2>
                         </div>
-
-                        <h2>Detail Tugas</h2>
+                        <span id="priorityBadge" class="priority-badge high">Prioritas Tinggi</span>
                     </div>
 
-                    <span class="priority-badge">Prioritas Tinggi</span>
+                    <div class="task-title">
+                        <h1 id="taskTitle">Lampu jalan mati</h1>
+                        <div class="deadline">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            <span>Tenggat Waktu: <strong id="taskDeadline">20 Okt 2026, 23:59 WIB</strong></span>
+                        </div>
+                    </div>
 
-                </div>
-
-
-                <!-- NAMA TUGAS -->
-                <div class="task-title">
-                    <h1>Lampu jalan mati</h1>
-
-                    <div class="deadline">
-                        <i data-lucide="calendar-days"></i>
-
-                        <span>
-                            Tenggat Waktu:
-                            <strong>20 Okt 2026, 23:59 WIB</strong>
+                    <div class="current-status">
+                        <span class="status-label">Status Saat Ini:</span>
+                        <span class="received-badge">
+                            <span class="status-dot"></span>
+                            Diterima
                         </span>
                     </div>
-                </div>
 
-
-                <!-- STATUS SAAT INI -->
-                <div class="current-status">
-                    <span class="status-label">Status Saat Ini:</span>
-
-                    <span class="received-badge">
-                        <span class="status-dot"></span>
-                        Diterima
-                    </span>
-                </div>
-
-
-                <!-- TIMELINE -->
-                <div class="progress-timeline">
-
-                    <div class="progress-step completed">
-                        <div class="step-circle">
-                            <i data-lucide="check"></i>
+                    <div class="progress-timeline">
+                        <div class="progress-step completed">
+                            <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg></div>
+                            <span>Diajukan</span>
                         </div>
-                        <span>Diajukan</span>
-                    </div>
-
-                    <div class="progress-step completed">
-                        <div class="step-circle">
-                            <i data-lucide="check"></i>
+                        <div class="progress-step completed">
+                            <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg></div>
+                            <span>Diverifikasi</span>
                         </div>
-                        <span>Diverifikasi</span>
-                    </div>
-
-                    <div class="progress-step pending">
-                        <div class="step-circle">
-                            <span class="step-dot"></span>
+                        <div class="progress-step pending active">
+                            <div class="step-circle"><span class="step-dot"></span></div>
+                            <span>Proses</span>
                         </div>
-                        <span>Proses</span>
-                    </div>
-
-                    <div class="progress-step pending">
-                        <div class="step-circle">
-                            <span class="step-dot"></span>
+                        <div class="progress-step pending">
+                            <div class="step-circle"><span class="step-dot"></span></div>
+                            <span>Selesai</span>
                         </div>
-                        <span>Selesai</span>
                     </div>
 
-                </div>
-
-
-                <!-- LOKASI PENGADUAN -->
-                <section class="information-section location-section">
-
-                    <div class="section-heading">
-                        <div class="section-title">
-                            <i data-lucide="map-pin"></i>
-                            <h3>Lokasi Pengaduan</h3>
+                    <section class="information-section location-section">
+                        <div class="section-heading">
+                            <div class="section-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <h3>Lokasi Pengaduan</h3>
+                            </div>
+                            <a id="mapsLink" href="#" target="_blank" rel="noopener noreferrer" class="maps-link">
+                                Buka di Google Maps
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
                         </div>
+                        <div class="address-row">
+                            <p id="taskLocation">Jl. Sudirman No. 15, Kec. Ternate Tengah</p>
+                            <span id="taskCity">Kota Ternate</span>
+                        </div>
+                    </section>
 
-                        <a
-                            href="https://www.google.com/maps/search/?api=1&query=Jl.+Sudirman+No.+15+Ternate+Tengah"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="maps-link"
-                        >
-                            Buka di Google Maps
-                            <i data-lucide="external-link"></i>
-                        </a>
-                    </div>
+                    <section class="information-section description-section">
+                        <div class="section-title description-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            <h3>Deskripsi Pengaduan</h3>
+                        </div>
+                        <div class="description-box">
+                            <p id="taskDescription">Lampu jalan di depan pertigaan menuju kantor kelurahan mati sejak 2 hari terakhir, sehingga membahayakan pengguna jalan.</p>
+                        </div>
+                    </section>
 
-                    <div class="address-row">
-                        <p>Jl. Sudirman No. 15, Kec. Ternate Tengah</p>
-                        <span>Kota Ternate</span>
-                    </div>
-
+                    <button type="button" class="work-button" id="workButton">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Kerjakan</span>
+                    </button>
                 </section>
+            </main>
 
-
-                <!-- DESKRIPSI PENGADUAN -->
-                <section class="information-section description-section">
-
-                    <div class="section-title description-title">
-                        <i data-lucide="file-text"></i>
-                        <h3>Deskripsi Pengaduan</h3>
-                    </div>
-
-                    <div class="description-box">
-                        <p>
-                            Lampu jalan di depan pertigaan menuju kantor
-                            kelurahan mati sejak 2 hari terakhir, sehingga
-                            membahayakan pengguna jalan.
-                        </p>
-                    </div>
-
-                </section>
-
-
-                <!-- TOMBOL KERJAKAN -->
-                <button type="button" class="work-button" id="workButton">
-                    <i data-lucide="check"></i>
-                    <span>Kerjakan</span>
-                </button>
-
-            </section>
-
-        </main>
-
-
-        <!-- FOOTER -->
-        <footer class="footer">
-            © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
-        </footer>
-
+            <footer class="footer">
+                © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
+            </footer>
+        </div>
     </div>
 
-</div>
+    <script>
+        // Data Tugas (sama dengan tugas-saya.html)
+        const taskData = {
+            1: { title: 'Lampu jalan mati', location: 'Jl. Sudirman, Ternate' },
+            2: { title: 'Rambu roboh', location: 'Jl. Raya Kastela, Pulau Ternate' },
+            3: { title: 'Jalan berlubang', location: 'Jl. Maluku Utara, Ternate Tengah' }
+        };
 
+        // Ambil ID dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const taskId = urlParams.get('id') || 1;
 
-<script>
-    lucide.createIcons();
+        // Update tampilan dengan data tugas
+        if (taskData[taskId]) {
+            document.getElementById('taskTitle').textContent = taskData[taskId].title;
+            document.getElementById('taskLocation').textContent = taskData[taskId].location;
+        }
 
-    // Tombol Kerjakan untuk contoh tampilan frontend
-    const workButton = document.getElementById("workButton");
+        // ✅ EVENT LISTENER UNTUK TOMBOL KERJAKAN
+        document.addEventListener('DOMContentLoaded', function() {
+            const workButton = document.getElementById('workButton');
+            
+            if (workButton) {
+                workButton.addEventListener('click', function() {
+                    // Redirect ke halaman proses penanganan dengan membawa ID tugas
+                    window.location.href = `proses-penanganan.html?id=${taskId}`;
+                });
+            }
+        });
 
-    workButton.addEventListener("click", function () {
-        this.classList.add("working");
-        this.querySelector("span").textContent = "Sedang Dikerjakan";
-    });
-</script>
-
+        function handleLogout() {
+            if(confirm('Apakah Anda yakin ingin logout?')) {
+                window.location.href = '../auth/login.html';
+            }
+        }
+    </script>
 </body>
 </html>

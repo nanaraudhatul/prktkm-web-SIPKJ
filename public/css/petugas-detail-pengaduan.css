@@ -1,0 +1,858 @@
+/* =====================================
+   RESET
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #eef0f2;
+    color: #172238;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =====================================
+   LAYOUT UTAMA
+===================================== */
+
+.app-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.main-wrapper {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =====================================
+   SIDEBAR
+===================================== */
+
+.sidebar {
+    width: 243px;
+    min-width: 243px;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: linear-gradient(
+        110deg,
+        #101a32 0%,
+        #173d6c 55%,
+        #2b6eae 100%
+    );
+
+    color: #ffffff;
+    z-index: 10;
+}
+
+
+/* LOGO */
+
+.brand {
+    height: 81px;
+    min-height: 81px;
+    padding: 0 23px;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.brand img {
+    width: 56px;
+    height: 48px;
+    object-fit: contain;
+    background: #ffffff;
+}
+
+.brand-text h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.brand-text p {
+    font-size: 9px;
+    line-height: 1.4;
+    color: #aebfd5;
+}
+
+
+/* MENU */
+
+.sidebar-menu {
+    padding: 22px 11px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.menu-item {
+    height: 42px;
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    border-radius: 12px;
+
+    color: #c4d0df;
+    font-size: 14px;
+    font-weight: 400;
+
+    transition: background 0.2s ease;
+}
+
+
+/* IKON SIDEBAR */
+
+.sidebar .menu-item svg {
+    width: 17px;
+    height: 17px;
+    min-width: 17px;
+
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* MENU AKTIF */
+
+.menu-item.active {
+    background: #1b3b68;
+    color: #ffffff;
+    font-weight: 600;
+
+    box-shadow: 0 6px 13px rgba(50,35,150,0.25);
+}
+
+.menu-item:hover:not(.active) {
+    background: rgba(255,255,255,0.08);
+    color: #ffffff;
+}
+
+
+/* LOGOUT */
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 22px 11px;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.logout {
+    color: #aebdd0;
+}
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+.topbar {
+    height: 76px;
+    min-height: 76px;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 27px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+
+/* IKON MENU ATAS */
+
+.menu-toggle {
+    border: none;
+    background: transparent;
+    color: #40516a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.menu-toggle svg {
+    width: 21px;
+    height: 21px;
+    stroke-width: 2.8;
+}
+
+
+/* JUDUL HEADER */
+
+.topbar-left h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #202b40;
+}
+
+
+/* =====================================
+   PROFIL HEADER
+===================================== */
+
+.profile-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    border-left: 1px solid #e7ebf1;
+    padding-left: 11px;
+}
+
+.profile-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+
+    background: #f7f9fd;
+    border: 2px solid #edf2ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #96a6bd;
+}
+
+.profile-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.7;
+}
+
+.profile-info h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1d293d;
+    margin-bottom: 4px;
+}
+
+.profile-info span {
+    display: inline-block;
+
+    background: #edf2ff;
+    color: #244779;
+
+    border-radius: 6px;
+    padding: 4px 10px;
+
+    font-size: 10px;
+    font-weight: 500;
+}
+
+
+/* =====================================
+   CONTENT
+===================================== */
+
+.content {
+    flex: 1;
+    background: #eef0f2;
+    padding: 31px;
+}
+
+
+/* =====================================
+   TOMBOL KEMBALI
+===================================== */
+
+.back-button {
+    width: fit-content;
+    height: 37px;
+
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 12px;
+
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: #354762;
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow: 0 2px 4px rgba(20,40,70,0.03);
+}
+
+.back-button svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+}
+
+
+/* =====================================
+   LAYOUT DETAIL
+===================================== */
+
+.detail-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.85fr)
+        minmax(250px, 0.9fr);
+
+    gap: 23px;
+    align-items: start;
+
+    margin-top: 23px;
+}
+
+
+/* =====================================
+   KARTU DETAIL
+===================================== */
+
+.detail-card {
+    background: #ffffff;
+    border: 1px solid #e9edf3;
+    border-radius: 16px;
+
+    padding: 26px;
+
+    box-shadow: 0 2px 4px rgba(20,40,70,0.025);
+}
+
+
+/* INFORMASI PENGADUAN */
+
+.detail-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding-bottom: 19px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.report-info {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.status-badge {
+    background: #009e73;
+    color: #ffffff;
+
+    padding: 5px 13px;
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.separator {
+    width: 1px;
+    height: 16px;
+    background: #dce3ed;
+}
+
+
+/* IKON PELAPOR */
+
+.reporter {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #52627b;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.reporter strong {
+    color: #1e2b41;
+    font-weight: 600;
+}
+
+.reporter-icon {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+
+    background: #f2f5fa;
+    color: #8192aa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reporter-icon svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 1.8;
+}
+
+.report-date {
+    color: #617796;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+
+/* =====================================
+   JUDUL PENGADUAN
+===================================== */
+
+.detail-heading {
+    margin-top: 25px;
+    margin-bottom: 27px;
+}
+
+.detail-heading h2 {
+    color: #121c31;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 11px;
+}
+
+.category-badge {
+    display: inline-block;
+
+    background: #f3e5ff;
+    color: #8a25e8;
+
+    padding: 5px 13px;
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =====================================
+   DESKRIPSI, LOKASI, FOTO
+===================================== */
+
+.detail-section {
+    margin-bottom: 30px;
+}
+
+.detail-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: #172238;
+    font-size: 13px;
+    font-weight: 700;
+
+    margin-bottom: 9px;
+}
+
+
+/* IKON JUDUL BAGIAN */
+
+.detail-section h3 svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.9;
+    flex-shrink: 0;
+}
+
+.detail-section p {
+    color: #40516d;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* =====================================
+   LOKASI
+===================================== */
+
+.location-section {
+    margin-bottom: 29px;
+}
+
+.location-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.location-content p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.location-content p svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 1.8;
+    color: #91a4bf;
+    flex-shrink: 0;
+}
+
+.location-content a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    color: #5542ff;
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    text-decoration: underline;
+}
+
+.location-content a svg {
+    width: 11px;
+    height: 11px;
+    stroke-width: 2;
+}
+
+
+/* =====================================
+   FOTO PENGADUAN
+===================================== */
+
+.photo-section {
+    margin-bottom: 0;
+}
+
+.photo-section h3 {
+    margin-bottom: 13px;
+}
+
+.photo-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.photo-list img {
+    width: 168px;
+    height: 130px;
+
+    object-fit: cover;
+    border-radius: 11px;
+
+    border: 1px solid #e1e6ed;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+
+/* =====================================
+   KARTU STATUS PENGADUAN
+===================================== */
+
+.status-card {
+    width: 100%;
+
+    background: #ffffff;
+    border: 1px solid #e9edf3;
+    border-radius: 16px;
+
+    padding: 24px 23px;
+
+    box-shadow: 0 2px 3px rgba(20,40,70,0.04);
+}
+
+.status-card h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #172238;
+
+    margin-bottom: 24px;
+}
+
+
+/* =====================================
+   TIMELINE STATUS
+===================================== */
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+
+    position: relative;
+    min-height: 55px;
+}
+
+
+/* GARIS PENGHUBUNG HIJAU */
+
+.timeline-item:not(.last)::after {
+    content: "";
+
+    position: absolute;
+    left: 10px;
+    top: 24px;
+
+    width: 2px;
+    height: 27px;
+
+    background: #00a77a;
+}
+
+
+/* LINGKARAN HIJAU */
+
+.timeline-icon {
+    width: 23px;
+    height: 23px;
+    min-width: 23px;
+
+    border-radius: 50%;
+    background: #009e73;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+
+/* TANDA CENTANG PUTIH */
+
+.timeline-icon svg {
+    width: 14px;
+    height: 14px;
+
+    stroke: #ffffff;
+    stroke-width: 3;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* TULISAN STATUS */
+
+.timeline-content {
+    padding-top: 0;
+}
+
+.timeline-content h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #172238;
+
+    margin-bottom: 4px;
+}
+
+.timeline-content p {
+    font-size: 11px;
+    color: #647895;
+    line-height: 1.4;
+}
+
+
+/* STATUS TERAKHIR */
+
+.timeline-item.last .timeline-content h3,
+.timeline-item.last .timeline-content p {
+    color: #009e73;
+}
+
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.footer {
+    min-height: 87px;
+
+    background: #ffffff;
+    border-top: 1px solid #e8ecf1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #a0afc5;
+    font-size: 11px;
+    text-align: center;
+
+    padding: 15px;
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1050px) {
+
+    .content {
+        padding: 24px;
+    }
+
+    .detail-layout {
+        grid-template-columns:
+            minmax(0, 1.5fr)
+            minmax(230px, 0.9fr);
+
+        gap: 16px;
+    }
+
+    .detail-card {
+        padding: 22px;
+    }
+
+    .detail-top {
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: -243px;
+
+        width: 243px;
+        min-width: 243px;
+
+        transition: left 0.25s ease;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .status-card {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .topbar-left {
+        gap: 13px;
+    }
+
+    .topbar-left h1 {
+        font-size: 16px;
+    }
+
+    .profile-area {
+        gap: 7px;
+    }
+
+    .profile-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .profile-info h3 {
+        font-size: 12px;
+    }
+
+    .profile-info span {
+        font-size: 9px;
+        padding: 3px 6px;
+    }
+
+    .content {
+        padding: 20px 14px;
+    }
+
+    .detail-card {
+        padding: 19px 16px;
+    }
+
+    .detail-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .report-info {
+        flex-wrap: wrap;
+    }
+
+    .report-date {
+        font-size: 11px;
+    }
+
+    .detail-heading h2 {
+        font-size: 20px;
+    }
+
+    .location-content {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .photo-list img {
+        width: calc(50% - 7px);
+        height: 110px;
+    }
+
+    .footer {
+        font-size: 10px;
+    }
+}

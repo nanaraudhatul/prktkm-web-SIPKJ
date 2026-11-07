@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pengaduan | SIPKJ</title>
+
+    <link rel="stylesheet" href="../../css/petugas-detail-pengaduan.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <img src="../../images/logo-sipkj.png" alt="Logo SIPKJ">
+
+            <div class="brand-text">
+                <h2>SIPKJ</h2>
+                <p>Sistem Pengaduan<br>Kerusakan Jalan</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item">
+                <i data-lucide="house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="tugas-saya.html" class="menu-item active">
+                <i data-lucide="clipboard-check"></i>
+                <span>Tugas Saya</span>
+            </a>
+
+            <a href="riwayat-tugas.html" class="menu-item">
+                <i data-lucide="history"></i>
+                <span>Riwayat Tugas</span>
+            </a>
+
+            <a href="profil.html" class="menu-item">
+                <i data-lucide="user-round"></i>
+                <span>Profil</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="menu-item logout">
+                <i data-lucide="log-out"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+    </aside>
+
+
+    <!-- BAGIAN KANAN -->
+    <div class="main-wrapper">
+
+        <!-- HEADER -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button class="menu-toggle" aria-label="Buka menu">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <h1>Detail Pengaduan</h1>
+
+            </div>
+
+            <div class="profile-area">
+
+                <div class="profile-icon">
+                    <i data-lucide="user-round"></i>
+                </div>
+
+                <div class="profile-info">
+                    <h3>Ahmad</h3>
+                    <span>Petugas Lapangan</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- KONTEN -->
+        <main class="content">
+
+            <a href="tugas-saya.html" class="back-button">
+                <i data-lucide="arrow-left"></i>
+                <span>Kembali</span>
+            </a>
+
+
+            <div class="detail-layout">
+
+                <!-- KARTU DETAIL -->
+                <section class="detail-card">
+
+                    <!-- INFORMASI ATAS -->
+                    <div class="detail-top">
+
+                        <div class="report-info">
+
+                            <span class="status-badge">Selesai</span>
+
+                            <span class="separator"></span>
+
+                            <div class="reporter">
+
+                                <span class="reporter-icon">
+                                    <i data-lucide="user-round"></i>
+                                </span>
+
+                                <span>
+                                    Pelapor: <strong>Budi Prasetyo</strong>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <span class="report-date">
+                            12 Apr 2025, 10:24
+                        </span>
+
+                    </div>
+
+
+                    <!-- JUDUL -->
+                    <div class="detail-heading">
+                        <h2>Lampu mati</h2>
+                        <span class="category-badge">Fasilitas</span>
+                    </div>
+
+
+                    <!-- DESKRIPSI -->
+                    <div class="detail-section">
+
+                        <h3>
+                            <i data-lucide="file-text"></i>
+                            Deskripsi
+                        </h3>
+
+                        <p>
+                            Lampu jalan di depan rumah saya sudah mati sejak
+                            3 hari yang lalu. Mohon segera diperbaiki.
+                        </p>
+
+                    </div>
+
+
+                    <!-- LOKASI -->
+                    <div class="detail-section location-section">
+
+                        <h3>
+                            <i data-lucide="map-pin"></i>
+                            Lokasi
+                        </h3>
+
+                        <div class="location-content">
+
+                            <p>
+                                <i data-lucide="map-pin"></i>
+                                Jl. Melati No. 12, Sukamaju
+                            </p>
+
+                            <a
+                                href="https://www.google.com/maps/search/?api=1&query=Jl.+Melati+No.+12+Sukamaju"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Buka di Google Maps
+                                <i data-lucide="external-link"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOTO -->
+                    <div class="detail-section photo-section">
+
+                        <h3>
+                            <i data-lucide="image"></i>
+                            Foto
+                        </h3>
+
+                        <div class="photo-list">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=500"
+                                alt="Foto kondisi jalan malam hari"
+                            >
+
+                            <img
+                                src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500"
+                                alt="Foto lampu jalan malam hari"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- STATUS PENGADUAN -->
+                <aside class="status-card">
+
+                    <h2>Status Pengaduan</h2>
+
+                    <div class="timeline">
+
+                        <!-- DIAJUKAN -->
+                        <div class="timeline-item">
+
+                            <div class="timeline-icon">
+                                <i data-lucide="check"></i>
+                            </div>
+
+                            <div class="timeline-content">
+                                <h3>Diajukan</h3>
+                                <p>12 Apr 2025, 10:24</p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- VERIFIKASI -->
+                        <div class="timeline-item">
+
+                            <div class="timeline-icon">
+                                <i data-lucide="check"></i>
+                            </div>
+
+                            <div class="timeline-content">
+                                <h3>Verifikasi</h3>
+                                <p>12 Apr 2025, 11:30</p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- PROSES -->
+                        <div class="timeline-item">
+
+                            <div class="timeline-icon">
+                                <i data-lucide="check"></i>
+                            </div>
+
+                            <div class="timeline-content">
+                                <h3>Proses</h3>
+                                <p>13 Apr 2025, 08:30</p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- SELESAI -->
+                        <div class="timeline-item last">
+
+                            <div class="timeline-icon">
+                                <i data-lucide="check"></i>
+                            </div>
+
+                            <div class="timeline-content">
+                                <h3>Selesai</h3>
+                                <p>14 Apr 2025, 15:45</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            © 2026 SIPKJ. Sistem Pengaduan Kerusakan Jalan. Hak Cipta Dilindungi.
+        </footer>
+
+    </div>
+
+</div>
+
+
+<script>
+    lucide.createIcons();
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    menuToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("show");
+    });
+</script>
+
+</body>
+</html>

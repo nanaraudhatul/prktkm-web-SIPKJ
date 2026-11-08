@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Pengaduan - SIPKJ</title>
     <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/buat-pengaduan.css">
+    <link rel="stylesheet" href="../../css/pengaduan.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard-layout">
-        <aside class="sidebar">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
                 <div class="sidebar-logo-container">
                     <div class="sidebar-logo-box">
@@ -69,10 +70,25 @@
             </div>
         </aside>
 
-        <main class="main-content">
+        <!-- Overlay untuk mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
             <header class="topbar">
                 <div class="topbar-left">
-                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <!-- TOMBOL HAMBURGER MENU -->
+                    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                    <!-- TULISAN JUDUL HALAMAN -->
+                    <div class="page-title-header">
+                        <h1>Buat Pengaduan Baru</h1>
+                    </div>
                 </div>
                 <div class="topbar-right">
                     <div class="user-profile" onclick="window.location.href='profil.html'">
@@ -83,7 +99,7 @@
                             </svg>
                         </div>
                         <div class="user-info">
-                            <div class="user-name">Loading...</div>
+                            <div class="user-name" id="userName">Loading...</div>
                             <div class="user-role">Masyarakat</div>
                         </div>
                     </div>
@@ -236,6 +252,6 @@
     <script src="../../js/config.js"></script>
     <script src="../../js/api.js"></script>
     <script src="../../js/user-helper.js"></script>
-    <script src="../../js/pengaduan.js"></script>
+    <script src="../../js/buat-pengaduan.js"></script>
 </body>
 </html>

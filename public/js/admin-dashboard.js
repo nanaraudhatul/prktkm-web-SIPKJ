@@ -2,6 +2,9 @@
 // ADMIN DASHBOARD - JavaScript
 // ========================================
 
+// Variabel global untuk menyimpan data
+let allPengaduanData = [];
+
 // Check admin access
 (function() {
     const token = localStorage.getItem('sipkj_token');
@@ -18,15 +21,38 @@
     }
 })();
 
-let trendChartInstance = null;
-let categoryChartInstance = null;
-
+// ✅ FUNGSI TOGGLE SIDEBAR (Desktop & Mobile)
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mode mobile: gunakan class 'open'
         sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('show');
+    } else {
+        // Mode desktop: gunakan class 'closed'
+        sidebar.classList.toggle('closed');
+        if (mainContent) mainContent.classList.toggle('expanded');
     }
 }
+
+// Tutup sidebar ketika klik di luar (mobile)
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && sidebar && sidebar.classList.contains('open')) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+});
 
 function handleLogout() {
     if (confirm('Apakah Anda yakin ingin keluar?')) {
@@ -37,7 +63,6 @@ function handleLogout() {
     }
 }
 
-// Update admin info di topbar
 function updateAdminInfo() {
     const userData = localStorage.getItem('sipkj_user');
     if (userData) {
@@ -51,7 +76,6 @@ function updateAdminInfo() {
     }
 }
 
-// ✅ Update tanggal saat ini di header
 function updateCurrentDate() {
     const dateEl = document.querySelector('#currentDate span');
     if (dateEl) {
@@ -66,7 +90,6 @@ function updateCurrentDate() {
 async function loadDashboardStats() {
     try {
         const token = localStorage.getItem('sipkj_token');
-        
         const response = await fetch(API_CONFIG.BASE_URL + '/admin/dashboard-stats.php', {
             method: 'GET',
             headers: {
@@ -76,257 +99,23 @@ async function loadDashboardStats() {
         });
 
         const result = await response.json();
-        console.log('📊 Dashboard stats:', result);
-
         if (result.success && result.data) {
             const stats = result.data;
             document.getElementById('statTotal').textContent = stats.total || 0;
             document.getElementById('statPending').textContent = stats.menunggu_verifikasi || 0;
             document.getElementById('statProcess').textContent = stats.proses || 0;
             document.getElementById('statDone').textContent = stats.selesai || 0;
-            
-            // Load charts and table
-            await loadTrendChart();
-            await loadCategoryChart();
-            await loadRecentPengaduan();
         }
     } catch (error) {
         console.error('❌ Error loading stats:', error);
     }
 }
 
-// Load Trend Chart (7 Hari Terakhir)
-async function loadTrendChart() {
-    try {
-        const token = localStorage.getItem('sipkj_token');
-        
-        const response = await fetch(API_CONFIG.BASE_URL + '/admin/trend-pengaduan.php', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-        console.log('📈 Trend data:', result);
-
-        if (result.success && result.data) {
-            renderTrendChart(result.data);
-        }
-    } catch (error) {
-        console.error('❌ Error loading trend:', error);
-    }
-}
-
-// Render Trend Chart dengan Smooth Curve
-function renderTrendChart(data) {
-    const ctx = document.getElementById('trendChart').getContext('2d');
-    
-    // Destroy existing chart
-    if (trendChartInstance) {
-        trendChartInstance.destroy();
-    }
-
-    // Extract labels and data
-    const labels = data.map(item => {
-        const date = new Date(item.tanggal);
-        const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-        const dayName = days[date.getDay()];
-        return `${dayName}, ${date.getDate()} ${getMonthName(date.getMonth())}`;
-    });
-    
-    const values = data.map(item => item.jumlah || 0);
-
-    // Create gradient
-    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, 'rgba(30, 58, 95, 0.3)');
-    gradient.addColorStop(1, 'rgba(30, 58, 95, 0.0)');
-
-    // Create chart
-    trendChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Jumlah Pengaduan',
-                data: values,
-                borderColor: '#1e3a5f',
-                backgroundColor: gradient,
-                borderWidth: 3,
-                pointBackgroundColor: '#1e3a5f',
-                pointBorderColor: '#ffffff',
-                pointBorderWidth: 2,
-                pointRadius: 5,
-                pointHoverRadius: 7,
-                fill: true,
-                tension: 0.4 // Smooth curve
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    titleColor: '#1e293b',
-                    bodyColor: '#64748b',
-                    borderColor: '#e2e8f0',
-                    borderWidth: 1,
-                    padding: 12,
-                    displayColors: false,
-                    callbacks: {
-                        label: function(context) {
-                            return 'Jumlah: ' + context.parsed.y + ' pengaduan';
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 2,
-                        color: '#94a3b8',
-                        font: {
-                            family: 'Inter',
-                            size: 12
-                        }
-                    },
-                    grid: {
-                        color: '#f1f5f9',
-                        drawBorder: false
-                    }
-                },
-                x: {
-                    ticks: {
-                        color: '#94a3b8',
-                        font: {
-                            family: 'Inter',
-                            size: 12
-                        }
-                    },
-                    grid: {
-                        display: false,
-                        drawBorder: false
-                    }
-                }
-            },
-            interaction: {
-                mode: 'nearest',
-                axis: 'x',
-                intersect: false
-            }
-        }
-    });
-}
-
-// Load Category Chart
-async function loadCategoryChart() {
-    try {
-        const token = localStorage.getItem('sipkj_token');
-        
-        const response = await fetch(API_CONFIG.BASE_URL + '/admin/kategori-pengaduan.php', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-        console.log('📊 Category data:', result);
-
-        if (result.success && result.data) {
-            renderCategoryChart(result.data);
-        }
-    } catch (error) {
-        console.error('❌ Error loading category:', error);
-    }
-}
-
-// Render Category Chart
-function renderCategoryChart(data) {
-    const ctx = document.getElementById('categoryChart').getContext('2d');
-    
-    // Destroy existing chart
-    if (categoryChartInstance) {
-        categoryChartInstance.destroy();
-    }
-
-    const labels = data.map(item => item.kategori || 'Lainnya');
-    const values = data.map(item => item.jumlah || 0);
-
-    // Warna disesuaikan dengan tema Navy
-    const colors = [
-        '#1e3a5f', // Navy (Utama)
-        '#3b82f6', // Biru
-        '#f59e0b', // Kuning/Oranye
-        '#10b981', // Hijau
-        '#ef4444', // Merah
-        '#8b5cf6'  // Ungu
-    ];
-
-    categoryChartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: values,
-                backgroundColor: colors,
-                borderWidth: 0,
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        padding: 15,
-                        usePointStyle: true,
-                        pointStyle: 'circle',
-                        font: {
-                            family: 'Inter',
-                            size: 12
-                        },
-                        color: '#64748b'
-                    }
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    titleColor: '#1e293b',
-                    bodyColor: '#64748b',
-                    borderColor: '#e2e8f0',
-                    borderWidth: 1,
-                    padding: 12,
-                    callbacks: {
-                        label: function(context) {
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = ((context.parsed / total) * 100).toFixed(1);
-                            return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
-                        }
-                    }
-                }
-            },
-            cutout: '70%'
-        }
-    });
-}
-
-// Load Recent Pengaduan
+// Load data pengaduan
 async function loadRecentPengaduan() {
     try {
         const token = localStorage.getItem('sipkj_token');
-        
-        const response = await fetch(API_CONFIG.BASE_URL + '/pengaduan/list.php?limit=5', {
+        const response = await fetch(API_CONFIG.BASE_URL + '/pengaduan/list.php?limit=100', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -335,29 +124,36 @@ async function loadRecentPengaduan() {
         });
 
         const result = await response.json();
-        console.log('📋 Recent pengaduan:', result);
-
+        
         if (result.success && result.data) {
-            renderRecentTable(result.data);
+            allPengaduanData = result.data.map((item, index) => ({
+                ...item,
+                noUrut: index + 1
+            }));
+            applyFilters();
+        } else {
+            allPengaduanData = [];
+            renderTable([]);
         }
     } catch (error) {
         console.error('❌ Error loading recent:', error);
+        document.getElementById('recentTableBody').innerHTML = 
+            '<tr><td colspan="6" style="text-align:center;padding:40px;color:#ef4444;">Gagal memuat data</td></tr>';
     }
 }
 
-// Render Recent Table
-function renderRecentTable(pengaduanList) {
+// Render tabel
+function renderTable(dataToRender) {
     const tbody = document.getElementById('recentTableBody');
     if (!tbody) return;
     
     tbody.innerHTML = '';
 
-    if (pengaduanList.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#94a3b8;">Belum ada pengaduan</td></tr>';
+    if (!dataToRender || dataToRender.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">Tidak ada data yang cocok dengan filter</td></tr>';
         return;
     }
 
-    // ✅ Updated to match the latest CSS classes (.menunggu, .proses, .selesai, .ditolak)
     const statusConfig = {
         'diajukan': { text: 'Diajukan', class: 'menunggu' },
         'verifikasi': { text: 'Verifikasi', class: 'menunggu' },
@@ -366,24 +162,65 @@ function renderRecentTable(pengaduanList) {
         'ditolak': { text: 'Ditolak', class: 'ditolak' }
     };
 
-    pengaduanList.forEach(pengaduan => {
+    dataToRender.forEach(pengaduan => {
         const status = statusConfig[pengaduan.status] || statusConfig['diajukan'];
         const row = document.createElement('tr');
+        const tanggal = formatDate(pengaduan.created_at);
+        const noUrut = pengaduan.noUrut || '-';
+        
         row.innerHTML = `
-            <td style="padding:16px;"><strong>${pengaduan.judul || '-'}</strong></td>
-            <td style="padding:16px;">${pengaduan.kategori || '-'}</td>
-            <td style="padding:16px;">${pengaduan.lokasi || '-'}</td>
-            <td style="padding:16px;"><span class="status-badge ${status.class}">${status.text}</span></td>
-            <td style="padding:16px;">${formatDate(pengaduan.created_at)}</td>
+            <td style="text-align:center;font-weight:600;color:#64748b;">${noUrut}</td>
+            <td><strong>${pengaduan.judul || '-'}</strong></td>
+            <td>${pengaduan.kategori || '-'}</td>
+            <td>${pengaduan.lokasi || '-'}</td>
+            <td><span class="status-badge ${status.class}">${status.text}</span></td>
+            <td>${tanggal}</td>
         `;
         tbody.appendChild(row);
     });
 }
 
-// Helper: Get month name
-function getMonthName(monthIndex) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-    return months[monthIndex];
+// Fungsi filter utama
+function applyFilters() {
+    const searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
+    const kategoriValue = document.getElementById('filterKategori').value.toLowerCase().trim();
+    const statusValue = document.getElementById('filterStatus').value.toLowerCase().trim();
+
+    const filteredData = allPengaduanData.filter(item => {
+        const noUrut = item.noUrut ? item.noUrut.toString() : '';
+        const idStr = item.id ? item.id.toString() : '';
+        
+        let matchSearch = true;
+        if (searchValue) {
+            matchSearch = 
+                noUrut === searchValue ||
+                idStr === searchValue ||
+                (item.judul && item.judul.toLowerCase().includes(searchValue)) || 
+                (item.lokasi && item.lokasi.toLowerCase().includes(searchValue));
+        }
+
+        let matchKategori = true;
+        if (kategoriValue) {
+            matchKategori = item.kategori && item.kategori.toLowerCase() === kategoriValue;
+        }
+
+        let matchStatus = true;
+        if (statusValue) {
+            matchStatus = item.status && item.status.toLowerCase() === statusValue;
+        }
+
+        return matchSearch && matchKategori && matchStatus;
+    });
+
+    renderTable(filteredData);
+}
+
+// Reset filter
+function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterKategori').value = '';
+    document.getElementById('filterStatus').value = '';
+    applyFilters();
 }
 
 // Helper: Format date
@@ -398,6 +235,22 @@ function formatDate(dateString) {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('👨‍💼 Admin Dashboard loaded');
     updateAdminInfo();
-    updateCurrentDate(); // ✅ Menampilkan tanggal hari ini di header
+    updateCurrentDate();
     loadDashboardStats();
+    loadRecentPengaduan();
+
+    const searchInput = document.getElementById('searchInput');
+    const filterKategori = document.getElementById('filterKategori');
+    const filterStatus = document.getElementById('filterStatus');
+
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(applyFilters, 300);
+        });
+    }
+
+    if (filterKategori) filterKategori.addEventListener('change', applyFilters);
+    if (filterStatus) filterStatus.addEventListener('change', applyFilters);
 });

@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - SIPKJ</title>
     <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/dashboard.css">
     <link rel="stylesheet" href="../../css/admin-dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="admin-layout">
-        <!-- Sidebar (SAMA PERSIS DENGAN VERIFIKASI) -->
+        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
                 <div class="sidebar-logo-container">
@@ -22,7 +20,7 @@
                     </div>
                     <div class="sidebar-brand">
                         <h2>SIPKJ</h2>
-                        <p>Pengaduan Kerusakan Jalan</p>
+                        <p>Sistem Pengaduan <br> Kerusakan Jalan</p>
                     </div>
                 </div>
             </div>
@@ -73,11 +71,21 @@
             </div>
         </aside>
 
+        <!-- Overlay untuk mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="main-content" id="mainContent">
             <header class="topbar">
                 <div class="topbar-left">
-                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <!-- TOMBOL HAMBURGER MENU (SELALU MUNCUL) -->
+                    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
                     <h1>Dashboard</h1>
                 </div>
                 <div class="topbar-right">
@@ -126,63 +134,63 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-content-left">
+                            <div class="stat-icon-wrapper">
+                                <div class="stat-icon blue">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                    </svg>
+                                </div>
+                            </div>
                             <div class="stat-value" id="statTotal">0</div>
                             <div class="stat-label">Total Pengaduan</div>
                         </div>
-                        <div class="stat-icon-wrapper">
-                            <div class="stat-icon blue">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-content-left">
+                            <div class="stat-icon-wrapper">
+                                <div class="stat-icon yellow">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                </div>
+                            </div>
                             <div class="stat-value" id="statPending">0</div>
                             <div class="stat-label">Menunggu Verifikasi</div>
                         </div>
-                        <div class="stat-icon-wrapper">
-                            <div class="stat-icon yellow">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-content-left">
+                            <div class="stat-icon-wrapper">
+                                <div class="stat-icon orange">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                        <circle cx="12" cy="12" r="3"/>
+                                        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+                                    </svg>
+                                </div>
+                            </div>
                             <div class="stat-value" id="statProcess">0</div>
                             <div class="stat-label">Dalam Proses</div>
                         </div>
-                        <div class="stat-icon-wrapper">
-                            <div class="stat-icon orange">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                                    <circle cx="12" cy="12" r="3"/>
-                                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
-                                </svg>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-content-left">
+                            <div class="stat-icon-wrapper">
+                                <div class="stat-icon green">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                        <polyline points="22 4 12 14.01 9 11.01"/>
+                                    </svg>
+                                </div>
+                            </div>
                             <div class="stat-value" id="statDone">0</div>
                             <div class="stat-label">Selesai</div>
-                        </div>
-                        <div class="stat-icon-wrapper">
-                            <div class="stat-icon green">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                                    <polyline points="22 4 12 14.01 9 11.01"/>
-                                </svg>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,7 +202,7 @@
                             <circle cx="11" cy="11" r="8"/>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input type="text" id="searchInput" placeholder="Cari ID, judul, atau lokasi pengaduan...">
+                        <input type="text" id="searchInput" placeholder="Cari NO, judul, atau lokasi pengaduan...">
                     </div>
                     <select class="filter-select" id="filterKategori">
                         <option value="">Semua Kategori</option>
@@ -212,38 +220,37 @@
                         <option value="selesai">Selesai</option>
                         <option value="ditolak">Ditolak</option>
                     </select>
-                    <button class="btn-refresh" onclick="loadDashboardStats()">
+                    <button class="btn-refresh" onclick="resetFilters()">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="23 4 23 10 17 10"/>
                             <polyline points="1 20 1 14 7 14"/>
                             <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
                         </svg>
-                        Refresh
+                        Reset
                     </button>
                 </div>
 
                 <!-- Recent Pengaduan Table -->
                 <div class="recent-card">
                     <div class="recent-header">
-                        <h3>DAFTAR PENGADUAN MENUNGGU VERIFIKASI</h3>
+                        <h3>DAFTAR PENGADUAN MASYARAKAT</h3>
                         <a href="verifikasi.html" class="view-all">Lihat Semua →</a>
                     </div>
                     <div class="table-responsive">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th style="width:40px;"><input type="checkbox" style="cursor:pointer;"></th>
-                                    <th>NO</th>
+                                    <th style="width:60px;">NO</th>
                                     <th>JUDUL PENGADUAN</th>
                                     <th>KATEGORI</th>
                                     <th>LOKASI</th>
-                                    <th>TANGGAL</th>
-                                    <th>AKSI</th>
+                                    <th>STATUS</th>
+                                    <th style="width:120px;">TANGGAL</th>
                                 </tr>
                             </thead>
                             <tbody id="recentTableBody">
                                 <tr>
-                                    <td colspan="7" style="text-align:center;padding:40px;color:#94a3b8;">Memuat data...</td>
+                                    <td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">Memuat data...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -262,4 +269,3 @@
     <script src="../../js/admin-dashboard.js"></script>
 </body>
 </html>
-

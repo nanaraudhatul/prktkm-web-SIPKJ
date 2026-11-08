@@ -1,8 +1,123 @@
 /* ========================================
-   PROFILE PAGE STYLES
+   SIDEBAR TOGGLE - DESKTOP & MOBILE
    ======================================== */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
 
-/* ===== TOPBAR USER PROFILE - ICON ===== */
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: linear-gradient(180deg, #1a2744 0%, #1e3a6e 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    transition: transform 0.3s ease, width 0.3s ease;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+    transition: margin-left 0.3s ease;
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 12px;
+    color: #64748b;
+    display: flex; /* Selalu muncul */
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.menu-toggle:hover {
+    background: #f1f5f9;
+    color: #1e3a5f;
+}
+
+.menu-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Page Title di Header */
+.page-title-header {
+    display: flex;
+    align-items: center;
+}
+
+.page-title-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Overlay untuk mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+}
+
+/* State: Sidebar tertutup (Desktop) */
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.main-content.expanded {
+    margin-left: 0;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar-overlay.show {
+        display: block;
+    }
+    
+    .page-title-header h1 {
+        font-size: 16px;
+    }
+}
+
+/* ========================================
+   SISANYA TETAP (CSS LAMA)
+   ======================================== */
 .user-profile {
     display: flex;
     align-items: center;
@@ -53,7 +168,6 @@
     margin-top: 2px;
 }
 
-/* ===== PROFILE HEADER CARD ===== */
 .profile-header-card {
     background: white;
     border-radius: 16px;
@@ -94,7 +208,6 @@
     color: #64748b;
 }
 
-/* ===== VIEW PROFILE ===== */
 .profile-content-card {
     background: white;
     border-radius: 16px;
@@ -128,13 +241,6 @@
     margin: 0 auto 16px;
     border: 4px solid white;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.profile-avatar-large img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
 }
 
 .profile-display-name {
@@ -192,7 +298,6 @@
     background: #f8fafc;
 }
 
-/* Profile Right Section */
 .profile-right {
     padding-left: 8px;
 }
@@ -298,7 +403,6 @@
     color: #64748b;
 }
 
-/* ===== EDIT PROFILE ===== */
 .edit-form-card {
     background: white;
     border-radius: 16px;
@@ -467,7 +571,6 @@
     cursor: not-allowed;
 }
 
-/* Message Box */
 .message-box {
     padding: 12px 16px;
     border-radius: 8px;
@@ -492,23 +595,19 @@
     color: #dc2626;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
     .profile-content-card {
         grid-template-columns: 1fr;
     }
-    
     .profile-left {
         border-right: none;
         border-bottom: 1px solid #e2e8f0;
         padding-right: 0;
         padding-bottom: 24px;
     }
-    
     .profile-right {
         padding-left: 0;
     }
-    
     .info-grid {
         grid-template-columns: 1fr;
     }
@@ -519,15 +618,12 @@
     .edit-form-card {
         padding: 20px;
     }
-    
     .form-row-edit {
         grid-template-columns: 1fr;
     }
-    
     .form-actions-edit {
         flex-direction: column;
     }
-    
     .btn-cancel-edit,
     .btn-save-edit {
         width: 100%;

@@ -1,5 +1,102 @@
 /* ========================================
-   ADMIN PENGGUNA - STYLES
+   ANIMASI SIDEBAR & HAMBURGER (SAMA PERSIS DASHBOARD)
+   ======================================== */
+
+/* Sidebar dengan transisi halus */
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: linear-gradient(180deg, #1a2744 0%, #1e3a6e 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Main content dengan transisi halus */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+/* Tombol hamburger selalu muncul */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 12px;
+    color: #64748b;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.menu-toggle:hover {
+    background: #f1f5f9;
+    color: #1e3a5f;
+}
+
+.menu-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Overlay gelap untuk mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+    transition: opacity 0.3s ease;
+}
+
+/* STATE DESKTOP: Sidebar tertutup */
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.main-content.expanded {
+    margin-left: 0;
+}
+
+/* STATE MOBILE (≤ 768px) */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar-overlay.show {
+        display: block;
+    }
+}
+
+/* ========================================
+   ADMIN PENGGUNA - STYLES (SISA KODE LAMA)
    ======================================== */
 
 /* Page Header Card */
@@ -62,10 +159,7 @@
     font-weight: 600;
 }
 
-/* ========================================
-   STATS GRID 4 CARD - RAPI & COMPACT
-   ======================================== */
-
+/* Stats Grid 4 Card */
 .stats-grid-4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -122,18 +216,11 @@
 .stat-icon.orange { background: #fff7ed; color: #f59e0b; }
 .stat-icon.purple { background: #f5f3ff; color: #8b5cf6; }
 
-/* Sembunyikan bagian bottom stats */
-.stat-card-bottom,
-.stat-change,
-.status-text.positive,
-.status-text.negative {
+.stat-card-bottom, .stat-change, .status-text.positive, .status-text.negative {
     display: none !important;
 }
 
-/* ========================================
-   TABLE CARD
-   ======================================== */
-
+/* Table Card */
 .table-card {
     background: white;
     border-radius: 12px;
@@ -169,9 +256,7 @@
     font-family: inherit;
 }
 
-.btn-add:hover {
-    background: #0f172a;
-}
+.btn-add:hover { background: #0f172a; }
 
 .toolbar-filters {
     display: flex;
@@ -250,10 +335,7 @@
     color: #1e3a5f;
 }
 
-/* Table */
-.table-responsive {
-    overflow-x: auto;
-}
+.table-responsive { overflow-x: auto; }
 
 .data-table {
     width: 100%;
@@ -279,15 +361,9 @@
     vertical-align: middle;
 }
 
-.data-table tbody tr:hover {
-    background: #f8fafc;
-}
+.data-table tbody tr:hover { background: #f8fafc; }
+.data-table tbody tr:last-child td { border-bottom: none; }
 
-.data-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* Role Badge */
 .role-badge {
     display: inline-flex;
     padding: 4px 12px;
@@ -300,7 +376,6 @@
 .role-badge.petugas { background: #fef3c7; color: #92400e; }
 .role-badge.admin { background: #f3e8ff; color: #7e22ce; }
 
-/* Status Badge */
 .status-badge-user {
     display: inline-flex;
     padding: 4px 12px;
@@ -312,11 +387,7 @@
 .status-badge-user.aktif { background: #d1fae5; color: #065f46; }
 .status-badge-user.nonaktif { background: #fee2e2; color: #991b1b; }
 
-/* Action Buttons */
-.action-buttons {
-    display: flex;
-    gap: 6px;
-}
+.action-buttons { display: flex; gap: 6px; }
 
 .btn-edit, .btn-delete {
     width: 32px;
@@ -330,27 +401,12 @@
     transition: all 0.2s;
 }
 
-.btn-edit {
-    background: #eff6ff;
-    color: #1e3a5f;
-}
+.btn-edit { background: #eff6ff; color: #1e3a5f; }
+.btn-edit:hover { background: #1e3a5f; color: white; }
 
-.btn-edit:hover {
-    background: #1e3a5f;
-    color: white;
-}
+.btn-delete { background: #fee2e2; color: #dc2626; }
+.btn-delete:hover { background: #dc2626; color: white; }
 
-.btn-delete {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-.btn-delete:hover {
-    background: #dc2626;
-    color: white;
-}
-
-/* Pagination */
 .table-pagination {
     padding: 16px 24px;
     border-top: 1px solid #e2e8f0;
@@ -372,21 +428,10 @@
     transition: all 0.2s;
 }
 
-.pagination-btn:hover {
-    border-color: #1e3a5f;
-    color: #1e3a5f;
-}
+.pagination-btn:hover { border-color: #1e3a5f; color: #1e3a5f; }
+.pagination-btn.active { background: #1e3a5f; color: white; border-color: #1e3a5f; }
 
-.pagination-btn.active {
-    background: #1e3a5f;
-    color: white;
-    border-color: #1e3a5f;
-}
-
-/* ========================================
-   MODAL
-   ======================================== */
-
+/* Modal */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -402,9 +447,7 @@
     overflow-y: auto;
 }
 
-.modal-overlay.show {
-    display: flex;
-}
+.modal-overlay.show { display: flex; }
 
 .modal-content {
     background: white;
@@ -416,19 +459,11 @@
     animation: modalSlideIn 0.3s ease;
 }
 
-.modal-medium {
-    max-width: 600px;
-}
+.modal-medium { max-width: 600px; }
 
 @keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .modal-header {
@@ -443,11 +478,7 @@
     z-index: 10;
 }
 
-.modal-header h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0;
-}
+.modal-header h2 { font-size: 20px; font-weight: 700; margin: 0; }
 
 .modal-close {
     background: none;
@@ -462,14 +493,9 @@
     transition: all 0.2s;
 }
 
-.modal-close:hover {
-    background: #f1f5f9;
-    color: #1e293b;
-}
+.modal-close:hover { background: #f1f5f9; color: #1e293b; }
 
-.modal-body {
-    padding: 24px;
-}
+.modal-body { padding: 24px; }
 
 .modal-footer {
     padding: 20px 24px;
@@ -482,7 +508,6 @@
     background: white;
 }
 
-/* Form */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -490,9 +515,7 @@
     margin-bottom: 16px;
 }
 
-.form-group {
-    margin-bottom: 16px;
-}
+.form-group { margin-bottom: 16px; }
 
 .form-group label {
     display: block;
@@ -502,9 +525,7 @@
     margin-bottom: 8px;
 }
 
-.form-group label .required {
-    color: #dc2626;
-}
+.form-group label .required { color: #dc2626; }
 
 .form-input {
     width: 100%;
@@ -538,17 +559,8 @@
     margin-bottom: 16px;
 }
 
-.message-box.success {
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    color: #059669;
-}
-
-.message-box.error {
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #dc2626;
-}
+.message-box.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #059669; }
+.message-box.error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
 
 .btn-cancel {
     padding: 12px 24px;
@@ -563,9 +575,7 @@
     font-family: inherit;
 }
 
-.btn-cancel:hover {
-    border-color: #64748b;
-}
+.btn-cancel:hover { border-color: #64748b; }
 
 .btn-save {
     padding: 12px 24px;
@@ -583,32 +593,17 @@
     gap: 8px;
 }
 
-.btn-save:hover {
-    background: #0f172a;
-}
+.btn-save:hover { background: #0f172a; }
 
 /* Responsive */
 @media (max-width: 1024px) {
-    .stats-grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .stats-grid-4 { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .stats-grid-4 {
-        grid-template-columns: 1fr;
-    }
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    .table-toolbar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .toolbar-filters {
-        flex-direction: column;
-    }
-    .search-box {
-        min-width: 100%;
-    }
+    .stats-grid-4 { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .table-toolbar { flex-direction: column; align-items: stretch; }
+    .toolbar-filters { flex-direction: column; }
+    .search-box { min-width: 100%; }
 }

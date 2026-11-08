@@ -7,8 +7,48 @@ if (typeof Auth !== 'undefined' && Auth.protectPage) {
     Auth.protectPage();
 }
 
+// ========================================
+// SIDEBAR TOGGLE - DESKTOP & MOBILE
+// ========================================
 function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('open');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mode mobile: gunakan class 'open'
+        sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('show');
+    } else {
+        // Mode desktop: gunakan class 'closed'
+        sidebar.classList.toggle('closed');
+        if (mainContent) mainContent.classList.toggle('expanded');
+    }
+}
+
+// Tutup sidebar ketika klik di luar (mobile)
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && sidebar && sidebar.classList.contains('open')) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+});
+
+function handleLogout() {
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+        localStorage.removeItem('sipkj_token');
+        localStorage.removeItem('sipkj_user');
+        localStorage.removeItem('sipkj_role');
+        window.location.href = '../auth/login.html';
+    }
 }
 
 // Update character counter
@@ -116,7 +156,7 @@ if (pengaduanForm) {
         e.preventDefault();
 
         if (!selectedFile) {
-            alert(' Wajib mengunggah minimal 1 foto bukti kerusakan!');
+            alert('⚠️ Wajib mengunggah minimal 1 foto bukti kerusakan!');
             return;
         }
 
@@ -134,7 +174,7 @@ if (pengaduanForm) {
         formData.append('maps_link', document.getElementById('maps_link').value.trim());
         formData.append('foto', selectedFile);
 
-        console.log(' Mengirim data pengaduan...');
+        console.log('📤 Mengirim data pengaduan...');
 
         try {
             const token = localStorage.getItem('sipkj_token');
@@ -181,7 +221,19 @@ if (pengaduanForm) {
     });
 }
 
-// Init
+// Init - Update user info
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(' Halaman Buat Pengaduan siap');
+    console.log('📝 Halaman Buat Pengaduan siap');
+    
+    // Update user name
+    const userData = localStorage.getItem('sipkj_user');
+    if (userData) {
+        try {
+            const user = JSON.parse(userData);
+            const nameEl = document.getElementById('userName');
+            if (nameEl) nameEl.textContent = user.username || 'User';
+        } catch (e) {
+            console.error('Error parsing user data:', e);
+        }
+    }
 });

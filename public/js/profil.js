@@ -7,10 +7,40 @@ if (typeof Auth !== 'undefined' && Auth.protectPage) {
     Auth.protectPage();
 }
 
+// ========================================
+// SIDEBAR TOGGLE - DESKTOP & MOBILE
+// ========================================
 function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) sidebar.classList.toggle('open');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mode mobile: gunakan class 'open'
+        sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('show');
+    } else {
+        // Mode desktop: gunakan class 'closed'
+        sidebar.classList.toggle('closed');
+        if (mainContent) mainContent.classList.toggle('expanded');
+    }
 }
+
+// Tutup sidebar ketika klik di luar (mobile)
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && sidebar && sidebar.classList.contains('open')) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+});
 
 let currentUser = null;
 
@@ -29,7 +59,7 @@ function updateTopbarFromStorage() {
             
             console.log('✅ Topbar updated instantly from localStorage');
         } catch (e) {
-            console.error(' Error parsing localStorage user:', e);
+            console.error('❌ Error parsing localStorage user:', e);
         }
     }
 }
@@ -262,6 +292,6 @@ if (editForm) {
 
 // Init
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(' DOM loaded, starting profile load...');
+    console.log('🟢 DOM loaded, starting profile load...');
     loadProfile();
 });

@@ -10,7 +10,8 @@
 </head>
 <body>
     <div class="dashboard-layout">
-        <aside class="sidebar">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
                 <div class="sidebar-logo-container">
                     <div class="sidebar-logo-box">
@@ -69,22 +70,36 @@
             </div>
         </aside>
 
-        <main class="main-content">
+        <!-- Overlay untuk mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
             <header class="topbar">
                 <div class="topbar-left">
-                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <!-- TOMBOL HAMBURGER MENU -->
+                    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                    <!-- TULISAN JUDUL HALAMAN -->
+                    <div class="page-title-header">
+                        <h1>Profil</h1>
+                    </div>
                 </div>
                 <div class="topbar-right">
                     <div class="user-profile" onclick="window.location.href='profil.html'">
                         <div class="user-avatar">
-                            <!-- IKON PROFIL (orang) -->
                             <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                                 <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
                         </div>
                         <div class="user-info">
-                            <div class="user-name">Loading...</div>
+                            <div class="user-name" id="userName">Loading...</div>
                             <div class="user-role">Masyarakat</div>
                         </div>
                     </div>
@@ -158,19 +173,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="verification-card">
-                                <div class="verification-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                        <path d="M9 12l2 2 4-4"/>
-                                    </svg>
-                                </div>
-                                <div class="verification-text">
-                                    <h4>Akun Terverifikasi</h4>
-                                    <p>Akun Anda sudah terverifikasi dengan aman di sistem SIPKJ.</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -184,8 +186,8 @@
                             </svg>
                         </div>
                         <div class="profile-header-text">
-                            <h1>Profil Pengguna</h1>
-                            <p>Kelola data diri, kontak, dan pengaturan peran akun SIPKJ Anda</p>
+                            <h1>Edit Profil</h1>
+                            <p>Perbarui data diri, kontak, dan informasi akun SIPKJ Anda</p>
                         </div>
                     </div>
 

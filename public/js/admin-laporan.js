@@ -28,18 +28,49 @@ const KECAMATAN_LIST = [
     'Ternate Selatan',
     'Ternate Barat',
     'Pulau Ternate',
-    'Moti',
-    'Batang 2',
-    'Hiri'
 ];
 
 // ========================================
 // UTILITY FUNCTIONS
 // ========================================
 
+// ========================================
+// FUNGSI TOGGLE SIDEBAR (ANIMASI SAMA DENGAN DASHBOARD)
+// ========================================
 function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('open');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    // Cek apakah lebar layar mobile atau desktop
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mode mobile: toggle class 'open' (munculkan sidebar + overlay)
+        sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('show');
+    } else {
+        // Mode desktop: toggle class 'closed' (sembunyikan sidebar + lebarkan konten)
+        sidebar.classList.toggle('closed');
+        if (mainContent) mainContent.classList.toggle('expanded');
+    }
 }
+
+// Tutup sidebar ketika klik di luar area sidebar (khusus mobile)
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && sidebar && sidebar.classList.contains('open')) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+});
+
 
 function handleLogout() {
     if (confirm('Apakah Anda yakin ingin keluar?')) {

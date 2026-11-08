@@ -13,15 +13,48 @@
     
     if (role === 'admin') {
         window.location.href = '../admin/dashboard.html';
+    } else if (role === 'petugas') {
+        window.location.href = '../petugas/dashboard.html';
     }
 })();
 
 let allPengaduan = [];
 let filteredPengaduan = [];
 
+// ========================================
+// SIDEBAR TOGGLE - BEKERJA DI SEMUA UKURAN LAYAR
+// ========================================
 function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('open');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mode mobile: gunakan class 'open'
+        sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('show');
+    } else {
+        // Mode desktop: gunakan class 'closed'
+        sidebar.classList.toggle('closed');
+        if (mainContent) mainContent.classList.toggle('expanded');
+    }
 }
+
+// Tutup sidebar ketika klik di luar (mobile)
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && sidebar && sidebar.classList.contains('open')) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+});
 
 function handleLogout() {
     if (confirm('Apakah Anda yakin ingin keluar?')) {
@@ -55,7 +88,6 @@ function formatDate(dateString) {
 // ========================================
 // LOAD DATA
 // ========================================
-
 async function loadPengaduan() {
     try {
         const token = localStorage.getItem('sipkj_token');
@@ -72,9 +104,7 @@ async function loadPengaduan() {
 
         if (result.success && result.data && Array.isArray(result.data)) {
             allPengaduan = result.data;
-            console.log('✅ Total data loaded:', allPengaduan.length);
         } else {
-            console.warn('⚠️ Data kosong');
             allPengaduan = [];
         }
         
@@ -87,7 +117,6 @@ async function loadPengaduan() {
 // ========================================
 // FILTER FUNCTIONS
 // ========================================
-
 function getFilterValues() {
     const searchInput = document.getElementById('searchInput');
     const kategoriSelect = document.getElementById('filterKategori');
@@ -102,34 +131,22 @@ function getFilterValues() {
 
 function applyFilters() {
     const filters = getFilterValues();
-    console.log(' Filter aktif:', filters);
-    
-    // Debug: Log semua data
-    console.log(' Semua data:', allPengaduan);
     
     filteredPengaduan = allPengaduan.filter(item => {
-        // Handle status yang mungkin kosong atau undefined
         const itemStatus = ((item.status || item.status_label || '') + '').toLowerCase().trim();
         const itemKategori = ((item.kategori || item.kategori_key || '') + '').toLowerCase().trim();
         const itemJudul = (item.judul || '').toLowerCase();
         const itemLokasi = (item.lokasi || '').toLowerCase();
         const itemDeskripsi = (item.deskripsi || '').toLowerCase();
         
-        console.log(`\n📋 Cek: "${item.judul}"`);
-        console.log('   Status:', itemStatus || '(kosong)');
-        console.log('   Kategori:', itemKategori || '(kosong)');
-        
-        // Filter search
         const matchSearch = !filters.search || 
             itemJudul.includes(filters.search) ||
             itemKategori.includes(filters.search) ||
             itemLokasi.includes(filters.search) ||
             itemDeskripsi.includes(filters.search);
         
-        // Filter kategori
         const matchKategori = !filters.kategori || (itemKategori === filters.kategori);
         
-        // Filter status - lebih fleksibel
         let matchStatus = true;
         if (filters.status && itemStatus) {
             const filterStatus = filters.status.toLowerCase().trim();
@@ -146,16 +163,11 @@ function applyFilters() {
                 matchStatus = (itemStatus === filterStatus);
             }
         } else if (filters.status && !itemStatus) {
-            // Jika filter ada tapi status kosong, tidak match
             matchStatus = false;
         }
         
-        console.log('   Match:', matchSearch && matchKategori && matchStatus);
-        
         return matchSearch && matchKategori && matchStatus;
     });
-    
-    console.log('\n📊 Hasil:', filteredPengaduan.length, 'dari', allPengaduan.length);
     
     updateStats();
     renderTable();
@@ -164,7 +176,6 @@ function applyFilters() {
 // ========================================
 // UPDATE STATS
 // ========================================
-
 function updateStats() {
     const total = filteredPengaduan.length;
     const diajukan = filteredPengaduan.filter(p => p.status === 'diajukan' || p.status === 'baru').length;
@@ -187,7 +198,6 @@ function updateStats() {
 // ========================================
 // RENDER TABLE
 // ========================================
-
 function renderTable() {
     const tbody = document.getElementById('pengaduanTableBody');
     if (!tbody) return;
@@ -243,7 +253,6 @@ function viewDetail(id) {
 // ========================================
 // INIT
 // ========================================
-
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🏠 Masyarakat Dashboard loaded');
     updateUserInfo();

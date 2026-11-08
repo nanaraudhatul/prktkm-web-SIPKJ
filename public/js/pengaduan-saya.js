@@ -6,15 +6,45 @@
 (function() {
     const token = localStorage.getItem('sipkj_token');
     if (!token) {
-        console.warn('️ No token, redirecting to login');
+        console.warn('⚠️ No token, redirecting to login');
         window.location.href = '../auth/login.html';
     }
 })();
 
-// Toggle sidebar
+// ========================================
+// SIDEBAR TOGGLE - DESKTOP & MOBILE
+// ========================================
 function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('open');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mode mobile: gunakan class 'open'
+        sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('show');
+    } else {
+        // Mode desktop: gunakan class 'closed'
+        sidebar.classList.toggle('closed');
+        if (mainContent) mainContent.classList.toggle('expanded');
+    }
 }
+
+// Tutup sidebar ketika klik di luar (mobile)
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && sidebar && sidebar.classList.contains('open')) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+});
 
 // Logout
 function handleLogout() {
@@ -88,21 +118,18 @@ async function loadPengaduanSaya() {
             }
 
             result.data.forEach(item => {
-                // Dapatkan status - jika kosong gunakan 'diajukan'
                 const status = item.status || 'diajukan';
                 
-                // Mapping status dengan inline style
                 const statusConfig = {
-                    'diajukan': { text: 'Diajukan', color: '#1e3a5f', bg: '#1e3a5f' },
-                    'baru': { text: 'Diajukan', color: '#1e3a5f', bg: '#1e3a5f' },
-                    'verifikasi': { text: 'Verifikasi', color: '#d97706', bg: '#d97706' },
-                    'proses': { text: 'Proses', color: '#d97706', bg: '#d97706' },
-                    'selesai': { text: 'Selesai', color: '#059669', bg: '#059669' },
-                    'ditolak': { text: 'Ditolak', color: '#dc2626', bg: '#dc2626' }
+                    'diajukan': { text: 'Diajukan', bg: '#1e3a5f' },
+                    'baru': { text: 'Diajukan', bg: '#1e3a5f' },
+                    'verifikasi': { text: 'Verifikasi', bg: '#d97706' },
+                    'proses': { text: 'Proses', bg: '#d97706' },
+                    'selesai': { text: 'Selesai', bg: '#059669' },
+                    'ditolak': { text: 'Ditolak', bg: '#dc2626' }
                 };
                 
                 const config = statusConfig[status] || statusConfig['diajukan'];
-                
                 const tanggal = formatDate(item.tanggal || item.created_at);
 
                 const row = document.createElement('tr');
@@ -116,15 +143,14 @@ async function loadPengaduanSaya() {
                     </td>
                     <td style="padding:18px 20px;">${tanggal}</td>
                     <td style="padding:18px 20px;">
-                    <button onclick="window.location.href='detail-pengaduan.html?id=${item.id}'" 
-                            class="action-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                        Lihat Detail
-                    </button>
-                </td>
+                        <button onclick="window.location.href='detail-pengaduan.html?id=${item.id}'" class="action-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            Lihat Detail
+                        </button>
+                    </td>
                 `;
                 tbody.appendChild(row);
             });
@@ -144,7 +170,7 @@ async function loadPengaduanSaya() {
             `;
         }
     } catch (error) {
-        console.error(' Error loading pengaduan:', error);
+        console.error('❌ Error loading pengaduan:', error);
         tbody.innerHTML = `
             <tr>
                 <td colspan="5">

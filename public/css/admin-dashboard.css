@@ -1,7 +1,6 @@
 /* ========================================
    ADMIN DASHBOARD STYLES - NAVY THEME
    ======================================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -42,58 +41,86 @@ body {
     min-height: 100vh;
 }
 
-/* ========================================
-   SIDEBAR (SAMA PERSIS DENGAN VERIFIKASI)
-   ======================================== */
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: linear-gradient(180deg, #1a2744 0%, #1e3a6e 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
 .sidebar-logo-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
-.sidebar-logo-icon {
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
+.sidebar-logo-box {
+    width: 70px;
+    height: 70px;
+    background: #ffffff;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    padding: 8px;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-.sidebar-logo-icon svg {
+.sidebar-logo-box img {
     width: 100%;
     height: 100%;
-    fill: white;
+    object-fit: contain;
 }
 
 .sidebar-brand h2 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 800;
     letter-spacing: 1px;
     color: white;
-    margin: 0;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
 }
 
 .sidebar-brand p {
     font-size: 11px;
     color: rgba(255, 255, 255, 0.7);
     margin: 0;
+    line-height: 1.3;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 20px 12px;
+    overflow-y: auto;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     padding: 14px 18px;
-    border-radius: var(--radius-sm);
+    border-radius: 10px;
     color: rgba(255,255,255,0.7);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.2s;
     margin-bottom: 4px;
     text-decoration: none;
 }
@@ -109,9 +136,16 @@ body {
     font-weight: 600;
 }
 
+.nav-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
 .sidebar-footer {
     padding: 16px;
     border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
 }
 
 .logout-btn {
@@ -119,12 +153,12 @@ body {
     align-items: center;
     gap: 12px;
     padding: 14px 18px;
-    border-radius: var(--radius-sm);
+    border-radius: 10px;
     color: rgba(255,255,255,0.7);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.2s;
     background: none;
     border: none;
     width: 100%;
@@ -137,6 +171,11 @@ body {
     color: #ef4444;
 }
 
+.logout-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
 /* Main Content */
 .main-content {
     flex: 1;
@@ -144,6 +183,32 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+/* ===== MENU TOGGLE (SELALU MUNCUL) ===== */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.menu-toggle:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+}
+
+.menu-toggle svg {
+    width: 24px;
+    height: 24px;
 }
 
 .topbar {
@@ -162,15 +227,6 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
-}
-
-.menu-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-secondary);
-    font-size: 24px;
-    display: none;
 }
 
 .topbar-left h1 {
@@ -210,7 +266,7 @@ body {
     flex: 1;
 }
 
-/* Page Header - Navy Background */
+/* Page Header */
 .page-header {
     background: var(--primary);
     border-radius: var(--radius);
@@ -254,14 +310,12 @@ body {
     font-weight: 800;
     color: white;
     margin: 0 0 6px 0;
-    letter-spacing: -0.02em;
 }
 
 .page-header-content p {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.8);
     margin: 0;
-    line-height: 1.4;
 }
 
 .page-header-date {
@@ -460,7 +514,6 @@ body {
     text-decoration: underline;
 }
 
-/* Table */
 .table-responsive {
     overflow-x: auto;
 }
@@ -471,7 +524,7 @@ body {
 }
 
 .data-table thead th {
-    padding: 12px 16px;
+    padding: 14px 20px;
     text-align: left;
     font-size: 12px;
     font-weight: 700;
@@ -482,9 +535,10 @@ body {
 }
 
 .data-table tbody td {
-    padding: 16px;
+    padding: 18px 20px;
     font-size: 14px;
     border-bottom: 1px solid var(--border);
+    vertical-align: middle;
 }
 
 .data-table tbody tr:hover {
@@ -499,10 +553,11 @@ body {
 .status-badge {
     display: inline-flex;
     align-items: center;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .status-badge.menunggu { background: #fef3c7; color: #d97706; }
@@ -521,20 +576,57 @@ body {
     margin-top: auto;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+/* ========================================
+   SIDEBAR TOGGLE STATES & RESPONSIVE
+   ======================================== */
+
+/* Overlay untuk mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
 }
 
+/* Desktop: Sidebar tertutup */
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.main-content.expanded {
+    margin-left: 0;
+}
+
+/* Mobile (≤ 768px) */
 @media (max-width: 768px) {
-    .sidebar { transform: translateX(-100%); }
-    .sidebar.open { transform: translateX(0); }
-    .main-content { margin-left: 0; }
-    .menu-toggle { display: block; }
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar-overlay.show {
+        display: block;
+    }
+    
     .stats-grid { grid-template-columns: 1fr; }
     .page-content { padding: 16px; }
-    .filter-bar { flex-direction: column; }
+    .filter-bar { flex-direction: column; align-items: stretch; }
     .search-box, .filter-select, .btn-refresh { width: 100%; }
     .page-header { flex-direction: column; align-items: flex-start; }
     .page-header-date { align-self: flex-end; }
+}
+
+@media (max-width: 1200px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }

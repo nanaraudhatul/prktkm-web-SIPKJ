@@ -22,7 +22,7 @@ let allPengaduan = [];
 let filteredPengaduan = [];
 
 // ========================================
-// SIDEBAR TOGGLE - BEKERJA DI SEMUA UKURAN LAYAR
+// SIDEBAR TOGGLE
 // ========================================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -31,17 +31,14 @@ function toggleSidebar() {
     const isMobile = window.innerWidth <= 768;
     
     if (isMobile) {
-        // Mode mobile: gunakan class 'open'
         sidebar.classList.toggle('open');
         if (overlay) overlay.classList.toggle('show');
     } else {
-        // Mode desktop: gunakan class 'closed'
         sidebar.classList.toggle('closed');
         if (mainContent) mainContent.classList.toggle('expanded');
     }
 }
 
-// Tutup sidebar ketika klik di luar (mobile)
 document.addEventListener('click', function(e) {
     const sidebar = document.getElementById('sidebar');
     const menuToggle = document.querySelector('.menu-toggle');
@@ -103,11 +100,15 @@ async function loadPengaduan() {
         console.log('📊 Pengaduan list:', result);
 
         if (result.success && result.data && Array.isArray(result.data)) {
-            allPengaduan = result.data;
+            // ✅ URUTKAN DATA: Terbaru di atas (descending by created_at)
+            allPengaduan = result.data.sort((a, b) => {
+                const dateA = new Date(a.created_at || 0);
+                const dateB = new Date(b.created_at || 0);
+                return dateB - dateA; // Terbaru pertama
+            });
         } else {
             allPengaduan = [];
         }
-        
         applyFilters();
     } catch (error) {
         console.error('❌ Error loading data:', error);
@@ -115,15 +116,15 @@ async function loadPengaduan() {
 }
 
 // ========================================
-// FILTER FUNCTIONS
+// FILTER FUNCTIONS - PENCARIAN UNIVERSAL
 // ========================================
 function getFilterValues() {
-    const searchInput = document.getElementById('searchInput');
+    const searchUniversal = document.getElementById('searchUniversal');
     const kategoriSelect = document.getElementById('filterKategori');
     const statusSelect = document.getElementById('filterStatus');
     
     return {
-        search: searchInput ? searchInput.value.toLowerCase().trim() : '',
+        search: searchUniversal ? searchUniversal.value.toLowerCase().trim() : '',
         kategori: kategoriSelect ? kategoriSelect.value.toLowerCase().trim() : '',
         status: statusSelect ? statusSelect.value.toLowerCase().trim() : ''
     };
@@ -132,25 +133,52 @@ function getFilterValues() {
 function applyFilters() {
     const filters = getFilterValues();
     
-    filteredPengaduan = allPengaduan.filter(item => {
+    filteredPengaduan = allPengaduan.filter((item, index) => {
         const itemStatus = ((item.status || item.status_label || '') + '').toLowerCase().trim();
         const itemKategori = ((item.kategori || item.kategori_key || '') + '').toLowerCase().trim();
         const itemJudul = (item.judul || '').toLowerCase();
         const itemLokasi = (item.lokasi || '').toLowerCase();
         const itemDeskripsi = (item.deskripsi || '').toLowerCase();
         
-        const matchSearch = !filters.search || 
-            itemJudul.includes(filters.search) ||
-            itemKategori.includes(filters.search) ||
-            itemLokasi.includes(filters.search) ||
-            itemDeskripsi.includes(filters.search);
+        // Ambil ID dan format tanggal
+        const itemId = (item.id || (index + 1)).toString();
         
+        // Format tanggal dalam berbagai format untuk pencarian
+        let itemTanggalRaw = '';
+        let itemTanggalFormatted = '';
+        let itemTanggalMonth = '';
+        
+        if (item.created_at) {
+            const dateObj = new Date(item.created_at);
+            itemTanggalRaw = item.created_at.split('T')[0]; // YYYY-MM-DD
+            itemTanggalFormatted = formatDate(item.created_at).toLowerCase(); // 29 okt 2026
+            
+            // Ambil nama bulan untuk pencarian
+            const bulanIndonesia = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
+            itemTanggalMonth = bulanIndonesia[dateObj.getMonth()];
+        }
+        
+        // Pencarian Universal - cek di SEMUA field
+        const searchTerm = filters.search;
+        const matchSearch = !searchTerm || 
+            itemId.includes(searchTerm) ||                        // Cari di No/ID (2, 3, dll)
+            itemJudul.includes(searchTerm) ||                     // Cari di Judul (lampu, jalan, rusak)
+            itemKategori.includes(searchTerm) ||                  // Cari di Kategori (fasilitas, permukaan)
+            itemLokasi.includes(searchTerm) ||                    // Cari di Lokasi
+            itemDeskripsi.includes(searchTerm) ||                 // Cari di Deskripsi
+            itemTanggalRaw.includes(searchTerm) ||                // Cari di Tanggal (2026-10-29)
+            itemTanggalFormatted.includes(searchTerm) ||          // Cari di Tanggal (29 okt 2026)
+            itemTanggalMonth.includes(searchTerm) ||              // Cari di Bulan (okt, okt 2026)
+            searchTerm === '2026' ||                              // Cari tahun
+            searchTerm === 'okt' || searchTerm === 'oktober';     // Cari bulan
+        
+        // Filter Kategori
         const matchKategori = !filters.kategori || (itemKategori === filters.kategori);
         
+        // Filter Status
         let matchStatus = true;
         if (filters.status && itemStatus) {
             const filterStatus = filters.status.toLowerCase().trim();
-            
             if (filterStatus === 'diajukan') {
                 matchStatus = (itemStatus === 'diajukan' || itemStatus === 'baru');
             } else if (filterStatus === 'proses') {
@@ -205,11 +233,11 @@ function renderTable() {
     tbody.innerHTML = '';
 
     if (filteredPengaduan.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#94a3b8;">Tidak ada pengaduan yang cocok dengan filter</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">Tidak ada pengaduan yang cocok dengan filter</td></tr>';
         return;
     }
 
-    filteredPengaduan.forEach(item => {
+    filteredPengaduan.forEach((item, index) => {
         const statusConfig = {
             'diajukan': { text: 'Diajukan', bg: '#1e3a5f' },
             'baru': { text: 'Diajukan', bg: '#1e3a5f' },
@@ -221,9 +249,11 @@ function renderTable() {
         
         const statusInfo = statusConfig[item.status] || statusConfig['diajukan'];
         const tanggal = formatDate(item.created_at);
+        const noUrut = item.id || (index + 1);
 
         const row = document.createElement('tr');
         row.innerHTML = `
+            <td style="padding:16px; text-align: center; font-weight: 600;">${noUrut}</td>
             <td style="padding:16px;"><strong>${item.judul || '-'}</strong></td>
             <td style="padding:16px;">${item.kategori || '-'}</td>
             <td style="padding:16px;">
@@ -233,12 +263,12 @@ function renderTable() {
             </td>
             <td style="padding:16px;">${tanggal}</td>
             <td style="padding:16px;">
-                <button onclick="viewDetail(${item.id})" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#1e3a5f;color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">
+                <button onclick="window.location.href='detail-pengaduan.html?id=${item.id}'" class="action-btn">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
-                    Lihat Detail
+                    Detail
                 </button>
             </td>
         `;
@@ -246,30 +276,28 @@ function renderTable() {
     });
 }
 
-function viewDetail(id) {
-    window.location.href = 'detail-pengaduan.html?id=' + id;
-}
-
 // ========================================
-// INIT
+// INIT & EVENT LISTENERS
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🏠 Masyarakat Dashboard loaded');
     updateUserInfo();
     loadPengaduan();
     
-    const searchInput = document.getElementById('searchInput');
+    const searchUniversal = document.getElementById('searchUniversal');
     const kategoriSelect = document.getElementById('filterKategori');
     const statusSelect = document.getElementById('filterStatus');
     
-    if (searchInput) {
+    // Search Universal dengan debounce
+    if (searchUniversal) {
         let searchTimeout;
-        searchInput.addEventListener('input', () => {
+        searchUniversal.addEventListener('input', () => {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(applyFilters, 300);
         });
     }
     
+    // Filter Dropdowns
     if (kategoriSelect) kategoriSelect.addEventListener('change', applyFilters);
     if (statusSelect) statusSelect.addEventListener('change', applyFilters);
 });

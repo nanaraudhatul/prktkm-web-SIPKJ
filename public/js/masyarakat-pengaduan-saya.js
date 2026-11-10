@@ -197,3 +197,69 @@ document.addEventListener('DOMContentLoaded', () => {
     updateUserInfo();
     loadPengaduanSaya();
 });
+
+// ========================================
+// MAIN CONTENT TRANSITION
+// ========================================
+
+function smoothContentTransition(targetUrl) {
+    const mainContent = document.getElementById('mainContent') || document.querySelector('.main-content');
+    
+    if (mainContent) {
+        // Tambahkan class animasi keluar ke main content
+        mainContent.classList.add('page-transition-out');
+        
+        // Tunggu animasi selesai, lalu pindah halaman
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 300); // Sesuaikan dengan durasi animasi CSS (0.3s = 300ms)
+    } else {
+        // Fallback jika main content tidak ditemukan
+        window.location.href = targetUrl;
+    }
+}
+
+// Intercept semua klik pada link navigasi
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    
+    if (link && link.tagName === 'A' && link.href) {
+        const isInternal = link.href.startsWith(window.location.origin);
+        const isHash = link.getAttribute('href').startsWith('#') || link.getAttribute('href') === '';
+        const isJavascript = link.getAttribute('href').startsWith('javascript:');
+        const isNewTab = link.getAttribute('target') === '_blank';
+        const isDownload = link.hasAttribute('download');
+        const isNoTransition = link.classList.contains('no-transition');
+        
+        // Hanya jalankan animasi untuk link internal yang valid
+        if (isInternal && !isHash && !isJavascript && !isNewTab && !isDownload && !isNoTransition) {
+            e.preventDefault();
+            smoothContentTransition(link.href);
+        }
+    }
+});
+
+// Tambahkan smooth scroll untuk anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+});
+
+// Trigger animasi stagger saat halaman dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.style.animation = 'contentFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+    }
+});

@@ -77,7 +77,6 @@
         <main class="main-content" id="mainContent">
             <header class="topbar">
                 <div class="topbar-left">
-                    <!-- TOMBOL HAMBURGER MENU (SELALU MUNCUL) -->
                     <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="3" y1="12" x2="21" y2="12"/>
@@ -85,7 +84,7 @@
                             <line x1="3" y1="18" x2="21" y2="18"/>
                         </svg>
                     </button>
-                    <div class="topbar-title">
+                    <div class="page-title-header">
                         <h1>Dashboard</h1>
                     </div>
                 </div>
@@ -213,15 +212,16 @@
                         <span class="badge-count" id="totalCounter">Total 0 Laporan Terdata</span>
                     </div>
                     <div class="card-body">
+                        <!-- SATU KOLOM PENCARIAN UNIVERSAL -->
                         <div class="filter-bar">
-                            <div class="search-box">
+                            <div class="search-box" style="flex: 1; min-width: 300px;">
                                 <span class="search-icon">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <circle cx="11" cy="11" r="8"/>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                                     </svg>
                                 </span>
-                                <input type="text" id="searchInput" placeholder="Cari pengaduan, judul, atau kategori...">
+                                <input type="text" id="searchUniversal" placeholder="Cari No, judul, kategori, lokasi, atau tanggal...">
                             </div>
                             <select class="filter-select" id="filterKategori">
                                 <option value="">Semua Kategori</option>
@@ -240,20 +240,22 @@
                                 <option value="ditolak">Ditolak</option>
                             </select>
                         </div>
+
                         <div class="table-responsive">
                             <table class="data-table">
                                 <thead>
                                     <tr>
+                                        <th style="width: 60px;">NO</th>
                                         <th>JUDUL</th>
                                         <th>KATEGORI</th>
                                         <th>STATUS</th>
                                         <th>TANGGAL</th>
-                                        <th></th>
+                                        <th>AKSI</th>
                                     </tr>
                                 </thead>
                                 <tbody id="pengaduanTableBody">
                                     <tr>
-                                        <td colspan="5" style="text-align:center;padding:40px;color:#94a3b8;">Memuat data...</td>
+                                        <td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">Memuat data...</td>
                                     </tr>
                                 </tbody>
                             </table>

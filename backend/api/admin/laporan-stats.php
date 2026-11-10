@@ -85,9 +85,6 @@ $kecamatanList = [
     'Ternate Selatan',
     'Ternate Barat',
     'Pulau Ternate',
-    'Moti',
-    'Batang 2',
-    'Hiri'
 ];
 
 // Fungsi normalisasi kecamatan
@@ -117,15 +114,6 @@ function normalizeKecamatan($lokasi, $kecamatanList) {
     if (strpos($lokasiLower, 'pulau') !== false || strpos($lokasiLower, 'ternate') !== false) {
         return 'Pulau Ternate';
     }
-    if (strpos($lokasiLower, 'moti') !== false) {
-        return 'Moti';
-    }
-    if (strpos($lokasiLower, 'batang') !== false) {
-        return 'Batang 2';
-    }
-    if (strpos($lokasiLower, 'hiri') !== false) {
-        return 'Hiri';
-    }
     
     return null;
 }
@@ -133,10 +121,12 @@ function normalizeKecamatan($lokasi, $kecamatanList) {
 // ========================================
 // GET FILTERS
 // ========================================
-$periode = $_GET['tanggal'] ?? 'this-quarter';
+$periode = $_GET['tanggal'] ?? 'this-year';
 $wilayah = $_GET['wilayah'] ?? '';
 $kategori = $_GET['kategori'] ?? '';
 $status = $_GET['status'] ?? '';
+
+error_log("Filters received: periode=$periode, wilayah=$wilayah, kategori=$kategori, status=$status");
 
 // Validasi kecamatan
 if ($wilayah && !in_array($wilayah, $kecamatanList)) {

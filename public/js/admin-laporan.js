@@ -31,32 +31,25 @@ const KECAMATAN_LIST = [
 ];
 
 // ========================================
-// UTILITY FUNCTIONS
+// UTILITY & SIDEBAR FUNCTIONS
 // ========================================
 
-// ========================================
-// FUNGSI TOGGLE SIDEBAR (ANIMASI SAMA DENGAN DASHBOARD)
-// ========================================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('mainContent');
     const overlay = document.getElementById('sidebarOverlay');
     
-    // Cek apakah lebar layar mobile atau desktop
     const isMobile = window.innerWidth <= 768;
     
     if (isMobile) {
-        // Mode mobile: toggle class 'open' (munculkan sidebar + overlay)
         sidebar.classList.toggle('open');
         if (overlay) overlay.classList.toggle('show');
     } else {
-        // Mode desktop: toggle class 'closed' (sembunyikan sidebar + lebarkan konten)
         sidebar.classList.toggle('closed');
         if (mainContent) mainContent.classList.toggle('expanded');
     }
 }
 
-// Tutup sidebar ketika klik di luar area sidebar (khusus mobile)
 document.addEventListener('click', function(e) {
     const sidebar = document.getElementById('sidebar');
     const menuToggle = document.querySelector('.menu-toggle');
@@ -70,7 +63,6 @@ document.addEventListener('click', function(e) {
         }
     }
 });
-
 
 function handleLogout() {
     if (confirm('Apakah Anda yakin ingin keluar?')) {
@@ -104,15 +96,12 @@ function normalizeKecamatan(lokasi) {
         }
     }
     
-    // Mapping alternatif
+    // Mapping alternatif berdasarkan kata kunci
     if (lokasiLower.includes('melati') || lokasiLower.includes('tengah')) return 'Ternate Tengah';
     if (lokasiLower.includes('sudirman') || lokasiLower.includes('selatan')) return 'Ternate Selatan';
     if (lokasiLower.includes('anggrek') || lokasiLower.includes('utara')) return 'Ternate Utara';
     if (lokasiLower.includes('bastiong') || lokasiLower.includes('barat')) return 'Ternate Barat';
     if (lokasiLower.includes('pulau') || lokasiLower.includes('ternate')) return 'Pulau Ternate';
-    if (lokasiLower.includes('moti')) return 'Moti';
-    if (lokasiLower.includes('batang')) return 'Batang 2';
-    if (lokasiLower.includes('hiri')) return 'Hiri';
     
     return null;
 }
@@ -131,14 +120,17 @@ function getFilterValues() {
 }
 
 function applyFilter() {
+    console.log('🔍 Applying filters:', getFilterValues());
     loadLaporanStats();
 }
 
 function resetFilter() {
-    document.getElementById('filterTanggal').value = 'this-quarter';
+    // Reset ke default: Tahun Ini
+    document.getElementById('filterTanggal').value = 'this-year';
     document.getElementById('filterWilayah').value = '';
     document.getElementById('filterKategori').value = '';
     document.getElementById('filterStatus').value = '';
+    console.log('🔄 Filters reset to Tahun Ini');
     loadLaporanStats();
 }
 
@@ -171,32 +163,24 @@ async function loadLaporanStats() {
         if (result.success && result.data) {
             const data = result.data;
             
-            // Update chart period
+            // Update UI elements
             document.getElementById('chartPeriod').textContent = data.period_label || 'Loading...';
             document.getElementById('chartTotalLabel').textContent = (data.total || 0) + ' Laporan Total';
             document.getElementById('donutTotal').textContent = data.total || 0;
             
-            // Update insight
             if (data.insight) {
                 document.getElementById('insightText').textContent = data.insight;
             }
             
-            // Update efisiensi
             if (data.efisiensi_bulan) {
                 document.getElementById('efisiensiValue').textContent = data.efisiensi + '%';
                 document.getElementById('efisiensiBulan').textContent = data.efisiensi_bulan;
             }
             
             // Load charts
-            if (data.trend) {
-                loadTrendChart(data.trend);
-            }
-            if (data.kategori) {
-                loadCategoryChart(data.kategori, data.total);
-            }
-            if (data.top_wilayah) {
-                loadTopWilayah(data.top_wilayah);
-            }
+            if (data.trend) loadTrendChart(data.trend);
+            if (data.kategori) loadCategoryChart(data.kategori, data.total);
+            if (data.top_wilayah) loadTopWilayah(data.top_wilayah);
         }
     } catch (error) {
         console.error('❌ Error loading stats:', error);
@@ -243,24 +227,16 @@ function loadTrendChart(trendData) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    display: false
-                }
+                legend: { display: false }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: {
-                        color: '#f1f5f9'
-                    },
-                    ticks: {
-                        stepSize: 1
-                    }
+                    grid: { color: '#f1f5f9' },
+                    ticks: { stepSize: 1 }
                 },
                 x: {
-                    grid: {
-                        display: false
-                    }
+                    grid: { display: false }
                 }
             }
         }
@@ -279,9 +255,9 @@ function loadCategoryChart(kategoriData, total) {
     const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
     const classes = ['permukaan', 'fasilitas', 'drainase', 'marka', 'lainnya'];
 
-    // Build custom legend
     const legendContainer = document.getElementById('categoryLegend');
     legendContainer.innerHTML = '';
+    
     kategoriData.forEach((item, index) => {
         const pct = total > 0 ? Math.round((item.jumlah / total) * 100) : 0;
         const div = document.createElement('div');
@@ -310,9 +286,7 @@ function loadCategoryChart(kategoriData, total) {
             maintainAspectRatio: false,
             cutout: '65%',
             plugins: {
-                legend: {
-                    display: false
-                }
+                legend: { display: false }
             }
         }
     });
@@ -346,11 +320,79 @@ function loadTopWilayah(wilayahData) {
 }
 
 // ========================================
-// INIT
+// INIT & EVENT LISTENERS (DIGABUNG)
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('📊 Admin Laporan page loaded');
     updateAdminInfo();
+    
+    // 1. Set default filter ke Tahun Ini
+    document.getElementById('filterTanggal').value = 'this-year';
+    
+    // 2. Load data pertama kali dengan filter default
     loadLaporanStats();
+    
+    // 3. Tambahkan event listener agar filter otomatis apply saat diubah
+    document.getElementById('filterTanggal').addEventListener('change', applyFilter);
+    document.getElementById('filterWilayah').addEventListener('change', applyFilter);
+    document.getElementById('filterKategori').addEventListener('change', applyFilter);
+    document.getElementById('filterStatus').addEventListener('change', applyFilter);
+
+    // 4. Trigger animasi stagger saat halaman dimuat
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.style.animation = 'contentFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+    }
+});
+
+// ========================================
+// MAIN CONTENT TRANSITION
+// ========================================
+
+function smoothContentTransition(targetUrl) {
+    const mainContent = document.getElementById('mainContent') || document.querySelector('.main-content');
+    
+    if (mainContent) {
+        mainContent.classList.add('page-transition-out');
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 300);
+    } else {
+        window.location.href = targetUrl;
+    }
+}
+
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    
+    if (link && link.tagName === 'A' && link.href) {
+        const isInternal = link.href.startsWith(window.location.origin);
+        const isHash = link.getAttribute('href').startsWith('#') || link.getAttribute('href') === '';
+        const isJavascript = link.getAttribute('href').startsWith('javascript:');
+        const isNewTab = link.getAttribute('target') === '_blank';
+        const isDownload = link.hasAttribute('download');
+        const isNoTransition = link.classList.contains('no-transition');
+        
+        if (isInternal && !isHash && !isJavascript && !isNewTab && !isDownload && !isNoTransition) {
+            e.preventDefault();
+            smoothContentTransition(link.href);
+        }
+    }
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
 });

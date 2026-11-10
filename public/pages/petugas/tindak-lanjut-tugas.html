@@ -157,30 +157,24 @@
     </div>
 
     <script>
-        // Data Tugas (sama dengan tugas-saya.html)
+        
         const taskData = {
             1: { title: 'Lampu jalan mati', location: 'Jl. Sudirman, Ternate' },
             2: { title: 'Rambu roboh', location: 'Jl. Raya Kastela, Pulau Ternate' },
             3: { title: 'Jalan berlubang', location: 'Jl. Maluku Utara, Ternate Tengah' }
         };
 
-        // Ambil ID dari URL
         const urlParams = new URLSearchParams(window.location.search);
         const taskId = urlParams.get('id') || 1;
-
-        // Update tampilan dengan data tugas
         if (taskData[taskId]) {
             document.getElementById('taskTitle').textContent = taskData[taskId].title;
             document.getElementById('taskLocation').textContent = taskData[taskId].location;
         }
-
-        // ✅ EVENT LISTENER UNTUK TOMBOL KERJAKAN
         document.addEventListener('DOMContentLoaded', function() {
             const workButton = document.getElementById('workButton');
             
             if (workButton) {
                 workButton.addEventListener('click', function() {
-                    // Redirect ke halaman proses penanganan dengan membawa ID tugas
                     window.location.href = `proses-penanganan.html?id=${taskId}`;
                 });
             }
@@ -192,5 +186,6 @@
             }
         }
     </script>
+       <script src="../../js/transisi-halaman.js"></script>
 </body>
 </html>

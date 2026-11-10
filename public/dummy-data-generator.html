@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPKJ - Data Dummy Generator V2 (Lengkap)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f5f7fa; padding: 24px; color: #1e293b; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #1e3a5f 0%, #2a5a8f 100%); color: white; padding: 32px; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3); }
+        .header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center; }
+        .stat-value { font-size: 32px; font-weight: 800; color: #1e293b; }
+        .stat-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+        .actions { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
+        .btn-primary { background: #1e3a5f; color: white; } .btn-primary:hover { background: #0f172a; }
+        .btn-success { background: #059669; color: white; } .btn-success:hover { background: #047857; }
+        .btn-warning { background: #d97706; color: white; } .btn-warning:hover { background: #b45309; }
+        .btn-secondary { background: #e2e8f0; color: #1e293b; } .btn-secondary:hover { background: #cbd5e1; }
+        .filter-bar { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .filter-bar select, .filter-bar input { padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; font-family: inherit; background: white; }
+        .filter-bar select:focus, .filter-bar input:focus { outline: none; border-color: #1e3a5f; }
+        .table-container { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden; }
+        .table-header { padding: 20px 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .table-header h3 { font-size: 16px; font-weight: 700; }
+        .table-responsive { overflow-x: auto; max-height: 600px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        thead { position: sticky; top: 0; background: #f8fafc; z-index: 10; }
+        th { padding: 12px 16px; text-align: left; font-weight: 700; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+        td { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+        tr:hover { background: #f8fafc; }
+        .status-badge { display: inline-flex; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; color: white; white-space: nowrap; }
+        .status-diajukan { background: #1e3a5f; } .status-verifikasi { background: #d97706; } .status-proses { background: #f59e0b; } .status-selesai { background: #059669; } .status-ditolak { background: #dc2626; }
+        .kategori-badge { display: inline-flex; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #eff6ff; color: #1e3a5f; white-space: nowrap; }
+        .foto-thumb { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; border: 1px solid #e2e8f0; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal.show { display: flex; }
+        .modal-content { background: white; border-radius: 12px; max-width: 800px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 24px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
+        .modal-header h2 { font-size: 20px; font-weight: 700; }
+        .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #64748b; }
+        pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; }
+        .info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; color: #1e3a5f; }
+        .info-box strong { display: block; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 SIPKJ Data Dummy Generator V2</h1>
+            <p>300 Data Lengkap (Nama Pelapor, Foto, Catatan Status Realistis) - Rentang Okt-Nov 2026</p>
+        </div>
+
+        <div class="stats" id="statsContainer"></div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="exportJSON()">📥 Export JSON</button>
+            <button class="btn btn-success" onclick="exportSQL()">📥 Export SQL</button>
+            <button class="btn btn-warning" onclick="showAccounts()">👥 Lihat Akun</button>
+            <button class="btn btn-secondary" onclick="regenerateData()">🔄 Regenerate Data</button>
+        </div>
+
+        <div class="filter-bar">
+            <select id="filterStatus" onchange="applyFilter()">
+                <option value="">Semua Status</option>
+                <option value="diajukan">Diajukan</option>
+                <option value="verifikasi">Verifikasi</option>
+                <option value="proses">Proses</option>
+                <option value="selesai">Selesai</option>
+                <option value="ditolak">Ditolak</option>
+            </select>
+            <select id="filterKecamatan" onchange="applyFilter()">
+                <option value="">Semua Kecamatan</option>
+                <option value="Ternate Utara">Ternate Utara</option>
+                <option value="Ternate Tengah">Ternate Tengah</option>
+                <option value="Ternate Selatan">Ternate Selatan</option>
+                <option value="Ternate Barat">Ternate Barat</option>
+                <option value="Pulau Ternate">Pulau Ternate</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="Cari judul, lokasi, atau nama pelapor..." oninput="applyFilter()">
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3>Daftar 300 Pengaduan Dummy</h3>
+                <span id="showingCount" style="font-size: 13px; color: #64748b;">Menampilkan 300 data</span>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>PELAPOR</th>
+                            <th>JUDUL</th>
+                            <th>KATEGORI</th>
+                            <th>KECAMATAN</th>
+                            <th>STATUS</th>
+                            <th>FOTO</th>
+                            <th>TANGGAL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Export Data</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="info-box">
+                <strong>💡 Cara Menggunakan:</strong>
+                <span id="modalInfo">Copy kode di bawah dan paste ke project Anda</span>
+            </div>
+            <pre id="exportContent"></pre>
+            <button class="btn btn-primary" onclick="copyToClipboard()" style="margin-top: 16px;">📋 Copy ke Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        const KECAMATAN = ['Ternate Utara', 'Ternate Tengah', 'Ternate Selatan', 'Ternate Barat', 'Pulau Ternate'];
+        const KATEGORI = ['permukaan', 'drainase', 'fasilitas', 'marka', 'lainnya'];
+        const STATUS = ['diajukan', 'verifikasi', 'proses', 'selesai', 'ditolak'];
+        const PETUGAS = ['petugas_utara', 'petugas_selatan', 'petugas_tengah', 'petugas_barat', 'petugas_pulau'];
+        
+        const NAMA_PELAPOR = [
+            "Budi Santoso", "Siti Aminah", "Ahmad Fauzi", "Dewi Lestari", "Rizky Pratama",
+            "Nurul Hidayah", "Eko Prasetyo", "Rina Wulandari", "Agus Setiawan", "Maya Sari",
+            "Hendra Gunawan", "Fitriani", "Doni Kusuma", "Lina Marlina", "Yudi Hermawan",
+            "Ani Suryani", "Bambang Sutrisno", "Citra Dewi", "Dedi Kurniawan", "Eka Putri"
+        ];
+
+        const CATATAN_DITOLAK = [
+            "Lokasi pengaduan tidak jelas atau tidak ditemukan di lapangan.",
+            "Foto bukti tidak valid atau tidak menunjukkan kerusakan jalan.",
+            "Masalah ini bukan merupakan kewenangan Dinas Pekerjaan Umum.",
+            "Laporan terindikasi duplikat dari pengaduan yang sudah ada.",
+            "Kerusakan bersifat sangat minor dan tidak membahayakan keselamatan."
+        ];
+
+        const JUDUL_PERMUKAAN = ['Jalan berlubang besar', 'Retak jalan memanjang', 'Lubang jalan dalam', 'Jalan rusak parah', 'Aspal mengelupas', 'Jalan bergelombang', 'Lubang di persimpangan', 'Jalan amblas', 'Retakan di tengah jalan', 'Kerusakan jalan sepanjang 10 meter'];
+        const JUDUL_DRAINASE = ['Drainase tersumbat sampah', 'Gorong-gorong rusak', 'Drainase penuh lumpur', 'Saluran air macet', 'Drainase bocor', 'Gorong-gorong tersumbat total', 'Drainase rusak parah', 'Saluran air penuh sampah', 'Drainase tersumbat di depan sekolah', 'Gorong-gorong pecah di persimpangan'];
+        const JUDUL_FASILITAS = ['Lampu jalan mati total', 'Rambu jalan hilang', 'Trotoar rusak parah', 'Lampu PJU mati', 'Rambu lalu lintas rusak', 'Trotoar amblas', 'Lampu jalan padam', 'Rambu peringatan hilang', 'Trotoar rusak di area pasar', 'Lampu PJU rusak di persimpangan'];
+        const JUDUL_MARKA = ['Marka jalan pudar', 'Zebra cross hilang', 'Marka jalan rusak', 'Garis jalan pudar', 'Zebra cross rusak', 'Marka jalan hilang', 'Garis jalan rusak', 'Zebra cross pudar', 'Marka jalan rusak di area ramai', 'Garis jalan hilang di persimpangan'];
+        const JUDUL_LAINNYA = ['Pohon tumbang di jalan', 'Tanah longsor', 'Banjir menggenangi jalan', 'Sampah menumpuk', 'Kabel listrik jatuh', 'Pipa air bocor', 'Pagar roboh', 'Tiang listrik miring', 'Lubang galian tidak ditutup', 'Material bangunan menumpuk'];
+        const JALAN_NAMES = ['Sultan Babullah', 'Sultan Hairun', 'Sultan Baabullah', 'Ahmad Yani', 'Diponegoro', 'Sudirman', 'Gatot Subroto', 'Imam Bonjol', 'Kartini', 'Cut Nyak Dien', 'RA Kartini', 'Dewi Sartika', 'Fatmawati', 'Suprapto', 'S. Parman', 'Ahmad Dahlan', 'KH Hasyim Ashari', 'Teuku Umar', 'Pattimura', 'Hasanuddin', 'Sultan Agung', 'Pangeran Antasari', 'Jenderal Sudirman', 'Mayjen Sutoyo', 'Brigjen Katamso', 'Letkol Tendean', 'Kapten Pattimura', 'Sultan Hasanuddin', 'Teuku Cik Di Tiro', 'Cut Nyak Dhien'];
+
+        let allData = [];
+
+        function generateData() {
+            allData = [];
+            let id = 1;
+
+            for (let i = 0; i < 300; i++) {
+                const statusIndex = Math.floor(i / 60);
+                const kecamatanIndex = Math.floor((i % 60) / 12);
+                const kategoriIndex = Math.floor((i % 12) / 2);
+                
+                const status = STATUS[statusIndex];
+                const kecamatan = KECAMATAN[kecamatanIndex];
+                const kategori = KATEGORI[kategoriIndex % 5];
+                
+                let judulList;
+                switch(kategori) {
+                    case 'permukaan': judulList = JUDUL_PERMUKAAN; break;
+                    case 'drainase': judulList = JUDUL_DRAINASE; break;
+                    case 'fasilitas': judulList = JUDUL_FASILITAS; break;
+                    case 'marka': judulList = JUDUL_MARKA; break;
+                    case 'lainnya': judulList = JUDUL_LAINNYA; break;
+                }
+
+                const judul = judulList[i % judulList.length];
+                const jalan = JALAN_NAMES[i % JALAN_NAMES.length];
+                const lokasi = `Jl. ${jalan}, ${kecamatan}`;
+                const namaPelapor = NAMA_PELAPOR[i % NAMA_PELAPOR.length];
+
+                // Generate tanggal acak antara 1 Okt 2026 - 30 Nov 2026
+                const start = new Date('2026-10-01T08:00:00').getTime();
+                const end = new Date('2026-11-30T20:00:00').getTime();
+                const randomTime = start + Math.random() * (end - start);
+                const randomDate = new Date(randomTime);
+                const tanggal = randomDate.toISOString().slice(0, 19).replace('T', ' ');
+
+                // 85% kemungkinan ada foto, 15% null (lupa upload)
+                const hasFoto = Math.random() > 0.15;
+                const foto = hasFoto ? `https://picsum.photos/seed/pengaduan${id}/800/600` : null;
+
+                // Logika Catatan & Petugas berdasarkan Status
+                let catatanAdmin = null;
+                let petugasId = null;
+
+                if (status === 'diajukan') {
+                    catatanAdmin = null;
+                    petugasId = null;
+                } else if (status === 'verifikasi') {
+                    catatanAdmin = "Sedang dalam tahap verifikasi data dan lokasi oleh admin.";
+                    petugasId = null;
+                } else if (status === 'proses') {
+                    catatanAdmin = "Laporan telah diteruskan ke petugas lapangan untuk ditindaklanjuti.";
+                    petugasId = 2 + kecamatanIndex; // ID 2-6
+                } else if (status === 'selesai') {
+                    catatanAdmin = "Perbaikan telah selesai dilakukan dan lokasi sudah aman.";
+                    petugasId = 2 + kecamatanIndex;
+                } else if (status === 'ditolak') {
+                    catatanAdmin = CATATAN_DITOLAK[i % CATATAN_DITOLAK.length];
+                    petugasId = null;
+                }
+
+                allData.push({
+                    id: id++,
+                    user_id: 7 + (i % 30),
+                    nama_pelapor: namaPelapor,
+                    judul: judul,
+                    kategori: kategori,
+                    deskripsi: `${judul} di ${lokasi}. Mohon segera ditindaklanjuti.`,
+                    lokasi: lokasi,
+                    maps_link: `https://maps.app.goo.gl/example${id}`,
+                    foto: foto,
+                    status: status,
+                    catatan_admin: catatanAdmin,
+                    petugas_id: petugasId,
+                    created_at: tanggal,
+                    updated_at: tanggal
+                });
+            }
+
+            // Sort by created_at descending
+            allData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            
+            // Re-assign ID after sorting
+            allData.forEach((item, index) => { item.id = index + 1; });
+        }
+
+        function renderTable(data = allData) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            data.forEach((item) => {
+                const row = document.createElement('tr');
+                const fotoHtml = item.foto 
+                    ? `<img src="${item.foto}" class="foto-thumb" alt="Foto" title="Klik untuk memperbesar" onclick="window.open('${item.foto}', '_blank')">` 
+                    : `<span style="color:#94a3b8; font-size:11px;">Tidak ada</span>`;
+                
+                row.innerHTML = `
+                    <td><strong>${item.id}</strong></td>
+                    <td>${item.nama_pelapor}</td>
+                    <td>${item.judul}</td>
+                    <td><span class="kategori-badge">${item.kategori}</span></td>
+                    <td>${item.lokasi.split(', ')[1]}</td>
+                    <td><span class="status-badge status-${item.status}">${capitalize(item.status)}</span></td>
+                    <td>${fotoHtml}</td>
+                    <td>${formatDate(item.created_at)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            document.getElementById('showingCount').textContent = `Menampilkan ${data.length} dari 300 data`;
+        }
+
+        function updateStats() {
+            const stats = {
+                total: allData.length,
+                diajukan: allData.filter(d => d.status === 'diajukan').length,
+                verifikasi: allData.filter(d => d.status === 'verifikasi').length,
+                proses: allData.filter(d => d.status === 'proses').length,
+                selesai: allData.filter(d => d.status === 'selesai').length,
+                ditolak: allData.filter(d => d.status === 'ditolak').length
+            };
+            document.getElementById('statsContainer').innerHTML = `
+                <div class="stat-card"><div class="stat-value">${stats.total}</div><div class="stat-label">Total Data</div></div>
+                <div class="stat-card"><div class="stat-value">${stats.diajukan}</div><div class="stat-label">Diajukan</div></div>
+                <div class="stat-card"><div class="stat-value">${stats.verifikasi}</div><div class="stat-label">Verifikasi</div></div>
+                <div class="stat-card"><div class="stat-value">${stats.proses}</div><div class="stat-label">Proses</div></div>
+                <div class="stat-card"><div class="stat-value">${stats.selesai + stats.ditolak}</div><div class="stat-label">Selesai/Ditolak</div></div>
+            `;
+        }
+
+        function applyFilter() {
+            const status = document.getElementById('filterStatus').value;
+            const kecamatan = document.getElementById('filterKecamatan').value;
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            const filtered = allData.filter(item => {
+                const matchStatus = !status || item.status === status;
+                const matchKecamatan = !kecamatan || item.lokasi.includes(kecamatan);
+                const matchSearch = !search || 
+                    item.judul.toLowerCase().includes(search) || 
+                    item.lokasi.toLowerCase().includes(search) ||
+                    item.nama_pelapor.toLowerCase().includes(search);
+                return matchStatus && matchKecamatan && matchSearch;
+            });
+            renderTable(filtered);
+        }
+
+        function exportJSON() {
+            document.getElementById('modalTitle').textContent = '📥 Export JSON';
+            document.getElementById('modalInfo').textContent = 'Simpan sebagai public/data/dummy.json di project Anda.';
+            document.getElementById('exportContent').textContent = JSON.stringify(allData, null, 2);
+            document.getElementById('exportModal').classList.add('show');
+        }
+
+        function exportSQL() {
+            let sql = `-- ========================================\n-- SIPKJ DUMMY DATA LENGKAP (300 Pengaduan)\n-- ========================================\n\n`;
+            
+            // Insert Users
+            sql += `-- 1. Insert Users (Admin, 5 Petugas, 20 Masyarakat)\n`;
+            sql += `INSERT INTO users (username, email, password, telepon, role) VALUES\n`;
+            sql += `('admin', 'admin@sipkj.go.id', '$2y$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '081234567890', 'admin'),\n`;
+            for (let i = 0; i < 5; i++) {
+                sql += `('petugas_${KECAMATAN[i].toLowerCase().replace(' ', '_')}', 'petugas.${i+1}@sipkj.go.id', '$2y$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '08123456789${i+1}', 'petugas')${i < 4 ? ',' : ''}\n`;
+            }
+            for (let i = 0; i < 20; i++) {
+                sql += `,('masyarakat${String(i+1).padStart(2,'0')}', 'masyarakat${String(i+1).padStart(2,'0')}@email.com', '$2y$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '0812345679${String(i).padStart(2,'0')}', 'masyarakat')`;
+            }
+            sql += `;\n\n`;
+
+            // Insert Pengaduan
+            sql += `-- 2. Insert 300 Pengaduan\n`;
+            sql += `INSERT INTO pengaduan (id, user_id, judul, kategori, deskripsi, lokasi, maps_link, foto, status, catatan_admin, petugas_id, created_at, updated_at) VALUES\n`;
+            
+            allData.forEach((item, index) => {
+                const judul = item.judul.replace(/'/g, "''");
+                const deskripsi = item.deskripsi.replace(/'/g, "''");
+                const lokasi = item.lokasi.replace(/'/g, "''");
+                const catatan = item.catatan_admin ? `'${item.catatan_admin.replace(/'/g, "''")}'` : 'NULL';
+                const foto = item.foto ? `'${item.foto}'` : 'NULL';
+                const petugas = item.petugas_id ? item.petugas_id : 'NULL';
+                const comma = index < allData.length - 1 ? ',' : ';';
+                
+                sql += `(${item.id}, ${item.user_id}, '${judul}', '${item.kategori}', '${deskripsi}', '${lokasi}', '${item.maps_link}', ${foto}, '${item.status}', ${catatan}, ${petugas}, '${item.created_at}', '${item.updated_at}')${comma}\n`;
+            });
+
+            document.getElementById('modalTitle').textContent = '📥 Export SQL';
+            document.getElementById('modalInfo').textContent = 'Jalankan di phpMyAdmin (Tab SQL). Pastikan tabel sudah dibuat.';
+            document.getElementById('exportContent').textContent = sql;
+            document.getElementById('exportModal').classList.add('show');
+        }
+
+        function showAccounts() {
+            document.getElementById('modalTitle').textContent = '👥 Akun Login Dummy';
+            document.getElementById('modalInfo').textContent = 'Password untuk semua akun di bawah adalah: sipkj123';
+            document.getElementById('exportContent').textContent = `ADMIN:\nUsername: admin\n\nPETUGAS (5 orang):\nUsername: petugas_utara, petugas_selatan, petugas_tengah, petugas_barat, petugas_pulau\n\nMASYARAKAT (20 orang):\nUsername: masyarakat01 sampai masyarakat20\n\nPASSWORD: sipkj123`;
+            document.getElementById('exportModal').classList.add('show');
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('exportContent').textContent;
+            navigator.clipboard.writeText(content).then(() => alert('✅ Berhasil disalin!')).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = content; document.body.appendChild(textarea); textarea.select();
+                document.execCommand('copy'); document.body.removeChild(textarea);
+                alert('✅ Berhasil disalin!');
+            });
+        }
+
+        function closeModal() { document.getElementById('exportModal').classList.remove('show'); }
+        function regenerateData() { if (confirm('Acak ulang data?')) { generateData(); renderTable(); updateStats(); } }
+        function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+        function formatDate(dateStr) { return new Date(dateStr).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }); }
+
+        document.getElementById('exportModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+        generateData();
+        renderTable();
+        updateStats();
+    </script>
+</body>
+</html>

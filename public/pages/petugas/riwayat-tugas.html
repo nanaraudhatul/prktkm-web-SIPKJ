@@ -343,16 +343,12 @@
 
             document.getElementById("emptyMessage").hidden = visible !== 0;
         }
-
-        // ✅ FUNGSİ BARU: Redirect ke halaman detail pengaduan
         function viewDetail(taskId) {
             window.location.href = `detail-pengaduan.html?id=${taskId}`;
         }
-
         document.addEventListener('click', function(e) {
             const sidebar = document.querySelector('.sidebar');
             const menuToggle = document.querySelector('.menu-toggle');
-            
             if (window.innerWidth <= 992) {
                 if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
                     sidebar.classList.remove('active');
@@ -360,5 +356,7 @@
             }
         });
     </script>
+       <script src="../../js/transisi-halaman.js"></script>
+       <script src="../../js/petugas-riwayat-tugas.js"></script>
 </body>
 </html>

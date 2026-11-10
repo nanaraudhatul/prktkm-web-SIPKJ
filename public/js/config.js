@@ -17,6 +17,9 @@ const API_CONFIG = {
         LOGOUT: '/auth/logout.php',
         
         // --- PENGADUAN ---
+        LIST_PENGADUAN_DUMMY: '/pengaduan/list-dummy.php',
+        DETAIL_PENGADUAN_DUMMY: '/pengaduan/detail-dummy.php',
+        
         CREATE_PENGADUAN: '/pengaduan/create.php',
         LIST_PENGADUAN: '/pengaduan/list.php',
         DETAIL_PENGADUAN: '/pengaduan/detail.php',
@@ -28,6 +31,11 @@ const API_CONFIG = {
         CHANGE_PASSWORD: '/user/change-password.php',
         
         // --- ADMIN ---
+        ADMIN_STATS_DUMMY: '/admin/dashboard-stats-dummy.php',
+        ADMIN_VERIFIKASI_DUMMY: '/admin/verifikasi-dummy.php',
+        ADMIN_LAPORAN_DUMMY: '/admin/laporan-stats-dummy.php',
+        ADMIN_USERS_DUMMY: '/admin/users-dummy.php',
+
         ADMIN_STATS: '/admin/dashboard-stats.php',
         ADMIN_USERS: '/admin/user-list.php',
         ADMIN_USER_SAVE: '/admin/user-save.php',

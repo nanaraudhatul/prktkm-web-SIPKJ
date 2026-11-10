@@ -734,3 +734,77 @@ button:active {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15);
 }
+
+/* ========================================
+   PAGINATION STYLES (SAMA DENGAN DASHBOARD MASYARAKAT)
+   ======================================== */
+.pagination-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    padding: 12px 0;
+    border-top: 1px solid #e2e8f0;
+}
+
+.pagination-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+}
+
+.pagination-btn:hover:not(.disabled) {
+    border-color: #1e3a5f;
+    color: #1e3a5f;
+    background: #eff6ff;
+}
+
+.pagination-btn.active {
+    background: #1e3a5f;
+    border-color: #1e3a5f;
+    color: white;
+}
+
+.pagination-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #f1f5f9;
+}
+
+.pagination-ellipsis {
+    color: #94a3b8;
+    font-weight: 600;
+    padding: 0 4px;
+    user-select: none;
+}
+
+.pagination-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+@media (max-width: 768px) {
+    .pagination-container {
+        justify-content: center;
+        gap: 4px;
+    }
+    
+    .pagination-btn {
+        min-width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+}

@@ -22,6 +22,12 @@ let allPengaduan = [];
 let filteredPengaduan = [];
 
 // ========================================
+// PAGINATION CONFIG
+// ========================================
+let currentPage = 1;
+const itemsPerPage = 10;
+
+// ========================================
 // SIDEBAR TOGGLE
 // ========================================
 function toggleSidebar() {
@@ -82,13 +88,26 @@ function formatDate(dateString) {
     return date.toLocaleDateString('id-ID', options);
 }
 
+function capitalize(str) {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 // ========================================
 // LOAD DATA
 // ========================================
+const USE_DUMMY_DATA = true;
+
 async function loadPengaduan() {
     try {
         const token = localStorage.getItem('sipkj_token');
-        const response = await fetch(API_CONFIG.BASE_URL + '/pengaduan/list.php', {
+        const endpoint = USE_DUMMY_DATA 
+            ? API_CONFIG.ENDPOINTS.LIST_PENGADUAN_DUMMY 
+            : API_CONFIG.ENDPOINTS.LIST_PENGADUAN;
+        
+        console.log('📡 Fetching from:', endpoint);
+        
+        const response = await fetch(API_CONFIG.BASE_URL + endpoint, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -100,15 +119,15 @@ async function loadPengaduan() {
         console.log('📊 Pengaduan list:', result);
 
         if (result.success && result.data && Array.isArray(result.data)) {
-            // ✅ URUTKAN DATA: Terbaru di atas (descending by created_at)
+            // Urutkan: terbaru di atas berdasarkan created_at
             allPengaduan = result.data.sort((a, b) => {
-                const dateA = new Date(a.created_at || 0);
-                const dateB = new Date(b.created_at || 0);
-                return dateB - dateA; // Terbaru pertama
+                return new Date(b.created_at) - new Date(a.created_at);
             });
         } else {
             allPengaduan = [];
         }
+        
+        currentPage = 1; // Reset ke halaman 1 saat data dimuat
         applyFilters();
     } catch (error) {
         console.error('❌ Error loading data:', error);
@@ -116,7 +135,7 @@ async function loadPengaduan() {
 }
 
 // ========================================
-// FILTER FUNCTIONS - PENCARIAN UNIVERSAL
+// FILTER FUNCTIONS
 // ========================================
 function getFilterValues() {
     const searchUniversal = document.getElementById('searchUniversal');
@@ -133,49 +152,41 @@ function getFilterValues() {
 function applyFilters() {
     const filters = getFilterValues();
     
-    filteredPengaduan = allPengaduan.filter((item, index) => {
-        const itemStatus = ((item.status || item.status_label || '') + '').toLowerCase().trim();
-        const itemKategori = ((item.kategori || item.kategori_key || '') + '').toLowerCase().trim();
+    filteredPengaduan = allPengaduan.filter((item) => {
+        const itemStatus = ((item.status || '') + '').toLowerCase().trim();
+        const itemKategori = ((item.kategori || '') + '').toLowerCase().trim();
         const itemJudul = (item.judul || '').toLowerCase();
         const itemLokasi = (item.lokasi || '').toLowerCase();
         const itemDeskripsi = (item.deskripsi || '').toLowerCase();
+        const itemId = (item.id || '').toString();
         
-        // Ambil ID dan format tanggal
-        const itemId = (item.id || (index + 1)).toString();
-        
-        // Format tanggal dalam berbagai format untuk pencarian
+        // Format tanggal untuk pencarian
         let itemTanggalRaw = '';
         let itemTanggalFormatted = '';
         let itemTanggalMonth = '';
         
         if (item.created_at) {
             const dateObj = new Date(item.created_at);
-            itemTanggalRaw = item.created_at.split('T')[0]; // YYYY-MM-DD
-            itemTanggalFormatted = formatDate(item.created_at).toLowerCase(); // 29 okt 2026
-            
-            // Ambil nama bulan untuk pencarian
+            itemTanggalRaw = item.created_at.split(' ')[0]; // YYYY-MM-DD
+            itemTanggalFormatted = formatDate(item.created_at).toLowerCase();
             const bulanIndonesia = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
             itemTanggalMonth = bulanIndonesia[dateObj.getMonth()];
         }
         
-        // Pencarian Universal - cek di SEMUA field
         const searchTerm = filters.search;
         const matchSearch = !searchTerm || 
-            itemId.includes(searchTerm) ||                        // Cari di No/ID (2, 3, dll)
-            itemJudul.includes(searchTerm) ||                     // Cari di Judul (lampu, jalan, rusak)
-            itemKategori.includes(searchTerm) ||                  // Cari di Kategori (fasilitas, permukaan)
-            itemLokasi.includes(searchTerm) ||                    // Cari di Lokasi
-            itemDeskripsi.includes(searchTerm) ||                 // Cari di Deskripsi
-            itemTanggalRaw.includes(searchTerm) ||                // Cari di Tanggal (2026-10-29)
-            itemTanggalFormatted.includes(searchTerm) ||          // Cari di Tanggal (29 okt 2026)
-            itemTanggalMonth.includes(searchTerm) ||              // Cari di Bulan (okt, okt 2026)
-            searchTerm === '2026' ||                              // Cari tahun
-            searchTerm === 'okt' || searchTerm === 'oktober';     // Cari bulan
+            itemId.includes(searchTerm) ||
+            itemJudul.includes(searchTerm) ||
+            itemKategori.includes(searchTerm) ||
+            itemLokasi.includes(searchTerm) ||
+            itemDeskripsi.includes(searchTerm) ||
+            itemTanggalRaw.includes(searchTerm) ||
+            itemTanggalFormatted.includes(searchTerm) ||
+            itemTanggalMonth.includes(searchTerm) ||
+            searchTerm === '2026' || searchTerm === 'okt' || searchTerm === 'oktober';
         
-        // Filter Kategori
         const matchKategori = !filters.kategori || (itemKategori === filters.kategori);
         
-        // Filter Status
         let matchStatus = true;
         if (filters.status && itemStatus) {
             const filterStatus = filters.status.toLowerCase().trim();
@@ -197,8 +208,10 @@ function applyFilters() {
         return matchSearch && matchKategori && matchStatus;
     });
     
+    currentPage = 1; // Reset ke halaman 1 saat filter berubah
     updateStats();
     renderTable();
+    renderPagination();
 }
 
 // ========================================
@@ -224,7 +237,7 @@ function updateStats() {
 }
 
 // ========================================
-// RENDER TABLE
+// RENDER TABLE DENGAN PAGINATION
 // ========================================
 function renderTable() {
     const tbody = document.getElementById('pengaduanTableBody');
@@ -234,10 +247,16 @@ function renderTable() {
 
     if (filteredPengaduan.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">Tidak ada pengaduan yang cocok dengan filter</td></tr>';
+        renderPagination();
         return;
     }
 
-    filteredPengaduan.forEach((item, index) => {
+    // Hitung pagination
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedData = filteredPengaduan.slice(startIndex, endIndex);
+
+    paginatedData.forEach((item, index) => {
         const statusConfig = {
             'diajukan': { text: 'Diajukan', bg: '#1e3a5f' },
             'baru': { text: 'Diajukan', bg: '#1e3a5f' },
@@ -249,13 +268,13 @@ function renderTable() {
         
         const statusInfo = statusConfig[item.status] || statusConfig['diajukan'];
         const tanggal = formatDate(item.created_at);
-        const noUrut = item.id || (index + 1);
+        const noUrut = startIndex + index + 1; // Nomor urut berdasarkan halaman
 
         const row = document.createElement('tr');
         row.innerHTML = `
             <td style="padding:16px; text-align: center; font-weight: 600;">${noUrut}</td>
             <td style="padding:16px;"><strong>${item.judul || '-'}</strong></td>
-            <td style="padding:16px;">${item.kategori || '-'}</td>
+            <td style="padding:16px;">${capitalize(item.kategori) || '-'}</td>
             <td style="padding:16px;">
                 <span style="display:inline-flex;align-items:center;padding:6px 16px;border-radius:50px;font-size:13px;font-weight:600;color:white;background-color:${statusInfo.bg};">
                     ${statusInfo.text}
@@ -274,6 +293,101 @@ function renderTable() {
         `;
         tbody.appendChild(row);
     });
+
+    renderPagination();
+}
+
+// ========================================
+// RENDER PAGINATION
+// ========================================
+function renderPagination() {
+    const paginationContainer = document.getElementById('paginationContainer');
+    if (!paginationContainer) return;
+    
+    const totalPages = Math.ceil(filteredPengaduan.length / itemsPerPage);
+    
+    if (totalPages <= 1) {
+        paginationContainer.innerHTML = '';
+        return;
+    }
+    
+    let paginationHTML = '';
+    
+    // Previous button
+    paginationHTML += `
+        <button onclick="changePage(${currentPage - 1})" 
+                class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" 
+                ${currentPage === 1 ? 'disabled' : ''}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"/>
+            </svg>
+        </button>
+    `;
+    
+    // Page numbers logic (show max 5 pages)
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    if (startPage > 1) {
+        paginationHTML += `<button onclick="changePage(1)" class="pagination-btn">1</button>`;
+        if (startPage > 2) {
+            paginationHTML += `<span class="pagination-ellipsis">...</span>`;
+        }
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        paginationHTML += `
+            <button onclick="changePage(${i})" 
+                    class="pagination-btn ${i === currentPage ? 'active' : ''}">
+                ${i}
+            </button>
+        `;
+    }
+    
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            paginationHTML += `<span class="pagination-ellipsis">...</span>`;
+        }
+        paginationHTML += `<button onclick="changePage(${totalPages})" class="pagination-btn">${totalPages}</button>`;
+    }
+    
+    // Next button
+    paginationHTML += `
+        <button onclick="changePage(${currentPage + 1})" 
+                class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" 
+                ${currentPage === totalPages ? 'disabled' : ''}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+        </button>
+    `;
+    
+    paginationContainer.innerHTML = paginationHTML;
+}
+
+// ========================================
+// CHANGE PAGE
+// ========================================
+function changePage(page) {
+    const totalPages = Math.ceil(filteredPengaduan.length / itemsPerPage);
+    
+    if (page < 1 || page > totalPages || page === currentPage) {
+        return;
+    }
+    
+    currentPage = page;
+    renderTable();
+    
+    // Scroll ke atas tabel dengan smooth
+    const tableContainer = document.querySelector('.card');
+    if (tableContainer) {
+        tableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 // ========================================

@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
 <div class="app-container">
 
     <!-- SIDEBAR -->
@@ -309,11 +308,21 @@
 
     const menuToggle = document.querySelector(".menu-toggle");
     const sidebar = document.querySelector(".sidebar");
-
     menuToggle.addEventListener("click", function () {
-        sidebar.classList.toggle("show");
+        if (window.innerWidth > 800) {
+            sidebar.classList.toggle("collapsed");
+        } else {
+            sidebar.classList.toggle("show");
+        }
+    });
+    document.addEventListener("click", function(e) {
+        if (window.innerWidth <= 800) {
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                sidebar.classList.remove("show");
+            }
+        }
     });
 </script>
-
+   <script src="../../js/transisi-halaman.js"></script>
 </body>
 </html>

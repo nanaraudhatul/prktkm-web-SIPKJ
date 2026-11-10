@@ -1,5 +1,5 @@
 // ========================================
-// ADMIN LAPORAN - JavaScript
+// ADMIN LAPORAN - JavaScript (DUMMY MODE)
 // ========================================
 
 // Check admin access
@@ -20,6 +20,7 @@
 
 let trendChart = null;
 let categoryChart = null;
+let allLaporanData = [];
 
 // Daftar Kecamatan
 const KECAMATAN_LIST = [
@@ -96,13 +97,6 @@ function normalizeKecamatan(lokasi) {
         }
     }
     
-    // Mapping alternatif berdasarkan kata kunci
-    if (lokasiLower.includes('melati') || lokasiLower.includes('tengah')) return 'Ternate Tengah';
-    if (lokasiLower.includes('sudirman') || lokasiLower.includes('selatan')) return 'Ternate Selatan';
-    if (lokasiLower.includes('anggrek') || lokasiLower.includes('utara')) return 'Ternate Utara';
-    if (lokasiLower.includes('bastiong') || lokasiLower.includes('barat')) return 'Ternate Barat';
-    if (lokasiLower.includes('pulau') || lokasiLower.includes('ternate')) return 'Pulau Ternate';
-    
     return null;
 }
 
@@ -125,7 +119,6 @@ function applyFilter() {
 }
 
 function resetFilter() {
-    // Reset ke default: Tahun Ini
     document.getElementById('filterTanggal').value = 'this-year';
     document.getElementById('filterWilayah').value = '';
     document.getElementById('filterKategori').value = '';
@@ -135,56 +128,159 @@ function resetFilter() {
 }
 
 // ========================================
-// LOAD DATA
+// LOAD DATA & PROCESS STATS (DUMMY MODE)
 // ========================================
 
 async function loadLaporanStats() {
     try {
-        const token = localStorage.getItem('sipkj_token');
         const filters = getFilterValues();
         
-        const params = new URLSearchParams(filters).toString();
-        const response = await fetch(API_CONFIG.BASE_URL + '/admin/laporan-stats.php?' + params, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
+        // Fetch data dummy langsung dari file JSON
+        const response = await fetch('../../data/dummy.json');
+        if (!response.ok) throw new Error('Gagal memuat file dummy.json');
+        
+        const rawData = await response.json();
+        
+        // 1. Filter Data berdasarkan pilihan user
+        const filteredData = rawData.filter(item => {
+            let match = true;
+            const itemDate = new Date(item.created_at);
+            const now = new Date();
+            
+            // Filter Tanggal
+            if (filters.tanggal === 'this-month') {
+                match = match && (itemDate.getMonth() === now.getMonth() && itemDate.getFullYear() === now.getFullYear());
+            } else if (filters.tanggal === 'last-month') {
+                const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                match = match && (itemDate.getMonth() === lastMonth.getMonth() && itemDate.getFullYear() === lastMonth.getFullYear());
+            } else if (filters.tanggal === 'this-year') {
+                match = match && (itemDate.getFullYear() === now.getFullYear());
             }
+            
+            // Filter Wilayah
+            if (filters.wilayah) {
+                const kec = normalizeKecamatan(item.lokasi);
+                match = match && (kec === filters.wilayah);
+            }
+            
+            // Filter Kategori
+            if (filters.kategori) {
+                match = match && (item.kategori === filters.kategori);
+            }
+            
+            // Filter Status
+            if (filters.status) {
+                match = match && (item.status === filters.status);
+            }
+            
+            return match;
         });
-
-        const result = await response.json();
-        console.log('📊 Laporan stats:', result);
-
-        if (!response.ok) {
-            console.error('❌ API Error:', result.message);
-            return;
-        }
-
-        if (result.success && result.data) {
-            const data = result.data;
-            
-            // Update UI elements
-            document.getElementById('chartPeriod').textContent = data.period_label || 'Loading...';
-            document.getElementById('chartTotalLabel').textContent = (data.total || 0) + ' Laporan Total';
-            document.getElementById('donutTotal').textContent = data.total || 0;
-            
-            if (data.insight) {
-                document.getElementById('insightText').textContent = data.insight;
-            }
-            
-            if (data.efisiensi_bulan) {
-                document.getElementById('efisiensiValue').textContent = data.efisiensi + '%';
-                document.getElementById('efisiensiBulan').textContent = data.efisiensi_bulan;
-            }
-            
-            // Load charts
-            if (data.trend) loadTrendChart(data.trend);
-            if (data.kategori) loadCategoryChart(data.kategori, data.total);
-            if (data.top_wilayah) loadTopWilayah(data.top_wilayah);
-        }
+        
+        allLaporanData = filteredData;
+        processAndRenderStats(filteredData, filters.tanggal);
+        
     } catch (error) {
         console.error('❌ Error loading stats:', error);
+        document.getElementById('chartTotalLabel').textContent = 'Gagal memuat data';
     }
+}
+
+function processAndRenderStats(data, periodeFilter) {
+    const total = data.length;
+    
+    // Period Label
+    let periodLabel = 'Semua Periode';
+    const now = new Date();
+    const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    
+    if (periodeFilter === 'this-month') periodLabel = `${months[now.getMonth()]} ${now.getFullYear()}`;
+    else if (periodeFilter === 'last-month') {
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        periodLabel = `${months[lastMonth.getMonth()]} ${lastMonth.getFullYear()}`;
+    } else if (periodeFilter === 'this-year') {
+        periodLabel = `Tahun ${now.getFullYear()}`;
+    }
+
+    // 1. Trend Data (6 bulan terakhir)
+    const trendData = [];
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const monthName = months[d.getMonth()].substring(0, 3); // e.g., 'Jan'
+        
+        const masuk = data.filter(item => {
+            const itemDate = new Date(item.created_at);
+            return itemDate.getMonth() === d.getMonth() && itemDate.getFullYear() === d.getFullYear();
+        }).length;
+        
+        const selesai = data.filter(item => {
+            const itemDate = new Date(item.created_at);
+            return item.status === 'selesai' && itemDate.getMonth() === d.getMonth() && itemDate.getFullYear() === d.getFullYear();
+        }).length;
+        
+        trendData.push({ bulan: monthName, masuk, selesai });
+    }
+
+    // 2. Kategori Data
+    const kategoriCount = {};
+    data.forEach(item => {
+        const kat = item.kategori || 'lainnya';
+        kategoriCount[kat] = (kategoriCount[kat] || 0) + 1;
+    });
+    
+    const kategoriLabels = {
+        'permukaan': 'Permukaan Jalan',
+        'fasilitas': 'Fasilitas Umum',
+        'drainase': 'Drainase',
+        'marka': 'Marka Jalan',
+        'lainnya': 'Lainnya'
+    };
+    
+    const kategoriData = Object.entries(kategoriCount).map(([key, value]) => ({
+        kategori: key,
+        kategori_label: kategoriLabels[key] || key,
+        jumlah: value
+    })).sort((a, b) => b.jumlah - a.jumlah);
+
+    // 3. Top Wilayah
+    const wilayahCount = {};
+    data.forEach(item => {
+        const kec = normalizeKecamatan(item.lokasi) || 'Lainnya';
+        wilayahCount[kec] = (wilayahCount[kec] || 0) + 1;
+    });
+    
+    const topWilayah = Object.entries(wilayahCount)
+        .map(([nama, jumlah]) => ({ nama, jumlah }))
+        .sort((a, b) => b.jumlah - a.jumlah)
+        .slice(0, 5);
+
+    // 4. Efisiensi & Insight
+    const currentMonthData = data.filter(item => {
+        const itemDate = new Date(item.created_at);
+        return itemDate.getMonth() === now.getMonth() && itemDate.getFullYear() === now.getFullYear();
+    });
+    
+    const currentMonthMasuk = currentMonthData.length;
+    const currentMonthSelesai = currentMonthData.filter(d => d.status === 'selesai').length;
+    const efisiensi = currentMonthMasuk > 0 ? Math.round((currentMonthSelesai / currentMonthMasuk) * 100) : 0;
+    
+    let insight = `Total ${total} laporan ditemukan.`;
+    if (total > 0 && kategoriData.length > 0) {
+        const maxKat = kategoriData[0];
+        insight = `Kategori paling banyak dilaporkan adalah ${maxKat.kategori_label} (${maxKat.jumlah} laporan).`;
+    }
+
+    // Update UI Elements
+    document.getElementById('chartPeriod').textContent = periodLabel;
+    document.getElementById('chartTotalLabel').textContent = `${total} Laporan Total`;
+    document.getElementById('donutTotal').textContent = total;
+    document.getElementById('insightText').textContent = insight;
+    document.getElementById('efisiensiValue').textContent = `${efisiensi}%`;
+    document.getElementById('efisiensiBulan').textContent = months[now.getMonth()];
+
+    // Load Charts
+    loadTrendChart(trendData);
+    loadCategoryChart(kategoriData, total);
+    loadTopWilayah(topWilayah);
 }
 
 // ========================================
@@ -252,7 +348,9 @@ function loadCategoryChart(kategoriData, total) {
 
     const labels = kategoriData.map(d => d.kategori_label);
     const data = kategoriData.map(d => d.jumlah);
-    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+    
+    // ✅ WARNA YANG DISESUAIKAN DENGAN GAMBAR
+    const colors = ['#1e3a5f', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6'];
     const classes = ['permukaan', 'fasilitas', 'drainase', 'marka', 'lainnya'];
 
     const legendContainer = document.getElementById('categoryLegend');
@@ -320,11 +418,11 @@ function loadTopWilayah(wilayahData) {
 }
 
 // ========================================
-// INIT & EVENT LISTENERS (DIGABUNG)
+// INIT & EVENT LISTENERS
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('📊 Admin Laporan page loaded');
+    console.log('📊 Admin Laporan page loaded (Dummy Mode)');
     updateAdminInfo();
     
     // 1. Set default filter ke Tahun Ini

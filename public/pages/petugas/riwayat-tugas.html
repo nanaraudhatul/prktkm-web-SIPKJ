@@ -11,7 +11,7 @@
 <body>
     <div class="app-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header" onclick="window.location.href='dashboard.html'" style="cursor:pointer;">
                 <div class="sidebar-logo-container">
                     <div class="sidebar-logo-box">
@@ -92,7 +92,7 @@
                             </svg>
                         </div>
                         <div class="user-info">
-                            <span class="user-name">Ahmad</span>
+                            <span class="user-name" id="petugasName">Loading...</span>
                             <span class="user-role">Petugas Lapangan</span>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
             </header>
 
             <div class="page-content">
-                <!-- Page Header - Sesuai Figma -->
+                <!-- Page Header -->
                 <div class="page-header" style="padding: 24px 28px;">
                     <div class="page-header-icon" style="background: linear-gradient(135deg, #1e3a5f 0%, #2a5a8f 100%);">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
@@ -114,10 +114,10 @@
                     </div>
                 </div>
 
-                <!-- Filter Section - Sesuai Figma -->
+                <!-- Filter Section -->
                 <div class="filter-bar" style="background: white; padding: 16px 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                     <div style="display: flex; gap: 12px; align-items: flex-end;">
-                        <!-- Date Range -->
+                        <!-- Date Range (Visual Only for Dummy) -->
                         <div style="flex: 1; min-width: 250px;">
                             <label style="display: block; font-size: 11px; font-weight: 600; color: #64748b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Rentang Waktu</label>
                             <div style="position: relative;">
@@ -129,22 +129,18 @@
                                 </svg>
                                 <input type="text" value="01 Okt 2025 – 31 Okt 2025" readonly 
                                        style="width: 100%; padding: 10px 40px 10px 40px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; font-weight: 600; color: #1e293b; background: #f8fafc; cursor: pointer;">
-                                <svg style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94a3b8;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="6 9 12 15 18 9"/>
-                                </svg>
                             </div>
                         </div>
                         
                         <!-- Status Filter -->
+                        <!-- Status Filter (Dikunci ke Selesai) -->
                         <div style="min-width: 160px;">
                             <label style="display: block; font-size: 11px; font-weight: 600; color: #64748b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Status</label>
                             <div style="position: relative;">
-                                <select id="statusFilter" style="width: 100%; padding: 10px 36px 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; font-weight: 600; color: #1e293b; background: #f8fafc; cursor: pointer; appearance: none;">
-                                    <option value="semua">Semua Status</option>
-                                    <option value="Selesai">Selesai</option>
-                                    <option value="Ditolak">Ditolak</option>
+                                <select id="statusFilter" disabled style="width: 100%; padding: 10px 36px 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; font-weight: 600; color: #059669; background: #f0fdf4; cursor: not-allowed; appearance: none;">
+                                    <option value="Selesai" selected>Selesai</option>
                                 </select>
-                                <svg style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94a3b8; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <svg style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #059669; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polyline points="6 9 12 15 18 9"/>
                                 </svg>
                             </div>
@@ -167,7 +163,7 @@
                         </div>
                         
                         <!-- Search Button -->
-                        <button onclick="filterHistory()" style="height: 42px; padding: 0 20px; background: #1e3a5f; color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+                        <button id="btnFilter" style="height: 42px; padding: 0 20px; background: #1e3a5f; color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap;">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="11" cy="11" r="8"/>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -193,98 +189,8 @@
                                 </tr>
                             </thead>
                             <tbody id="historyTable">
-                                <tr data-id="1" data-status="Selesai" data-priority="Tinggi" style="border-bottom: 1px solid #e2e8f0;">
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">1</td>
-                                    <td style="padding: 16px; font-size: 13px; font-weight: 600; color: #1e293b;">Lampu jalan mati</td>
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">Jl. Sudirman, Ternate</td>
-                                    <td style="padding: 16px;">
-                                        <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #fef2f2; color: #e11d48; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                                            <span style="width: 6px; height: 6px; background: #e11d48; border-radius: 50%;"></span>
-                                            Prioritas Tinggi
-                                        </span>
-                                    </td>
-                                    <td style="padding: 16px;">
-                                        <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #d1fae5; color: #059669; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                                            <span style="width: 6px; height: 6px; background: #059669; border-radius: 50%;"></span>
-                                            Selesai
-                                        </span>
-                                    </td>
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">
-                                        <div>20 Okt 2025</div>
-                                        <small style="display: block; color: #94a3b8; font-size: 11px; margin-top: 2px;">14:30</small>
-                                    </td>
-                                    <td style="padding: 16px; text-align: center;">
-                                        <button onclick="viewDetail(1)" 
-                                                style="padding: 7px 16px; border: 1.5px solid #e2e8f0; background: white; color: #1e3a5f; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                <circle cx="12" cy="12" r="3"/>
-                                            </svg>
-                                            Lihat
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-id="2" data-status="Selesai" data-priority="Sedang" style="border-bottom: 1px solid #e2e8f0;">
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">2</td>
-                                    <td style="padding: 16px; font-size: 13px; font-weight: 600; color: #1e293b;">Rambu roboh</td>
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">Jl. Raya Kastela, Ternate</td>
-                                    <td style="padding: 16px;">
-                                        <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #fffbeb; color: #d97706; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                                            <span style="width: 6px; height: 6px; background: #d97706; border-radius: 50%;"></span>
-                                            Sedang
-                                        </span>
-                                    </td>
-                                    <td style="padding: 16px;">
-                                        <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #d1fae5; color: #059669; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                                            <span style="width: 6px; height: 6px; background: #059669; border-radius: 50%;"></span>
-                                            Selesai
-                                        </span>
-                                    </td>
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">
-                                        <div>18 Okt 2025</div>
-                                        <small style="display: block; color: #94a3b8; font-size: 11px; margin-top: 2px;">16:20</small>
-                                    </td>
-                                    <td style="padding: 16px; text-align: center;">
-                                        <button onclick="viewDetail(2)" 
-                                                style="padding: 7px 16px; border: 1.5px solid #e2e8f0; background: white; color: #1e3a5f; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                <circle cx="12" cy="12" r="3"/>
-                                            </svg>
-                                            Lihat
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-id="3" data-status="Selesai" data-priority="Rendah" style="border-bottom: 1px solid #e2e8f0;">
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">6</td>
-                                    <td style="padding: 16px; font-size: 13px; font-weight: 600; color: #1e293b;">Jalan bergelombang</td>
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">Jl. A. Yani, Ternate</td>
-                                    <td style="padding: 16px;">
-                                        <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #f0fdf4; color: #059669; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                                            <span style="width: 6px; height: 6px; background: #059669; border-radius: 50%;"></span>
-                                            Rendah
-                                        </span>
-                                    </td>
-                                    <td style="padding: 16px;">
-                                        <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #d1fae5; color: #059669; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                                            <span style="width: 6px; height: 6px; background: #059669; border-radius: 50%;"></span>
-                                            Selesai
-                                        </span>
-                                    </td>
-                                    <td style="padding: 16px; font-size: 13px; color: #64748b;">
-                                        <div>12 Okt 2025</div>
-                                        <small style="display: block; color: #94a3b8; font-size: 11px; margin-top: 2px;">15:50</small>
-                                    </td>
-                                    <td style="padding: 16px; text-align: center;">
-                                        <button onclick="viewDetail(3)" 
-                                                style="padding: 7px 16px; border: 1.5px solid #e2e8f0; background: white; color: #1e3a5f; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                <circle cx="12" cy="12" r="3"/>
-                                            </svg>
-                                            Lihat
-                                        </button>
-                                    </td>
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">Memuat data riwayat...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -292,21 +198,6 @@
                     
                     <div id="emptyMessage" hidden style="text-align: center; padding: 40px; color: #94a3b8; font-size: 13px;">
                         Tidak ada riwayat tugas ditemukan.
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="pagination" style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 16px 20px; border-top: 1px solid #e2e8f0;">
-                        <button disabled style="width: 32px; height: 32px; border: 1px solid #e2e8f0; background: white; border-radius: 6px; color: #94a3b8; cursor: not-allowed; display: flex; align-items: center; justify-content: center;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="15 18 9 12 15 6"/>
-                            </svg>
-                        </button>
-                        <button class="active" style="width: 32px; height: 32px; border: none; background: #1e3a5f; color: white; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">1</button>
-                        <button disabled style="width: 32px; height: 32px; border: 1px solid #e2e8f0; background: white; border-radius: 6px; color: #94a3b8; cursor: not-allowed; display: flex; align-items: center; justify-content: center;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="9 18 15 12 9 6"/>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -317,46 +208,11 @@
         </main>
     </div>
 
-    <script>
-        function handleLogout() {
-            if(confirm('Apakah Anda yakin ingin logout?')) {
-                window.location.href = '../auth/login.html';
-            }
-        }
-
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('active');
-        }
-
-        function filterHistory() {
-            const status = document.getElementById("statusFilter").value;
-            const priority = document.getElementById("priorityFilter").value;
-            const rows = document.querySelectorAll("#historyTable tr");
-            let visible = 0;
-
-            rows.forEach(row => {
-                const statusMatch = status === "semua" || row.dataset.status === status;
-                const priorityMatch = priority === "semua" || row.dataset.priority === priority;
-                row.style.display = statusMatch && priorityMatch ? "" : "none";
-                if (statusMatch && priorityMatch) visible++;
-            });
-
-            document.getElementById("emptyMessage").hidden = visible !== 0;
-        }
-        function viewDetail(taskId) {
-            window.location.href = `detail-pengaduan.html?id=${taskId}`;
-        }
-        document.addEventListener('click', function(e) {
-            const sidebar = document.querySelector('.sidebar');
-            const menuToggle = document.querySelector('.menu-toggle');
-            if (window.innerWidth <= 992) {
-                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                    sidebar.classList.remove('active');
-                }
-            }
-        });
-    </script>
-       <script src="../../js/transisi-halaman.js"></script>
-       <script src="../../js/petugas-riwayat-tugas.js"></script>
+    <!-- ✅ PENTING: Urutan script harus benar -->
+    <script src="../../js/data-manager.js"></script>
+    <script src="../../js/config.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/user-helper.js"></script>
+    <script src="../../js/petugas-riwayat-tugas.js"></script>
 </body>
 </html>

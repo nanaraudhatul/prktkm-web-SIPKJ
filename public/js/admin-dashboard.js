@@ -80,7 +80,7 @@ function updateCurrentDate() {
     const dateEl = document.querySelector('#currentDate span');
     if (dateEl) {
         const now = new Date();
-        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
         const formatted = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
         dateEl.textContent = formatted;
     }
@@ -192,7 +192,7 @@ function renderTable(dataToRender) {
     renderPagination(totalPages);
 }
 
-// Render pagination buttons (SAMA PERSIS dengan Dashboard Masyarakat)
+// Render pagination buttons
 function renderPagination(totalPages) {
     const paginationContainer = document.getElementById('paginationContainer');
     if (!paginationContainer) return;
@@ -292,7 +292,9 @@ function renderPagination(totalPages) {
     paginationContainer.appendChild(nextBtn);
 }
 
-// Fungsi filter utama
+// ========================================
+// FUNGSI FILTER UTAMA (DIPERBARUI DENGAN PENCARIAN TANGGAL)
+// ========================================
 function applyFilters() {
     const searchInput = document.getElementById('searchInput');
     const filterKategori = document.getElementById('filterKategori');
@@ -308,11 +310,37 @@ function applyFilters() {
         
         let matchSearch = true;
         if (searchValue) {
+            // ==========================================
+            // LOGIKA PENCARIAN TANGGAL
+            // ==========================================
+            let matchDate = false;
+            if (item.created_at) {
+                const d = new Date(item.created_at);
+                const yyyy = d.getFullYear().toString();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                
+                const bulanIndonesia = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
+                const mmm = bulanIndonesia[d.getMonth()];
+                
+                const dateFormats = [
+                    `${yyyy}-${mm}-${dd}`, // 2026-10-30
+                    `${dd}-${mm}-${yyyy}`, // 30-10-2026
+                    `${dd}/${mm}/${yyyy}`, // 30/10/2026
+                    `${dd} ${mmm} ${yyyy}`, // 30 okt 2026
+                    `${mmm} ${yyyy}`,      // okt 2026
+                    yyyy                   // 2026
+                ];
+                
+                matchDate = dateFormats.some(format => format.includes(searchValue));
+            }
+
             matchSearch = 
-                idStr === searchValue ||
-                noUrutStr === searchValue ||
+                idStr.includes(searchValue) ||
+                noUrutStr.includes(searchValue) ||
                 (item.judul && item.judul.toLowerCase().includes(searchValue)) || 
-                (item.lokasi && item.lokasi.toLowerCase().includes(searchValue));
+                (item.lokasi && item.lokasi.toLowerCase().includes(searchValue)) ||
+                matchDate; // Tambahkan hasil pencarian tanggal
         }
 
         let matchKategori = true;

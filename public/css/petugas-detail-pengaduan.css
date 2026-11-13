@@ -856,3 +856,27 @@ button {
         font-size: 10px;
     }
 }
+/* =====================================
+   ANIMASI SIDEBAR (TAMBAHAN BARU - AMAN)
+===================================== */
+.sidebar {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 801px) {
+    .sidebar.collapsed {
+        margin-left: -243px;
+    }
+}
+@media (max-width: 800px) {
+    .sidebar {
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+}
+.menu-toggle {
+    transition: all 0.25s ease;
+}
+
+.menu-toggle:active {
+    transform: scale(0.95);
+}

@@ -94,43 +94,57 @@ function capitalize(str) {
 }
 
 // ========================================
-// LOAD DATA
+// LOAD DATA DUMMY LANGSUNG
 // ========================================
-const USE_DUMMY_DATA = true;
-
 async function loadPengaduan() {
     try {
-        const token = localStorage.getItem('sipkj_token');
-        const endpoint = USE_DUMMY_DATA 
-            ? API_CONFIG.ENDPOINTS.LIST_PENGADUAN_DUMMY 
-            : API_CONFIG.ENDPOINTS.LIST_PENGADUAN;
+        console.log('🔄 Memuat data pengaduan...');
         
-        console.log('📡 Fetching from:', endpoint);
+        // Langsung fetch dari file dummy.json
+        const response = await fetch('../../data/dummy.json');
         
-        const response = await fetch(API_CONFIG.BASE_URL + endpoint, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-        console.log('📊 Pengaduan list:', result);
-
-        if (result.success && result.data && Array.isArray(result.data)) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('✅ Data berhasil dimuat:', data.length, 'pengaduan');
+        
+        if (Array.isArray(data)) {
             // Urutkan: terbaru di atas berdasarkan created_at
-            allPengaduan = result.data.sort((a, b) => {
+            allPengaduan = data.sort((a, b) => {
                 return new Date(b.created_at) - new Date(a.created_at);
             });
+            
+            // Tambahkan nomor urut
+            allPengaduan.forEach((item, index) => {
+                item.noUrut = index + 1;
+            });
+            
+            console.log(' Total pengaduan:', allPengaduan.length);
         } else {
+            console.error('❌ Data bukan array:', data);
             allPengaduan = [];
         }
         
-        currentPage = 1; // Reset ke halaman 1 saat data dimuat
+        currentPage = 1;
         applyFilters();
+        
     } catch (error) {
         console.error('❌ Error loading data:', error);
+        
+        // Tampilkan pesan error di tabel
+        const tbody = document.getElementById('pengaduanTableBody');
+        if (tbody) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" style="text-align:center;padding:40px;color:#ef4444;">
+                        Gagal memuat data.<br>
+                        <small>${error.message}</small>
+                    </td>
+                </tr>
+            `;
+        }
     }
 }
 
@@ -151,6 +165,8 @@ function getFilterValues() {
 
 function applyFilters() {
     const filters = getFilterValues();
+    
+    console.log('🔍 Filter diterapkan:', filters);
     
     filteredPengaduan = allPengaduan.filter((item) => {
         const itemStatus = ((item.status || '') + '').toLowerCase().trim();
@@ -208,7 +224,9 @@ function applyFilters() {
         return matchSearch && matchKategori && matchStatus;
     });
     
-    currentPage = 1; // Reset ke halaman 1 saat filter berubah
+    console.log('✅ Data setelah filter:', filteredPengaduan.length, 'pengaduan');
+    
+    currentPage = 1;
     updateStats();
     renderTable();
     renderPagination();
@@ -245,56 +263,52 @@ function renderTable() {
     
     tbody.innerHTML = '';
 
-    if (filteredPengaduan.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">Tidak ada pengaduan yang cocok dengan filter</td></tr>';
-        renderPagination();
+    if (!filteredPengaduan || filteredPengaduan.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Tidak ada data yang cocok dengan filter</td></tr>';
         return;
     }
 
-    // Hitung pagination
+    const statusConfig = {
+        'diajukan': { text: 'Diajukan', class: 'diajukan' },
+        'baru': { text: 'Diajukan', class: 'baru' },
+        'verifikasi': { text: 'Verifikasi', class: 'verifikasi' },
+        'proses': { text: 'Proses', class: 'proses' },
+        'selesai': { text: 'Selesai', class: 'selesai' },
+        'ditolak': { text: 'Ditolak', class: 'ditolak' }
+    };
+
+    const totalPages = Math.ceil(filteredPengaduan.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const paginatedData = filteredPengaduan.slice(startIndex, endIndex);
+    const pageData = filteredPengaduan.slice(startIndex, endIndex);
 
-    paginatedData.forEach((item, index) => {
-        const statusConfig = {
-            'diajukan': { text: 'Diajukan', bg: '#1e3a5f' },
-            'baru': { text: 'Diajukan', bg: '#1e3a5f' },
-            'verifikasi': { text: 'Verifikasi', bg: '#d97706' },
-            'proses': { text: 'Proses', bg: '#d97706' },
-            'selesai': { text: 'Selesai', bg: '#059669' },
-            'ditolak': { text: 'Ditolak', bg: '#dc2626' }
-        };
-        
-        const statusInfo = statusConfig[item.status] || statusConfig['diajukan'];
-        const tanggal = formatDate(item.created_at);
-        const noUrut = startIndex + index + 1; // Nomor urut berdasarkan halaman
-
+    pageData.forEach(pengaduan => {
+        const status = statusConfig[pengaduan.status] || statusConfig['diajukan'];
         const row = document.createElement('tr');
+        const tanggal = formatDate(pengaduan.created_at);
+        
         row.innerHTML = `
-            <td style="padding:16px; text-align: center; font-weight: 600;">${noUrut}</td>
-            <td style="padding:16px;"><strong>${item.judul || '-'}</strong></td>
-            <td style="padding:16px;">${capitalize(item.kategori) || '-'}</td>
-            <td style="padding:16px;">
-                <span style="display:inline-flex;align-items:center;padding:6px 16px;border-radius:50px;font-size:13px;font-weight:600;color:white;background-color:${statusInfo.bg};">
-                    ${statusInfo.text}
+            <td class="col-no">${pengaduan.noUrut || startIndex + pageData.indexOf(pengaduan) + 1}</td>
+            <td><strong>${pengaduan.judul || '-'}</strong></td>
+            <td>${capitalize(pengaduan.kategori) || '-'}</td>
+            <td>
+                <span class="status-badge ${status.class}">
+                    ${status.text}
                 </span>
             </td>
-            <td style="padding:16px;">${tanggal}</td>
-            <td style="padding:16px;">
-                <button onclick="window.location.href='detail-pengaduan.html?id=${item.id}'" class="action-btn">
+            <td>${tanggal}</td>
+            <td>
+                <button onclick="window.location.href='detail-pengaduan.html?id=${pengaduan.id}'" class="action-btn">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
-                    Detail
+                    Lihat Detail
                 </button>
             </td>
         `;
         tbody.appendChild(row);
     });
-
-    renderPagination();
 }
 
 // ========================================

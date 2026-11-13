@@ -136,10 +136,17 @@ async function loadVerifikasiData() {
         console.log('📊 Statistik:', { totalPengaduan, menungguVerifikasi, dalamProses, selesai });
 
         // Filter hanya yang menunggu verifikasi untuk ditampilkan di tabel
-        allPengaduan = result.filter(item => {
+        let dataMenunggu = result.filter(item => {
             const status = (item.status || '').toLowerCase();
             return status === 'diajukan' || status === 'baru';
         });
+
+        // ⭐ TAMBAHKAN NOMOR URUT KE SETIAP ITEM
+        dataMenunggu.forEach((item, index) => {
+            item.noUrut = index + 1;
+        });
+
+        allPengaduan = dataMenunggu;
 
         console.log('✅ Data yang menunggu verifikasi:', allPengaduan.length);
 
@@ -163,28 +170,90 @@ async function loadVerifikasiData() {
     }
 }
 
-// Apply filters
+// ========================================
+// ⭐ APPLY FILTERS (DIPERBAIKI: ANGKA = NO/ID, TEKS+BULAN = TANGGAL)
+// ========================================
 function applyFilters() {
-    const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
-    const kategori = document.getElementById('filterKategori')?.value || '';
-    const status = document.getElementById('filterStatus')?.value || '';
+    const search = document.getElementById('searchInput')?.value.toLowerCase().trim() || '';
+    const kategori = document.getElementById('filterKategori')?.value.toLowerCase().trim() || '';
+    const status = document.getElementById('filterStatus')?.value.toLowerCase().trim() || '';
+
+    // Daftar nama bulan (pendek & panjang) untuk deteksi pencarian tanggal
+    const bulanShort = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
+    const bulanLong = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
+    
+    // Deteksi apakah search term mengandung nama bulan
+    const containsMonth = bulanShort.some(b => search.includes(b)) || 
+                          bulanLong.some(b => search.includes(b));
+    
+    // Deteksi apakah search term adalah angka murni (hanya digit)
+    const isPureNumber = /^\d+$/.test(search);
 
     filteredPengaduan = allPengaduan.filter(item => {
-        const matchSearch = !search || 
-            (item.judul && item.judul.toLowerCase().includes(search)) ||
-            (item.lokasi && item.lokasi.toLowerCase().includes(search)) ||
-            (item.nama_pelapor && item.nama_pelapor.toLowerCase().includes(search)) ||
-            (item.id && item.id.toString().includes(search));
-            
-        const matchKategori = !kategori || (item.kategori && item.kategori.toLowerCase() === kategori);
-        
-        // Filter status (default sudah diajukan/baru, tapi bisa difilter lagi)
-        const matchStatus = !status || (item.status && item.status.toLowerCase() === status);
-        
+        // 1. Siapkan semua field
+        const noUrutStr = item.noUrut ? item.noUrut.toString() : '';
+        const idStr = item.id ? item.id.toString() : '';
+        const judul = (item.judul || '').toLowerCase();
+        const pelapor = (item.nama_pelapor || '').toLowerCase();
+        const kategoriItem = (item.kategori || '').toLowerCase();
+        const lokasi = (item.lokasi || '').toLowerCase();
+        const deskripsi = (item.deskripsi || '').toLowerCase();
+        const statusItem = (item.status || '').toLowerCase();
+
+        // 2. Siapkan field Tanggal dalam berbagai format
+        let dateSearchable = '';
+        if (item.created_at) {
+            const d = new Date(item.created_at);
+            const yyyy = d.getFullYear().toString();
+            const mm = String(d.getMonth() + 1).padStart(2, '0');
+            const dd = String(d.getDate()).padStart(2, '0');
+            const mShort = bulanShort[d.getMonth()];
+            const mLong = bulanLong[d.getMonth()];
+
+            // Format tanggal yang MENYERTAKAN BULAN (untuk pencarian tanggal)
+            dateSearchable = `${dd} ${mShort} ${yyyy} ${dd} ${mLong} ${yyyy} ${mShort} ${yyyy} ${mLong} ${yyyy} ${dd}-${mShort}-${yyyy} ${dd}/${mShort}/${yyyy}`.toLowerCase();
+        }
+
+        // 3. Logika pencarian yang PINTAR
+        let matchSearch = true;
+        if (search) {
+            if (isPureNumber && !containsMonth) {
+                // ⭐ Jika input HANYA ANGKA (misal: "5", "56", "123")
+                // Cari HANYA di No Urut dan ID, TIDAK di tanggal
+                matchSearch = 
+                    noUrutStr.includes(search) ||
+                    idStr.includes(search);
+            } else if (containsMonth) {
+                // ⭐ Jika input mengandung NAMA BULAN (misal: "5 nov", "okt 2026")
+                // Cari di tanggal DAN field lainnya
+                matchSearch = 
+                    dateSearchable.includes(search) ||
+                    judul.includes(search) ||
+                    pelapor.includes(search) ||
+                    kategoriItem.includes(search) ||
+                    lokasi.includes(search) ||
+                    deskripsi.includes(search);
+            } else {
+                // ⭐ Jika input TEKS biasa (misal: "jalan", "budi", "lubang")
+                // Cari di semua field teks (TIDAK termasuk tanggal angka)
+                matchSearch = 
+                    judul.includes(search) ||
+                    pelapor.includes(search) ||
+                    kategoriItem.includes(search) ||
+                    lokasi.includes(search) ||
+                    deskripsi.includes(search) ||
+                    statusItem.includes(search);
+            }
+        }
+
+        // 4. Cek filter dropdown
+        const matchKategori = !kategori || (kategoriItem === kategori);
+        const matchStatus = !status || (statusItem === status);
+
         return matchSearch && matchKategori && matchStatus;
     });
 
-    currentPage = 1; // Reset ke halaman 1 saat filter berubah
+    currentPage = 1;
     renderTable();
 }
 
@@ -224,7 +293,7 @@ function renderTable() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td><input type="checkbox" class="row-checkbox" data-id="${item.id}"></td>
-            <td>${startIndex + index + 1}</td>
+            <td>${item.noUrut || startIndex + index + 1}</td>
             <td>
                 <strong>${item.judul || '-'}</strong><br>
                 <small style="color:#64748b;">Oleh: ${pelapor}</small>
@@ -370,7 +439,6 @@ async function openVerifikasiModal(id) {
     modal.classList.add('show');
 
     try {
-        // Cari data dari array yang sudah dimuat (tidak perlu fetch ulang ke API)
         const data = allPengaduan.find(item => item.id === id);
         
         if (data) {
@@ -402,7 +470,6 @@ function renderModalContent(data) {
     const pelaporName = data.nama_pelapor || 'Masyarakat';
     const initial = pelaporName.charAt(0).toUpperCase();
 
-    // Handle foto (bisa null, string, atau array)
     let fotoHtml = '';
     let fotoList = [];
     if (data.foto) {
@@ -521,7 +588,6 @@ function submitVerifikasi(newStatus) {
     if (!currentDetailId) return;
     alert(`Simulasi: Pengaduan ID ${currentDetailId} berhasil diubah statusnya menjadi '${newStatus}'.\n\n(Di sistem nyata, ini akan mengirim request ke API)`);
     closeModal();
-    // Di sistem nyata, panggil loadVerifikasiData() di sini untuk refresh tabel
 }
 
 function closeModal() {
@@ -535,7 +601,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateAdminInfo();
     setCurrentDate();
     
-    // Muat data dummy
     loadVerifikasiData();
 
     const searchInput = document.getElementById('searchInput');

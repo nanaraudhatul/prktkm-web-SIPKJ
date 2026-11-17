@@ -993,3 +993,87 @@ body {
     margin: 0 0 24px 0;
     padding: 0 4px;
 }
+
+/* ========================================
+   UNIVERSAL PAGE TRANSITION ANIMATIONS (PETUGAS)
+   Menambahkan animasi masuk halus & efek interaktif
+   ======================================== */
+
+/* 1. Animasi Masuk Main Content (Geser dari kanan ke kiri) */
+.main-content {
+    animation: petugasContentFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes petugasContentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 2. Animasi Staggered (Elemen muncul berurutan dari bawah) */
+.main-content .page-content > *,
+.main-content > .page-content > * {
+    animation: petugasStaggerFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+/* Delay bertahap untuk setiap elemen anak di dalam page-content */
+.main-content .page-content > *:nth-child(1),
+.main-content > .page-content > *:nth-child(1) { animation-delay: 0.1s; } /* Header */
+.main-content .page-content > *:nth-child(2),
+.main-content > .page-content > *:nth-child(2) { animation-delay: 0.2s; } /* Filter/Card */
+.main-content .page-content > *:nth-child(3),
+.main-content > .page-content > *:nth-child(3) { animation-delay: 0.3s; } /* Tabel/Form */
+.main-content .page-content > *:nth-child(4),
+.main-content > .page-content > *:nth-child(4) { animation-delay: 0.4s; } /* Footer/Paginasi */
+.main-content .page-content > *:nth-child(5),
+.main-content > .page-content > *:nth-child(5) { animation-delay: 0.5s; } /* Elemen tambahan */
+
+@keyframes petugasStaggerFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 3. Efek Hover Halus pada Baris Tabel */
+table tbody tr, 
+.data-table tbody tr,
+.task-card tbody tr {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+table tbody tr:hover, 
+.data-table tbody tr:hover,
+.task-card tbody tr:hover {
+    background: #f8fafc;
+    transform: translateX(4px);
+}
+
+/* 4. Efek Klik (Active) Halus pada Semua Tombol */
+button, .btn, .btn-primary, .btn-secondary, .view-button, .update-btn, .work-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active, .btn:active, .btn-primary:active, .btn-secondary:active, .view-button:active {
+    transform: scale(0.96);
+}
+
+/* 5. Efek Fokus Halus pada Input, Select, dan Textarea */
+input, select, textarea, .bap-textarea {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:focus, select:focus, textarea:focus, .bap-textarea:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.1);
+}

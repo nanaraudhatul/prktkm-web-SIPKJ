@@ -7,23 +7,20 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
     width: 100%;
     min-height: 100%;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #eef0f3;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #eff0f2;
     color: #1b2940;
     font-size: 13px;
     overflow-x: hidden;
 }
 
-button,
-input,
-select {
+button, input, select {
     font-family: inherit;
 }
 
@@ -32,7 +29,7 @@ button {
 }
 
 /* =========================================
-   LAYOUT UTAMA FULL SCREEN
+   LAYOUT UTAMA
 ========================================= */
 .app-container {
     display: flex;
@@ -43,8 +40,149 @@ button {
     align-items: stretch;
 }
 
+/* =========================================
+   SIDEBAR (SAMA PERSIS DENGAN DASHBOARD)
+========================================= */
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #1a2744 0%, #1e3a6e 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+.sidebar-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.sidebar-logo-box {
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar-logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.sidebar-brand h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+    letter-spacing: 1px;
+}
+
+.sidebar-brand p {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 20px 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-weight: 600;
+}
+
+.nav-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    width: 100%;
+    font-family: inherit;
+    text-align: left;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.logout-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
 .main-content {
     flex: 1;
+    margin-left: 280px;
     min-width: 0;
     min-height: 100vh;
     display: flex;
@@ -53,107 +191,7 @@ button {
 }
 
 /* =========================================
-   SIDEBAR
-========================================= */
-.sidebar {
-    width: 265px;
-    min-width: 265px;
-    min-height: 100vh;
-    padding: 28px 23px 20px;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    background: linear-gradient(180deg, #1a2744 0%, #1e3a6e 100%);
-    color: white;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    margin-bottom: 45px;
-}
-
-.brand img {
-    width: 58px;
-    height: 52px;
-    object-fit: contain;
-    background: white;
-}
-
-.brand-text h2 {
-    color: white;
-    font-size: 23px;
-    margin-bottom: 4px;
-}
-
-.brand-text p {
-    color: #d0ddec;
-    font-size: 10px;
-    line-height: 1.4;
-}
-
-.navigation {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.nav-link {
-    min-height: 45px;
-    padding: 0 14px;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    border-radius: 11px;
-    color: #b9cce2;
-    text-decoration: none;
-    font-size: 13px;
-    transition: .2s;
-}
-
-.nav-link:hover {
-    background: rgba(255,255,255,.10);
-    color: white;
-}
-
-.nav-link.active {
-    background: #173e72;
-    color: white;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(0,0,0,.12);
-}
-
-.nav-link svg {
-    width: 19px;
-    height: 19px;
-    flex-shrink: 0;
-    stroke-width: 2;
-}
-
-.logout {
-    margin-top: auto;
-    min-height: 43px;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #c3d2e5;
-    text-decoration: none;
-    font-size: 13px;
-}
-
-.logout:hover {
-    color: white;
-}
-
-.logout svg {
-    width: 19px;
-    height: 19px;
-}
-
-/* =========================================
-   HEADER
+   TOPBAR
 ========================================= */
 .topbar {
     width: 100%;
@@ -165,34 +203,48 @@ button {
     justify-content: space-between;
     background: white;
     border-bottom: 1px solid #e9edf2;
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
 .topbar-left {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
 }
 
-.topbar-left h2 {
-    font-size: 21px;
-    font-weight: 700;
-    color: #1c2940;
-}
-
-.menu-button {
-    width: 25px;
-    height: 30px;
+.menu-toggle {
     display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #1A365D;
+    border-radius: 8px;
+    transition: all 0.2s;
     align-items: center;
     justify-content: center;
-    border: none;
-    background: transparent;
-    color: #263b58;
 }
 
-.menu-button svg {
-    width: 21px;
-    height: 21px;
+.menu-toggle:hover {
+    background: rgba(26, 54, 93, 0.08);
+}
+
+.menu-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+.topbar-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
 }
 
 .user-profile {
@@ -200,319 +252,223 @@ button {
     align-items: center;
     gap: 12px;
     cursor: pointer;
+    padding: 6px 12px 6px 6px;
+    border-radius: 50px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+}
+
+.user-profile:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
 }
 
 .user-avatar {
     width: 40px;
     height: 40px;
-    background: #1A365D;
     border-radius: 50%;
+    background: #1A365D;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
     flex-shrink: 0;
 }
 
 .user-avatar svg {
     width: 22px;
     height: 22px;
+    stroke: white;
 }
 
-.user-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.user-name {
+.user-info .user-name {
     font-size: 14px;
     font-weight: 700;
     color: #1e293b;
 }
 
-.user-role {
+.user-info .user-role {
     font-size: 11px;
     color: #1A365D;
     background: #eef2ff;
     padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 600;
+    border-radius: 10px;
     display: inline-block;
+    margin-top: 2px;
+    font-weight: 600;
 }
 
 /* =========================================
-   AREA KONTEN
+   PAGE CONTENT
 ========================================= */
-.content-area {
+.page-content {
     flex: 1;
-    width: 100%;
-    min-width: 0;
-    padding: 32px 32px 0;
-    display: flex;
-    flex-direction: column;
+    padding: 28px 32px;
 }
 
 /* =========================================
-   BANNER RIWAYAT TUGAS
+   PAGE HEADER (Icon + Judul Sejajar)
 ========================================= */
-.page-intro {
-    min-height: 139px;
-    flex-shrink: 0;
-    margin-bottom: 22px;
-    padding: 25px;
+.page-header {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     background: white;
-    border: 1px solid #dce5f8;
-    border-radius: 16px;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.intro-icon {
-    width: 65px;
-    height: 65px;
-    flex-shrink: 0;
+.page-header-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 16px;
-    color: #1d416f;
-    background: white;
-    box-shadow: 0 3px 15px rgba(28,60,100,.05);
+    flex-shrink: 0;
 }
 
-.intro-icon svg {
-    width: 36px;
-    height: 36px;
-    stroke-width: 2.5;
+.page-header-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: #1A365D;
+    color: #1A365D;
 }
 
-.intro-description h1 {
-    margin-bottom: 7px;
-    color: #17243b;
-    font-size: 25px;
+.page-header-text h2 {
+    font-size: 20px;
     font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
 }
 
-.intro-description p {
-    color: #52627c;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/* =========================================
-   FILTER
-========================================= */
-.filter-card {
-    min-height: 101px;
-    flex-shrink: 0;
-    margin-bottom: 17px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: flex-end;
-    gap: 12px;
-    background: white;
-    border-radius: 16px;
-}
-
-.filter-group {
-    min-width: 150px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.date-group {
-    flex: 1;
-    min-width: 200px;
-}
-
-.filter-group label {
-    padding-left: 12px;
-    color: #899bb4;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .4px;
-}
-
-.filter-control,
-.select-control {
-    position: relative;
-    height: 55px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #e1e8f0;
-    border-radius: 13px;
-    background: #f8fafc;
-}
-
-.date-control {
-    gap: 12px;
-    padding: 0 14px;
-}
-
-.date-control svg {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    color: #28466e;
-}
-
-.date-control input {
-    width: 100%;
-    min-width: 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: #34445e;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.date-control svg:last-child {
-    margin-left: auto;
-    color: #899bb4;
-}
-
-.select-control select {
-    appearance: none;
-    width: 100%;
-    height: 100%;
-    padding: 0 34px 0 13px;
-    border: none;
-    outline: none;
-    border-radius: 13px;
-    background: transparent;
-    color: #34445e;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.select-control svg {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    color: #899bb4;
-    pointer-events: none;
-}
-
-.search-button {
-    height: 55px;
-    min-width: 92px;
-    padding: 0 17px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    border: none;
-    border-radius: 13px;
-    background: #193d70;
-    color: white;
+.page-header-text p {
     font-size: 13px;
-    font-weight: 600;
-    box-shadow: 0 3px 7px rgba(25,61,112,.17);
-}
-
-.search-button:hover {
-    background: #245b9c;
-}
-
-.search-button svg {
-    width: 17px;
-    height: 17px;
+    color: #64748b;
+    margin: 0;
 }
 
 /* =========================================
-   TABEL RIWAYAT
+   FILTER BAR
 ========================================= */
-.table-card {
-    width: 100%;
-    flex-shrink: 0;
-    overflow: hidden;
+.filter-bar {
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 2px 5px rgba(0,0,0,.025);
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.table-responsive {
-    width: 100%;
+/* Icon kalender filter -> navy */
+.filter-bar svg[style*="left: 12px"] {
+    color: #1A365D !important;
+}
+
+/* Chevron select -> abu */
+.filter-bar svg[style*="right: 12px"] {
+    color: #94a3b8 !important;
+}
+
+/* =========================================
+   TABLE SECTION
+========================================= */
+.table-section {
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.table-container {
     overflow-x: auto;
 }
 
-table {
+.data-table {
     width: 100%;
-    min-width: 850px;
+    min-width: 900px;
     border-collapse: collapse;
-    table-layout: fixed;
 }
 
-th:nth-child(1) { width: 5%; }
-th:nth-child(2) { width: 24%; }  /* ← diperbesar dari 18% */
-th:nth-child(3) { width: 15%; }  /* ← diperkecil dari 19% */
-th:nth-child(4) { width: 14%; }
-th:nth-child(5) { width: 11%; }
-th:nth-child(6) { width: 19%; }
-th:nth-child(7) { width: 14%; }
+.data-table thead tr {
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+}
 
-thead th {
-    height: 48px;
-    padding: 12px 13px;
+.data-table th {
+    padding: 14px 16px;
     text-align: left;
-    color: #34435c;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: .35px;
-    white-space: nowrap;
-    border-bottom: 1px solid #edf0f4;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-thead th:first-child,
-tbody td:first-child {
-    padding-left: 17px;
-}
-
-thead th:last-child,
-tbody td:last-child {
+.data-table th:last-child {
     text-align: center;
 }
 
-tbody td {
-    height: auto;
-    min-height: 56px;
-    padding: 11px 13px;
+.data-table tbody tr {
+    border-bottom: 1px solid #e2e8f0;
+    transition: background 0.15s;
+}
+
+.data-table tbody tr:hover {
+    background: #fafcff;
+}
+
+.data-table tbody td {
+    padding: 16px;
+    font-size: 13px;
     color: #475974;
-    font-size: 12px;
+    vertical-align: middle;
+}
+
+.data-table tbody td:first-child {
+    color: #64748b;
+}
+
+.data-table tbody td:last-child {
+    text-align: center;
+}
+
+/* Kolom judul lebih lebar agar tidak menabrak lokasi */
+.data-table th:nth-child(2) {
+    width: 24%;
+}
+
+.data-table th:nth-child(3) {
+    width: 15%;
+}
+
+/* Judul panjang boleh wrap */
+.data-table tbody td:nth-child(2) {
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
     line-height: 1.4;
     vertical-align: middle;
-    border-bottom: 1px solid #edf0f4;
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
-
-tbody tr:hover {
-    background: #fafcff;
-}
-
-tbody td:first-child {
-    color: #607798;
-}
-
-.title-cell {
-    color: #1d2c43;
     font-weight: 600;
+    color: #1e293b;
+}
+
+.data-table tbody td:nth-child(3) {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+    vertical-align: middle;
 }
 
 /* =========================================
-   PRIORITAS
+   BADGE PRIORITAS
 ========================================= */
 .priority {
     display: inline-flex;
@@ -551,7 +507,7 @@ tbody td:first-child {
 }
 
 /* =========================================
-   STATUS
+   BADGE STATUS
 ========================================= */
 .status {
     display: inline-flex;
@@ -575,21 +531,6 @@ tbody td:first-child {
     background: #e9fff6;
     color: #07966c;
     border: 1px solid #c9f4e2;
-}
-
-/* =========================================
-   TANGGAL SELESAI
-========================================= */
-.date-cell {
-    color: #4b5e79;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-.date-cell small {
-    display: block;
-    color: #91a1b7;
-    font-size: 10px;
 }
 
 /* =========================================
@@ -621,366 +562,8 @@ tbody td:first-child {
 }
 
 /* =========================================
-   DATA KOSONG
-========================================= */
-.empty-message {
-    padding: 30px;
-    text-align: center;
-    color: #899bb4;
-    font-size: 13px;
-}
-
-.empty-message[hidden] {
-    display: none;
-}
-
-/* =========================================
    PAGINATION
 ========================================= */
-.pagination {
-    min-height: 55px;
-    padding: 10px 12px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 7px;
-}
-
-.pagination button {
-    width: 33px;
-    height: 33px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #dce5ef;
-    border-radius: 9px;
-    background: white;
-    color: #7c91ae;
-}
-
-.pagination button svg {
-    width: 17px;
-    height: 17px;
-}
-
-.pagination button:disabled {
-    opacity: .7;
-    cursor: not-allowed;
-}
-
-.pagination button.active-page {
-    background: #193d70;
-    color: white;
-    border-color: #193d70;
-    font-weight: 600;
-}
-
-/* =========================================
-   COPYRIGHT DAN FOOTER
-========================================= */
-.content-copyright {
-    margin-top: auto;
-    padding: 18px 5px 14px;
-    text-align: center;
-    color: #f8f9fb;
-    font-size: 10px;
-}
-
-.footer {
-    width: 100%;
-    min-height: 84px;
-    flex-shrink: 0;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    color: #95a5ba;
-    font-size: 11px;
-    text-align: center;
-}
-
-/* =========================================
-   COLLAPSE SIDEBAR
-========================================= */
-.sidebar.collapsed {
-    width: 75px;
-    min-width: 75px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.sidebar.collapsed .brand {
-    justify-content: center;
-}
-
-.sidebar.collapsed .brand-text,
-.sidebar.collapsed .nav-link span,
-.sidebar.collapsed .logout span {
-    display: none;
-}
-
-.sidebar.collapsed .nav-link,
-.sidebar.collapsed .logout {
-    justify-content: center;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-/* =========================================
-   RESPONSIVE TABLET
-========================================= */
-@media (max-width: 1000px) {
-    .sidebar {
-        width: 205px;
-        min-width: 205px;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    .content-area {
-        padding: 22px 18px 0;
-    }
-
-    .page-intro {
-        min-height: 115px;
-    }
-
-    .filter-card {
-        flex-wrap: wrap;
-    }
-
-    .date-group {
-        flex-basis: 100%;
-    }
-
-    .filter-group:not(.date-group) {
-        flex: 1;
-    }
-}
-
-/* =========================================
-   RESPONSIVE MOBILE
-========================================= */
-@media (max-width: 600px) {
-    .sidebar {
-        width: 65px;
-        min-width: 65px;
-        padding: 17px 8px;
-    }
-
-    .brand {
-        justify-content: center;
-        margin-bottom: 35px;
-    }
-
-    .brand img {
-        width: 42px;
-        height: 42px;
-    }
-
-    .brand-text,
-    .nav-link span,
-    .logout span {
-        display: none;
-    }
-
-    .nav-link,
-    .logout {
-        justify-content: center;
-        padding: 10px 5px;
-    }
-
-    .nav-link svg,
-    .logout svg {
-        width: 19px;
-        height: 19px;
-    }
-
-    .topbar {
-        height: 58px;
-        min-height: 58px;
-        padding: 0 12px;
-    }
-
-    .topbar-left {
-        gap: 9px;
-    }
-
-    .topbar-left h2 {
-        font-size: 15px;
-    }
-
-    .user-profile {
-        padding-left: 8px;
-    }
-
-    .user-info {
-        display: none;
-    }
-
-    .content-area {
-        padding: 14px 11px 0;
-    }
-
-    .page-intro {
-        min-height: 95px;
-        padding: 14px 11px;
-        gap: 10px;
-    }
-
-    .intro-icon {
-        width: 45px;
-        height: 45px;
-    }
-
-    .intro-icon svg {
-        width: 25px;
-        height: 25px;
-    }
-
-    .intro-description h1 {
-        font-size: 17px;
-    }
-
-    .intro-description p {
-        font-size: 10px;
-    }
-
-    .filter-card {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px;
-    }
-
-    .filter-group,
-    .date-group {
-        width: 100%;
-        min-width: 100%;
-    }
-
-    .search-button {
-        width: 100%;
-    }
-
-    .content-copyright {
-        color: #95a5ba;
-    }
-
-    .footer {
-        min-height: 60px;
-        font-size: 9px;
-    }
-}
-
-/* =========================================
-   [TAMBAHAN] PERBAIKAN VISUAL SESUAI FIGMA
-   (diletakkan di akhir agar menimpa inline style)
-   ========================================= */
-
-/* 1. Kunci ukuran box icon header agar tidak melebar penuh */
-.page-header-icon {
-    width: 56px !important;
-    height: 56px !important;
-    min-width: 56px !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 12px !important;
-}
-.page-header-icon svg {
-    width: 26px !important;
-    height: 26px !important;
-}
-
-/* 2. Ubah warna icon kalender pada filter menjadi Navy (#1A365D) */
-.filter-bar svg[style*="left: 12px"] {
-    color: #1A365D !important;
-}
-
-/* 3. Ubah warna chevron select menjadi abu-abu (menimpa inline hijau) */
-.filter-bar svg[style*="right: 12px"] {
-    color: #94a3b8 !important;
-}
-
-/* 4. Pastikan badge prioritas tinggi punya border sesuai Figma */
-.priority.high {
-    background: #fff0f2 !important;
-    color: #e11d48 !important;
-    border: 1px solid #ffdae1 !important;
-}
-
-/* =========================================
-   [PERBAIKAN FINAL] HEADER ICON SEJAJAR + PAGINATION
-   ========================================= */
-
-/* 1. Header: icon putih + icon navy, layout sejajar */
-.page-header {
-    display: flex !important;
-    align-items: center !important;
-    gap: 16px !important;
-    background: white !important;
-    border-radius: 12px !important;
-    margin-bottom: 20px !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05) !important;
-}
-
-.page-header-icon {
-    width: 52px !important;
-    height: 52px !important;
-    min-width: 52px !important;
-    background: white !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 12px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important;
-}
-
-.page-header-icon svg {
-    width: 26px !important;
-    height: 26px !important;
-    stroke: #1A365D !important;
-    color: #1A365D !important;
-}
-
-.page-header-text {
-    flex: 1;
-}
-
-.page-header-text h2 {
-    font-size: 20px !important;
-    font-weight: 700 !important;
-    color: #1e293b !important;
-    margin-bottom: 4px !important;
-}
-
-.page-header-text p {
-    font-size: 13px !important;
-    color: #64748b !important;
-    margin: 0 !important;
-}
-
-/* 2. Icon kalender filter -> navy */
-.filter-bar svg[style*="left: 12px"] {
-    color: #1A365D !important;
-}
-
-/* 3. Chevron select -> abu */
-.filter-bar svg[style*="right: 12px"] {
-    color: #94a3b8 !important;
-}
-
-/* 4. Badge prioritas tinggi -> border pink */
-.priority.high {
-    background: #fff0f2 !important;
-    color: #e11d48 !important;
-    border: 1px solid #ffdae1 !important;
-}
-
-/* 5. Pagination styling */
 .pagination-container {
     display: flex;
     justify-content: flex-end;
@@ -1027,52 +610,192 @@ tbody td:first-child {
     height: 14px;
 }
 
-/* 6. User profile di topbar */
-.user-avatar {
-    width: 40px !important;
-    height: 40px !important;
-    background: #1A365D !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+/* =========================================
+   EMPTY MESSAGE
+========================================= */
+.empty-message {
+    padding: 30px;
+    text-align: center;
+    color: #899bb4;
+    font-size: 13px;
 }
 
-.user-avatar svg {
-    width: 22px !important;
-    height: 22px !important;
+.empty-message[hidden] {
+    display: none;
 }
 
-.user-name {
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    color: #1e293b !important;
-    display: block;
-}
-
-.user-role {
-    font-size: 11px !important;
-    color: #1A365D !important;
-    background: #eef2ff !important;
-    padding: 2px 8px !important;
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-    display: inline-block;
-    margin-top: 2px;
-}
-
-.user-profile {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 5px 14px 5px 5px !important;
-    background: #f8fafc !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 50px !important;
-    cursor: pointer;
-}
-
-.user-info {
+/* =========================================
+   FOOTER
+========================================= */
+.page-footer {
+    width: 100%;
+    min-height: 84px;
+    flex-shrink: 0;
+    padding: 20px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: #95a5ba;
+    font-size: 11px;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    margin-top: auto;
+}
+
+/* =========================================
+   RESPONSIVE TABLET
+========================================= */
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 205px;
+        min-width: 205px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .main-content {
+        margin-left: 205px;
+    }
+
+    .page-content {
+        padding: 22px 18px;
+    }
+}
+
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .page-content {
+        padding: 16px;
+    }
+
+    .page-header {
+        padding: 20px;
+    }
+
+    .filter-bar {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 0 16px;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ========================================
+   MAIN CONTENT TRANSITION (SAMA DENGAN DASHBOARD)
+   ======================================== */
+
+/* 1. Animasi masuk untuk main content */
+.main-content {
+    animation: contentFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes contentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 2. Animasi keluar untuk main content (opsional, jika pakai JS transition) */
+.main-content.page-transition-out {
+    animation: contentFadeOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes contentFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+}
+
+/* 3. Smooth transitions untuk elemen di dalam main content (Staggered) */
+.main-content .page-content > * {
+    animation: staggerFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+/* Stagger animation untuk setiap child element di page-content */
+.main-content .page-content > *:nth-child(1) { animation-delay: 0.1s; } /* Page Header */
+.main-content .page-content > *:nth-child(2) { animation-delay: 0.2s; } /* Filter Bar */
+.main-content .page-content > *:nth-child(3) { animation-delay: 0.3s; } /* Table Section */
+.main-content .page-content > *:nth-child(4) { animation-delay: 0.4s; } /* Footer / Pagination */
+
+@keyframes staggerFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 4. Smooth transitions untuk table rows */
+.data-table tbody tr {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.data-table tbody tr:hover {
+    background: #f8fafc;
+    transform: translateX(4px);
+}
+
+/* 5. Smooth transitions untuk buttons */
+.btn, button, .view-button, .pagination-container button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:active, button:active, .view-button:active, .pagination-container button:active {
+    transform: scale(0.95);
+}
+
+/* 6. Smooth transitions untuk filter inputs */
+.filter-bar input, .filter-bar select {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-bar input:focus, .filter-bar select:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15);
 }

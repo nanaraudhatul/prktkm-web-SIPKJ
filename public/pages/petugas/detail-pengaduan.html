@@ -203,13 +203,19 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="topbar">
-                <div class="topbar-left">
-                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-                    <div class="topbar-title">
-                        <h1>Detail Pengaduan</h1>
+                     <div class="topbar-left">
+                        <button class="menu-toggle" onclick="toggleSidebar()" title="Toggle Sidebar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <line x1="3" y1="12" x2="21" y2="12"/>
+                                <line x1="3" y1="18" x2="21" y2="18"/>
+                            </svg>
+                        </button>
+                        <div class="topbar-title">
+                            <h1>Detail Pengaduan</h1>
+                        </div>
                     </div>
-                </div>
-                <div class="topbar-right">
+                                    <div class="topbar-right">
                     <div class="user-profile">
                         <div class="user-avatar">
                             <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
@@ -340,5 +346,31 @@
 
     <script src="../../js/config.js"></script>
     <script src="../../js/detail-pengaduan.js"></script>
+   <script>
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        if (window.innerWidth <= 800) {
+            // Mobile: geser sidebar masuk/keluar
+            sidebar.classList.toggle('show');
+        } else {
+            // Desktop: sembunyikan sidebar (margin-left -243px)
+            sidebar.classList.toggle('collapsed');
+        }
+    }
+
+    // Tutup otomatis saat klik di luar (khusus mobile)
+    document.addEventListener('click', function (e) {
+        const sidebar = document.querySelector('.sidebar');
+        const btn = document.querySelector('.menu-toggle');
+        if (window.innerWidth <= 800 && sidebar && btn) {
+            if (sidebar.classList.contains('show') &&
+                !sidebar.contains(e.target) && !btn.contains(e.target)) {
+                sidebar.classList.remove('show');
+            }
+        }
+    });
+</script>
 </body>
 </html>

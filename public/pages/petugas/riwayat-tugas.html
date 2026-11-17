@@ -221,5 +221,79 @@
     <script src="../../js/api.js"></script>
     <script src="../../js/user-helper.js"></script>
     <script src="../../js/petugas-riwayat-tugas.js"></script>
+        <!-- ============================================================
+         [TAMBAHAN] ANIMASI GARIS 3 (HAMBURGER) - RIWAYAT TUGAS
+         Versi ULTRA SMOOTH: Kurva premium + durasi optimal
+         ============================================================ -->
+    <script>
+    (function () {
+        var closed = false;
+        
+        // Kurva animasi premium yang sangat smooth
+        // Cepat di awal, sangat halus di akhir (seperti iOS/Android modern)
+        var SMOOTH_CURVE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
+        var DURATION = '0.35s'; // Sedikit lebih lama untuk efek premium
+
+        function ensureUltraSmoothTransition() {
+            var sidebar = document.getElementById('sidebar');
+            var main = document.querySelector('.main-content');
+            
+            if (sidebar) {
+                // Transisi untuk sidebar: transform + sedikit shadow
+                sidebar.style.transition = 'transform ' + DURATION + ' ' + SMOOTH_CURVE + ', box-shadow ' + DURATION + ' ease';
+            }
+            if (main) {
+                // Transisi untuk konten utama
+                main.style.transition = 'margin-left ' + DURATION + ' ' + SMOOTH_CURVE;
+            }
+        }
+
+        // Jalankan saat halaman dimuat
+        ensureUltraSmoothTransition();
+
+        window.toggleSidebar = function () {
+            var sidebar = document.getElementById('sidebar');
+            var main = document.querySelector('.main-content');
+            if (!sidebar) return;
+
+            // Pastikan transisi selalu aktif
+            ensureUltraSmoothTransition();
+
+            closed = !closed;
+
+            if (closed) {
+                // Sidebar tertutup ke kiri dengan smooth
+                sidebar.style.transform = 'translateX(-100%)';
+                sidebar.style.boxShadow = 'none'; // Hilangkan shadow saat tertutup
+                
+                if (main) {
+                    main.style.marginLeft = '0';
+                }
+            } else {
+                // Sidebar terbuka kembali dengan smooth
+                sidebar.style.transform = 'translateX(0)';
+                sidebar.style.boxShadow = '4px 0 10px rgba(0, 0, 0, 0.1)'; // Kembalikan shadow
+                
+                if (main) {
+                    main.style.marginLeft = '280px';
+                }
+            }
+        };
+
+        // Reset saat resize window
+        window.addEventListener('resize', function () {
+            if (window.innerWidth <= 900) {
+                var sidebar = document.getElementById('sidebar');
+                var main = document.querySelector('.main-content');
+                if (sidebar) {
+                    sidebar.style.transform = '';
+                    sidebar.style.boxShadow = '';
+                }
+                if (main) main.style.marginLeft = '';
+                closed = false;
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

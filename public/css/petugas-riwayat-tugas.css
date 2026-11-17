@@ -799,3 +799,53 @@ button {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15);
 }
+
+/* ========================================
+   [TAMBAHAN] ANIMASI HOVER TOMBOL "LIHAT"
+   Border biru HANYA muncul saat hover
+   ======================================== */
+
+/* State normal: border SAMAR (abu-abu tipis), background putih */
+.data-table tbody tr td:last-child button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 7px 16px !important;
+    background: #ffffff !important;
+    color: #1A365D !important;
+    border: 1.5px solid #e2e8f0 !important;  /* ← SAMAR, abu-abu tipis */
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+    white-space: nowrap;
+}
+
+.data-table tbody tr td:last-child button svg {
+    width: 14px !important;
+    height: 14px !important;
+    stroke: #94a3b8 !important;  /* ← Icon juga samar di state normal */
+    transition: all 0.3s ease !important;
+}
+
+/* ✅ Saat hover: BORDER BIRU MUNCUL JELAS */
+.data-table tbody tr td:last-child button:hover {
+    background: #ffffff !important;
+    color: #1A365D !important;
+    border: 1.5px solid #1A365D !important;  /* ← BIRU NAVY MUNCUL */
+    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+.data-table tbody tr td:last-child button:hover svg {
+    stroke: #1A365D !important;  /* ← Icon ikut jadi biru */
+    transform: scale(1.15);
+}
+
+/* Saat ditekan */
+.data-table tbody tr td:last-child button:active {
+    transform: translateY(0) scale(0.97) !important;
+    box-shadow: 0 2px 6px rgba(26, 54, 93, 0.10) !important;
+}

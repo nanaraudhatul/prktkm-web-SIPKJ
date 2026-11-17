@@ -1,3 +1,4 @@
+
 /* ========================================
    RESET & BASE STYLES
    ======================================== */
@@ -873,4 +874,22 @@ input, select, textarea, .bap-textarea {
 input:focus, select:focus, textarea:focus, .bap-textarea:focus {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(26, 54, 93, 0.1);
+}
+
+/* ========================================
+   [TAMBAHAN] ANIMASI HAMBURGER (GARIS 3) UNTUK DESKTOP
+   Mengaktifkan class .active yang sudah ditoggle JS
+   agar sidebar bisa tertutup/terbuka di layar lebar
+   ======================================== */
+
+@media (min-width: 901px) {
+    /* Saat JS menambahkan class .active → sidebar geser ke kiri */
+    .sidebar.active {
+        transform: translateX(-100%) !important;
+    }
+
+    /* Konten utama otomatis melebar mengisi ruang yang ditinggalkan */
+    .sidebar.active ~ .main-content {
+        margin-left: 0 !important;
+    }
 }

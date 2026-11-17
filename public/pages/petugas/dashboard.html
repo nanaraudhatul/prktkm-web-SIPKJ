@@ -433,5 +433,46 @@
         };
     })();
     </script>
+
+        <!-- ============================================================
+         [TAMBAHAN] ANIMASI GARIS 3 (HAMBURGER) - PASTI BERHASIL
+         Mengubah posisi via inline style, bukan class.
+         Transition dari CSS asli akan otomatis menganimasikannya.
+         ============================================================ -->
+    <script>
+    (function () {
+        var closed = false;
+
+        window.toggleSidebar = function () {
+            var sidebar = document.getElementById('sidebar');
+            var main = document.querySelector('.main-content');
+            if (!sidebar) return;
+
+            closed = !closed;
+
+            if (closed) {
+                // Sidebar tertutup ke kiri, konten melebar
+                sidebar.style.transform = 'translateX(-100%)';
+                if (main) main.style.marginLeft = '0';
+            } else {
+                // Sidebar terbuka kembali, konten menyempit
+                sidebar.style.transform = 'translateX(0)';
+                if (main) main.style.marginLeft = '280px';
+            }
+        };
+
+        // Kembalikan kontrol ke CSS saat layar mobile (agar tidak berantakan)
+        window.addEventListener('resize', function () {
+            if (window.innerWidth <= 900) {
+                var sidebar = document.getElementById('sidebar');
+                var main = document.querySelector('.main-content');
+                if (sidebar) sidebar.style.transform = '';
+                if (main) main.style.marginLeft = '';
+                closed = false;
+            }
+        });
+    })();
+    </script>
+</body>
 </body>
 </html>

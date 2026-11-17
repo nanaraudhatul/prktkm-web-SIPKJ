@@ -293,5 +293,87 @@
     <script src="../../js/config.js"></script>
     <script src="../../js/api.js"></script>
     <script src="../../js/user-helper.js"></script>
+        <!-- ============================================================
+         [TAMBAHAN] ANIMASI GARIS 3 (HAMBURGER) - PROFIL
+         Versi SMART: Mencoba multiple selector untuk kompatibilitas
+         ============================================================ -->
+    <script>
+    (function () {
+        var closed = false;
+        
+        var SMOOTH_CURVE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
+        var DURATION = '0.35s';
+
+        // Fungsi untuk menemukan sidebar dengan berbagai cara
+        function findSidebar() {
+            return document.getElementById('sidebar') || 
+                   document.querySelector('.sidebar') ||
+                   document.querySelector('aside');
+        }
+
+        // Fungsi untuk menemukan main content dengan berbagai cara
+        function findMainContent() {
+            return document.querySelector('.main-content') || 
+                   document.querySelector('main') ||
+                   document.querySelector('.dashboard-layout > main');
+        }
+
+        function ensureUltraSmoothTransition() {
+            var sidebar = findSidebar();
+            var main = findMainContent();
+            
+            console.log('🔍 Sidebar ditemukan:', sidebar);
+            console.log('🔍 Main content ditemukan:', main);
+            
+            if (sidebar) {
+                sidebar.style.transition = 'transform ' + DURATION + ' ' + SMOOTH_CURVE + ', box-shadow ' + DURATION + ' ease';
+            }
+            if (main) {
+                main.style.transition = 'margin-left ' + DURATION + ' ' + SMOOTH_CURVE;
+            }
+        }
+
+        ensureUltraSmoothTransition();
+
+        window.toggleSidebar = function () {
+            var sidebar = findSidebar();
+            var main = findMainContent();
+            
+            if (!sidebar) {
+                console.error('❌ Sidebar tidak ditemukan!');
+                return;
+            }
+
+            ensureUltraSmoothTransition();
+
+            closed = !closed;
+
+            if (closed) {
+                sidebar.style.transform = 'translateX(-100%)';
+                sidebar.style.boxShadow = 'none';
+                if (main) main.style.marginLeft = '0';
+                console.log('✅ Sidebar tertutup');
+            } else {
+                sidebar.style.transform = 'translateX(0)';
+                sidebar.style.boxShadow = '4px 0 10px rgba(0, 0, 0, 0.1)';
+                if (main) main.style.marginLeft = '280px';
+                console.log('✅ Sidebar terbuka');
+            }
+        };
+
+        window.addEventListener('resize', function () {
+            if (window.innerWidth <= 900) {
+                var sidebar = findSidebar();
+                var main = findMainContent();
+                if (sidebar) {
+                    sidebar.style.transform = '';
+                    sidebar.style.boxShadow = '';
+                }
+                if (main) main.style.marginLeft = '';
+                closed = false;
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

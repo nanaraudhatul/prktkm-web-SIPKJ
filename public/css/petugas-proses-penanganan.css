@@ -191,7 +191,7 @@ body {
 }
 
 .breadcrumb a {
-    color: #3b82f6;
+    color: #94A3B8 !important;
     text-decoration: none;
     font-weight: 500;
 }
@@ -206,7 +206,7 @@ body {
 }
 
 .breadcrumb-current {
-    color: #3b82f6;
+    color: #1A365D !important;
     font-weight: 500;
 }
 
@@ -335,7 +335,7 @@ body {
 }
 
 .icon-warning { background: #fef3c7; color: #f59e0b; }
-.icon-location { background: #dbeafe; color: #3b82f6; }
+.icon-location { background: #dbeafe; color: #1A365D; }
 .icon-user { background: #d1fae5; color: #10b981; }
 
 .info-box-content {
@@ -536,7 +536,7 @@ body {
 }
 
 .upload-area:hover {
-    border-color: #3b82f6;
+    border-color: #1A365D;
     background: #eff6ff;
 }
 
@@ -893,4 +893,103 @@ body {
     .photo-grid { grid-template-columns: 1fr; }
     .action-buttons { flex-direction: column; }
     .btn { width: 100%; justify-content: center; }
+}
+
+/* ========================================
+   [TAMBAHAN] PENYESUAIAN FIGMA - Proses Penanganan
+   (menambah di akhir, tidak mengubah aturan asli)
+   ======================================== */
+
+/* 1. Garis stepper yang "sedang aktif" harus HIJAU (bukan navy) */
+.step-line.active {
+    background: #10b981 !important;
+}
+
+/* 2. Tambahkan bar biru kecil di depan judul section (sesuai Figma) */
+.section-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.section-header h3::before {
+    content: '';
+    width: 5px;
+    height: 18px;
+    background: #3b82f6;
+    border-radius: 99px;
+    flex-shrink: 0;
+}
+
+/* 3. Breadcrumb item aktif -> cyan/teal sesuai Figma */
+.breadcrumb-current {
+    color: #0ea5e9 !important;
+}
+.breadcrumb a {
+    color: #0ea5e9 !important;
+}
+
+/* 4. Glow step "Proses" -> biru muda lembut (perhalus) */
+.step-icon-tools,
+.step.active .step-icon {
+    box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.18) !important;
+}
+
+/* 5. Badge "Laporan..." -> teks navy lembut sesuai Figma */
+.badge-blue {
+    color: #1e3a5f !important;
+    background: #eff6ff !important;
+    border: 1px solid #dbeafe !important;
+}
+
+/* ========================================
+   [PERBAIKAN] JARAK ANTAR TOMBOL SESUAI FIGMA
+   ======================================== */
+
+.action-buttons {
+    display: flex !important;
+    gap: 600px !important;          /* ← PERBESAR dari 12px ke 24px */
+    align-items: stretch !important;
+    padding: 0 4px !important;     /* ← tambah sedikit padding kiri-kanan */
+}
+
+/* Tombol BATAL - KECIL, fixed width */
+.btn-secondary {
+    flex: 0 0 auto !important;
+    padding: 12px 24px !important; /* ← perbesar padding horizontal */
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 8px !important;
+    white-space: nowrap !important;
+}
+
+/* Tombol KONFIRMASI - LEBAR PENUH (sisa ruang) */
+.btn-primary {
+    flex: 1 1 auto !important;
+    padding: 14px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    background: #1e3a5f !important;
+    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.25) !important;
+}
+
+.btn-primary svg {
+    display: inline-block !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 8px !important;
+}
+
+/* ========================================
+   [TAMBAHAN] SUB-JUDUL DI AREA KONTEN (jauh dari header)
+   ======================================== */
+.page-content-subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 24px 0;
+    padding: 0 4px;
 }

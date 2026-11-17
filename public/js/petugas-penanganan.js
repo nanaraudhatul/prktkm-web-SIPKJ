@@ -58,6 +58,25 @@ document.addEventListener('DOMContentLoaded', async function() {
             }, 800);
         });
     }
+
+        // Tambahan: Counter karakter untuk textarea BAP
+    const bapTextarea = document.getElementById('bapTextarea');
+    const charCount = document.getElementById('charCount');
+    if (bapTextarea && charCount) {
+        const updateCount = () => {
+            charCount.textContent = `${bapTextarea.value.length} karakter • Auto-saved`;
+        };
+        bapTextarea.addEventListener('input', updateCount);
+        updateCount(); // Jalankan sekali saat load
+    }
+
+    // Tambahan: Simulasi klik tombol tambah foto
+    const addPhotoBtn = document.getElementById('addPhotoBtn');
+    if (addPhotoBtn) {
+        addPhotoBtn.addEventListener('click', () => {
+            alert('Fitur unggah foto tambahan (Demo)');
+        });
+    }
 });
 
 function handleLogout() {

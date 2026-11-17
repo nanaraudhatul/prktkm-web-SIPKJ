@@ -15,7 +15,7 @@
                 <div class="sidebar-logo-container">
                     <div class="sidebar-logo-box">
                         <img src="../../images/logo-sipkj.png" alt="SIPKJ Logo"
-                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;background:#1e3a5f;color:white;font-weight:800;font-size:14px;width:100%;height:100%;border-radius:8px;\'>SIPKJ</div>';">
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;background:#1A365D;color:white;font-weight:800;font-size:14px;width:100%;height:100%;border-radius:8px;\'>SIPKJ</div>';">
                     </div>
                     <div class="sidebar-brand">
                         <h2>SIPKJ</h2>
@@ -70,7 +70,7 @@
                             </svg>
                         </div>
                         <div class="user-info">
-                            <span class="user-name" id="petugasName">Loading...</span>
+                            <span class="user-name">Ahmad</span>
                             <span class="user-role">Petugas Lapangan</span>
                         </div>
                     </div>
@@ -96,7 +96,6 @@
                     <!-- LEFT: Table -->
                     <div class="task-card">
                         <div class="table-filters">
-                            <!-- ✅ FILTER LOKASI DIPERBAIKI -->
                             <div class="filter-control">
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
                                 <select id="filterLokasi">
@@ -164,11 +163,11 @@
                                 <span>Diverifikasi</span>
                             </div>
                             <div class="progress-step" id="step3">
-                                <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                                <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
                                 <span>Proses</span>
                             </div>
                             <div class="progress-step" id="step4">
-                                <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                                <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
                                 <span>Selesai</span>
                             </div>
                         </div>
@@ -179,8 +178,8 @@
                                 <strong id="detailDeadline">-</strong>
                             </div>
                             <div class="mini-info">
-                                <span>Status</span>
-                                <strong class="current-status" id="detailStatus">-</strong>
+                                <span>Status Sekarang</span>
+                                <strong id="detailStatus">-</strong>
                             </div>
                         </div>
 
@@ -209,7 +208,7 @@
                                 <polyline points="1 20 1 14 7 14"/>
                                 <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
                             </svg>
-                            Update Status / Selesaikan
+                            Update Status Tugas
                         </button>
                     </div>
                 </div>
@@ -226,5 +225,67 @@
     <script src="../../js/api.js"></script>
     <script src="../../js/user-helper.js"></script>
     <script src="../../js/petugas-tugas-saya.js"></script>
+
+    <!-- NORMALKAN TEKS & WARNA AGAR SESUAI FIGMA -->
+    <script>
+    (function () {
+        function fixDetail() {
+            var bp = document.getElementById('detailPriority');
+            if (bp && bp.style.display !== 'none') {
+                var raw = (bp.textContent || '').replace('●', '').trim();
+                if (raw && raw.indexOf('Prioritas') === -1) {
+                    bp.textContent = '● Prioritas ' + raw;
+                }
+            }
+
+            var st = document.getElementById('detailStatus');
+            if (st) {
+                var txt = (st.textContent || '').trim();
+                if (txt.toLowerCase().indexOf('proses') !== -1 && txt !== '● Dalam Proses') {
+                    st.innerHTML = '<span style="color:#1A365D;font-weight:700">● Dalam Proses</span>';
+                } else if ((txt.toLowerCase().indexOf('verif') !== -1 || txt.toLowerCase().indexOf('siap') !== -1) && txt !== '● Diverifikasi') {
+                    st.innerHTML = '<span style="color:#10b981;font-weight:700">● Diverifikasi</span>';
+                } else if (txt.toLowerCase().indexOf('selesai') !== -1 && txt !== '● Selesai') {
+                    st.innerHTML = '<span style="color:#10b981;font-weight:700">● Selesai</span>';
+                }
+            }
+
+            document.querySelectorAll('.mini-info > span').forEach(function (s) {
+                if (s.textContent.trim() === 'Status') s.textContent = 'Status Sekarang';
+            });
+
+            var btn = document.getElementById('btnUpdateStatus');
+            if (btn && btn.textContent.indexOf('Update Status Tugas') === -1) {
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Update Status Tugas';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fixDetail();
+            var panel = document.getElementById('detailPanel');
+            if (panel) {
+                new MutationObserver(fixDetail)
+                    .observe(panel, { childList: true, subtree: true, characterData: true });
+            }
+        });
+    })();
+    </script>
+
+    <!-- GARIS-3 BERFUNGSI DI DESKTOP -->
+    <script>
+    function toggleSidebar() {
+        var sidebar  = document.getElementById('sidebar');
+        var mainArea = document.querySelector('.main-area');
+        if (!sidebar) return;
+
+        if (window.innerWidth <= 900) {
+            sidebar.classList.toggle('active');
+        } else {
+            sidebar.classList.toggle('collapsed');
+            if (mainArea) mainArea.classList.toggle('shifted');
+        }
+    }
+    </script>
+
 </body>
 </html>

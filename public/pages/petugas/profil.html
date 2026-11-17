@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Saya - SIPKJ</title>
+    <title>Profil - SIPKJ</title>
     <link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/profil.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -76,15 +76,15 @@
                 <div class="topbar-left">
                     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
                     <div class="topbar-title">
-                        <h1>Profil Saya</h1>
+                        <h1>Profil</h1>
                     </div>
                 </div>
                 <div class="topbar-right">
                     <div class="user-profile" onclick="window.location.href='profil.html'">
                         <div class="user-avatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
+                            <svg viewBox="0 0 24 24" fill="white" width="22" height="22">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2z"/>
                             </svg>
                         </div>
                         <div class="user-info">
@@ -106,27 +106,33 @@
                             </svg>
                         </div>
                         <div class="profile-header-text">
-                            <h1>Profil Saya</h1>
-                            <p>Kelola informasi akun dan lihat aktivitas pengaduan Anda</p>
+                            <h1>Profil Petugas Lapangan</h1>
+                            <p>Kelola informasi akun, penugasan teknis TRC, dan data operasi petugas lapangan</p>
                         </div>
                     </div>
 
                     <div class="profile-content-card">
                         <!-- Kolom Kiri: Avatar & Info Dasar -->
-                         
                         <div class="profile-left">
                             <div class="profile-avatar-section">
                                 <div class="profile-avatar-large" id="profileAvatar">
-                                    <span id="profileInitials">AF</span>
+                                    <span id="profileInitials">A</span>
+                                    <!-- TAMBAHAN: Badge Kamera sesuai Figma -->
+                                    <span class="avatar-camera-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                            <circle cx="12" cy="13" r="4"/>
+                                        </svg>
+                                    </span>
                                 </div>
-                                <h2 class="profile-display-name" id="profileName">Ahmad Fauzi</h2>
-                                <div class="profile-display-username" id="profileUsername">ahmad.fauzi</div>
+                                <h2 class="profile-display-name" id="profileName">Ahmad Fauji</h2>
+                                <div class="profile-display-username" id="profileUsername">ahmad.fauji@sipkj.go.id</div>
                                 <div class="profile-role-badge">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
                                         <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
                                         <circle cx="9" cy="7" r="4"/>
                                     </svg>
-                                    <span id="profileRole">Masyarakat</span>
+                                    <span id="profileRole">Petugas Lapangan</span>
                                 </div>
                                 <button class="btn-edit-profile" onclick="showEditProfile()">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -151,7 +157,7 @@
                                     </div>
                                     <div class="info-content">
                                         <div class="info-label">Email</div>
-                                        <div class="info-value" id="profileEmail">ahmad.fauzi@gmail.com</div>
+                                        <div class="info-value" id="profileEmail">ahmad.fauji@gmail.go.id</div>
                                     </div>
                                 </div>
                                 <div class="info-card">
@@ -166,7 +172,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -190,13 +195,13 @@
                         <div class="edit-profile-header">
                             <div class="edit-avatar-section">
                                 <div class="edit-avatar-large" id="editAvatar">
-                                    <span id="editInitials">AF</span>
+                                    <span id="editInitials">A</span>
                                 </div>
                                 <div>
-                                    <h2 class="edit-display-name" id="editDisplayName">Ahmad Fauzi</h2>
+                                    <h2 class="edit-display-name" id="editDisplayName">Ahmad Fauji</h2>
                                     <div class="edit-username-row">
-                                        <span class="edit-display-username" id="editDisplayUsername">@ahmad.fauzi</span>
-                                        <span class="edit-role-badge" id="editRoleBadge">Masyarakat</span>
+                                        <span class="edit-display-username" id="editDisplayUsername">ahmad.fauji@sipkj.go.id</span>
+                                        <span class="edit-role-badge" id="editRoleBadge">Petugas Lapangan</span>
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +218,7 @@
                                                 <path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/>
                                             </svg>
                                         </span>
-                                        <input type="text" id="editUsername" value="ahmad.fauzi" required>
+                                        <input type="text" id="editUsername" value="ahmad.fauji" required>
                                     </div>
                                 </div>
                                 <div class="form-group-edit">
@@ -238,7 +243,7 @@
                                             <polyline points="22,6 12,13 2,6"/>
                                         </svg>
                                     </span>
-                                    <input type="email" id="editEmail" value="ahmad.fauzi@gmail.com" required>
+                                    <input type="email" id="editEmail" value="ahmad.fauji@gmail.go.id" required>
                                 </div>
                             </div>
 

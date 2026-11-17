@@ -157,7 +157,6 @@
     </div>
 
     <script>
-        
         const taskData = {
             1: { title: 'Lampu jalan mati', location: 'Jl. Sudirman, Ternate' },
             2: { title: 'Rambu roboh', location: 'Jl. Raya Kastela, Pulau Ternate' },
@@ -190,5 +189,89 @@
     <script src="../../js/api.js"></script>
     <script src="../../js/config.js"></script>
     <script src="../../js/user-helper.js"></script>
+
+       <!-- ============================================================
+         [TAMBAHAN 2 - REVISI] PERBAIKAN TIMELINE + WARNA SESUAI FIGMA
+         -> Override updateStatusAndTimeline() dengan logika Figma
+         -> Perbaiki warna badge, link, dan step circle
+         ============================================================ -->
+    <script src="../../js/data-manager.js"></script>
+    <script>
+    (function () {
+        // 1. Ganti icon "Detail Tugas" -> STACK + SPARKLE (sesuai Figma)
+        var hi = document.querySelector('.heading-icon');
+        if (hi) {
+            hi.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><rect x="4" y="5" width="12" height="3" rx="1.5"/><rect x="4" y="10" width="16" height="3" rx="1.5"/><rect x="4" y="15" width="16" height="3" rx="1.5"/><path d="M19 2.4c.3 1.5.9 2.1 2.4 2.4-1.5.3-2.1.9-2.4 2.4-.3-1.5-.9-2.1-2.4-2.4 1.5-.3 2.1-.9 2.4-2.4z"/></svg>';
+        }
+
+        // 2. Override updateStatusAndTimeline() -> logika sesuai Figma
+        window.updateStatusAndTimeline = function (status) {
+            var s = (status || '').toLowerCase();
+            var steps = document.querySelectorAll('.progress-step');
+            if (!steps.length) return;
+            var badge = document.querySelector('.received-badge');
+            var timeline = document.querySelector('.progress-timeline');
+
+            var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>';
+
+            // Reset semua step -> pending (abu-abu pudar + centang abu)
+            [0, 1, 2, 3].forEach(function (i) {
+                steps[i].className = 'progress-step pending';
+                steps[i].querySelector('.step-circle').innerHTML = CHECK;
+            });
+
+            // Logika sesuai Figma:
+            // - "diterima"/"verifikasi" = 2 completed (Diajukan, Diverifikasi) + 2 pending
+            // - "proses" = 3 completed (Diajukan, Diverifikasi, Proses) + 1 pending
+            // - "selesai" = 4 completed semua
+            
+            if (s === 'selesai') {
+                [0, 1, 2, 3].forEach(function (i) {
+                    steps[i].className = 'progress-step completed';
+                    steps[i].querySelector('.step-circle').innerHTML = CHECK;
+                });
+                if (badge) {
+                    badge.innerHTML = '<span class="status-dot" style="background:#1A365D"></span> Selesai';
+                }
+                var wb = document.getElementById('workButton');
+                if (wb) wb.style.display = 'none';
+            } else if (s === 'proses') {
+                [0, 1, 2].forEach(function (i) {
+                    steps[i].className = 'progress-step completed';
+                    steps[i].querySelector('.step-circle').innerHTML = CHECK;
+                });
+                if (badge) {
+                    badge.innerHTML = '<span class="status-dot" style="background:#1A365D"></span> Dalam Proses';
+                }
+            } else {
+                // diterima / verifikasi / diajukan / default
+                [0, 1].forEach(function (i) {
+                    steps[i].className = 'progress-step completed';
+                    steps[i].querySelector('.step-circle').innerHTML = CHECK;
+                });
+                if (badge) {
+                    badge.innerHTML = '<span class="status-dot" style="background:#1A365D"></span> Diterima';
+                }
+            }
+        };
+
+        // 3. Perbaiki warna badge "Diterima"/"Dalam Proses" -> navy
+        var badge = document.querySelector('.received-badge');
+        if (badge) {
+            badge.style.background = '#eef2ff';
+            badge.style.color = '#1A365D';
+        }
+        var dot = document.querySelector('.status-dot');
+        if (dot) {
+            dot.style.background = '#1A365D';
+        }
+
+        // 4. Perbaiki warna link "Buka di Google Maps" -> navy
+        var mapsLink = document.getElementById('mapsLink');
+        if (mapsLink) {
+            mapsLink.style.color = '#1A365D';
+        }
+    })();
+    </script>
 </body>
 </html>

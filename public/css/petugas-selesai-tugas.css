@@ -177,7 +177,7 @@ body {
 }
 
 .breadcrumb a {
-    color: #3b82f6;
+    color: #94a3b8;
     text-decoration: none;
 }
 
@@ -187,7 +187,7 @@ body {
 }
 
 .breadcrumb .current {
-    color: #64748b;
+    color: #1A365D;
 }
 
 .page-title-row {
@@ -421,7 +421,7 @@ body {
 .title-pill {
     width: 6px;
     height: 24px;
-    background: #3b82f6;
+    background: #64748b;
     border-radius: 99px;
     flex-shrink: 0;
 }
@@ -713,4 +713,31 @@ body {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* ========================================
+   [TAMBAHAN] PENYESUAIAN FIGMA - Selesaikan Tugas
+   (murni menambah di akhir, tidak mengubah aturan asli)
+   ======================================== */
+
+/* 1. Garis penghubung stepper -> HIJAU (karena semua tahap sudah selesai) */
+.step-connector {
+    background: #10b981 !important;
+}
+
+/* 2. Ikon upload cloud -> lingkaran biru muda + ikon biru (sesuai Figma) */
+.upload-icon {
+    background: #eff6ff !important;
+    border-color: #bfdbfe !important;
+    color: #bfdbfe !important;
+}
+
+/* 3. Kotak centang SOP -> BIRU (sebelumnya navy, Figma pakai biru) */
+.checkbox-box {
+    background: #3b82f6 !important;
+}
+
+/* 4. Teks "Klik untuk mengunggah foto" -> biru (dipertegas agar konsisten) */
+.upload-text strong {
+    color: #3b82f6 !important;
 }

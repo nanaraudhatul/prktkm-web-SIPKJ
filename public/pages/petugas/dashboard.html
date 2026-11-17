@@ -231,5 +231,207 @@
     <script src="../../js/config.js"></script>
     <script src="../../js/api.js"></script>
     <script src="../../js/user-helper.js"></script>
+
+    <!-- ============================================================
+         [TAMBAHAN FINAL] PENYESUAIAN FIGMA - icon + warna per kategori
+         ============================================================ -->
+    <script>
+    (function () {
+
+        var ICONS = {
+            gear: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" width="14" height="14"><circle cx="8" cy="8" r="2.2"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M13 3l-1.4 1.4M4.4 11.6L3 13"/></svg>',
+            warning: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" width="14" height="14"><path d="M8 2L14.5 13.5H1.5L8 2z"/><line x1="8" y1="6.5" x2="8" y2="9.5"/><circle cx="8" cy="11.5" r="0.6" fill="currentColor" stroke="none"/></svg>',
+            pedestrian: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" width="14" height="14"><circle cx="8" cy="2.5" r="1.2"/><path d="M8 4.5v4M8 8.5L5.5 14M8 8.5L10.5 14M5 6l3 1.5 3-1.5"/></svg>',
+            grid: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" width="14" height="14"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>',
+            marka: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" width="14" height="14"><line x1="3" y1="2" x2="3" y2="14"/><line x1="13" y1="2" x2="13" y2="14"/><line x1="8" y1="2" x2="8" y2="5"/><line x1="8" y1="8" x2="8" y2="11"/></svg>',
+            crack: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" width="14" height="14"><path d="M8 1l-2 4 3 2-2 4 2 4"/></svg>'
+        };
+
+        function iconForJudul(judul) {
+            var t = (judul || '').toLowerCase();
+            if (t.indexOf('drainase') !== -1 || t.indexOf('tersumbat') !== -1) return ICONS.grid;
+            if (t.indexOf('trotoar') !== -1 || t.indexOf('jalan kaki') !== -1) return ICONS.pedestrian;
+            if (t.indexOf('rambu') !== -1 || t.indexOf('roboh') !== -1) return ICONS.warning;
+            if (t.indexOf('lampu') !== -1 || t.indexOf('pju') !== -1) return ICONS.gear;
+            if (t.indexOf('marka') !== -1) return ICONS.marka;
+            if (t.indexOf('retak') !== -1 || t.indexOf('permukaan') !== -1) return ICONS.crack;
+            return ICONS.gear;
+        }
+
+        function labelForKategori(kat) {
+            var m = { fasilitas: 'Fasilitas Pelengkap', drainase: 'Drainase',
+                      marka: 'Marka', permukaan: 'Permukaan', lainnya: 'Lainnya' };
+            return m[(kat || '').toLowerCase()] || capitalize(kat);
+        }
+
+        // ✅ INI YANG BERBEDA: return class untuk warna CSS
+        function classForKategori(kat) {
+            var k = (kat || '').toLowerCase();
+            if (k === 'fasilitas') return 'pt-fasilitas';
+            if (k === 'drainase') return 'pt-drainase';
+            if (k === 'marka') return 'pt-marka';
+            if (k === 'permukaan') return 'pt-permukaan';
+            return 'pt-lainnya';
+        }
+
+        function fixTableIcons() {
+            document.querySelectorAll('#tugasTableBody tr').forEach(function (row) {
+                var judulCell = row.querySelector('.td-title');
+                var tag = row.querySelector('.problem-tag');
+                if (!judulCell || !tag) return;
+
+                var judul = judulCell.textContent.trim();
+                var katRaw = (tag.textContent || '').trim().toLowerCase();
+                var kat = katRaw.replace(' pelengkap', '');
+                if (kat.indexOf('fasilitas') !== -1) kat = 'fasilitas';
+
+                // ✅ Pasang class kategori (untuk warna)
+                tag.classList.remove('pt-fasilitas','pt-drainase','pt-marka','pt-permukaan','pt-lainnya');
+                tag.classList.add(classForKategori(kat));
+
+                // ✅ Pasang icon per judul + label
+                tag.innerHTML = iconForJudul(judul) + ' ' + labelForKategori(kat);
+
+                // Prioritas Tinggi -> segitiga
+                var b = row.querySelector('.priority-badge');
+                if (b) {
+                    var t = (b.textContent || '').replace(/[▲●]/g, '').trim();
+                    var mark = (t.toLowerCase() === 'tinggi') ? '▲' : '●';
+                    b.textContent = mark + ' ' + t;
+                }
+            });
+        }
+
+        function applyFiltersWithPriority() {
+            var status = (document.getElementById('filterStatus') || {}).value || '';
+            var prio = (document.getElementById('filterPriority') || {}).value || '';
+            var search = ((document.getElementById('searchInput') || {}).value || '').toLowerCase().trim();
+            var isNumeric = /^\d+$/.test(search);
+
+            function prioOf(item) {
+                var k = (item.kategori || '').toLowerCase();
+                if (k === 'drainase' || k === 'fasilitas') return 'Tinggi';
+                if (k === 'marka') return 'Rendah';
+                return 'Sedang';
+            }
+
+            filteredTugas = allTugas.filter(function (item) {
+                var s = (item.status || '').toLowerCase();
+                var matchStatus = true;
+                if (status === 'verifikasi') matchStatus = (s === 'verifikasi' || (s === 'proses' && item.petugas_id === null));
+                else if (status) matchStatus = (s === status);
+                var matchPrio = !prio || prioOf(item) === prio;
+                var matchSearch = true;
+                if (search) {
+                    matchSearch = isNumeric
+                        ? String(item.id).indexOf(search) !== -1
+                        : ((item.judul && item.judul.toLowerCase().indexOf(search) !== -1) ||
+                           (item.lokasi && item.lokasi.toLowerCase().indexOf(search) !== -1) ||
+                           (item.kategori && item.kategori.toLowerCase().indexOf(search) !== -1));
+                }
+                return matchStatus && matchPrio && matchSearch;
+            });
+            currentPage = 1;
+            renderTable();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var filters = document.querySelector('.table-filters');
+            if (filters && !document.getElementById('filterPriority')) {
+                var grp = document.createElement('div');
+                grp.className = 'filter-group';
+                grp.innerHTML = '<label>Prioritas</label>' +
+                    '<select class="filter-select" id="filterPriority">' +
+                    '<option value="">Semua Prioritas</option>' +
+                    '<option value="Tinggi">Tinggi</option>' +
+                    '<option value="Sedang">Sedang</option>' +
+                    '<option value="Rendah">Rendah</option>' +
+                    '</select>';
+                filters.insertBefore(grp, filters.children[1] || null);
+                grp.querySelector('#filterPriority').addEventListener('change', applyFiltersWithPriority);
+            }
+            applyFilters = applyFiltersWithPriority;
+
+            var tbody = document.getElementById('tugasTableBody');
+            if (tbody) {
+                fixTableIcons();
+                new MutationObserver(function () { fixTableIcons(); })
+                    .observe(tbody, { childList: true });
+            }
+        });
+    })();
+    </script>
+
+        <!-- ============================================================
+         [TAMBAHAN] PAGINATION: BATASI TOMBOL NOMOR MAKSIMAL 5
+         Menimpa renderPagination global (tanpa mengubah petugas-dashboard.js)
+         ============================================================ -->
+    <script>
+    (function () {
+        // Timpa SEGERA saat script dibaca (sebelum DOMContentLoaded render pertama)
+        renderPagination = function (totalPages) {
+            var container = document.getElementById('paginationContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            if (totalPages <= 1) return;
+
+            var MAX_VISIBLE = 5; // <-- ubah angka ini kalau mau beda batas
+
+            function pageBtn(n) {
+                var b = document.createElement('button');
+                b.className = 'page-btn' + (n === currentPage ? ' active' : '');
+                b.textContent = n;
+                b.onclick = function () { currentPage = n; renderTable(); };
+                return b;
+            }
+            function ellipsis() {
+                var s = document.createElement('span');
+                s.className = 'page-ellipsis';
+                s.textContent = '…';
+                return s;
+            }
+
+            // Tombol Prev <
+            var prev = document.createElement('button');
+            prev.className = 'page-btn' + (currentPage === 1 ? ' disabled' : '');
+            prev.innerHTML = '&lt;';
+            prev.disabled = currentPage === 1;
+            prev.onclick = function () { if (currentPage > 1) { currentPage--; renderTable(); } };
+            container.appendChild(prev);
+
+            // Hitung jendela 5 tombol di sekitar halaman aktif
+            var start, end;
+            if (totalPages <= MAX_VISIBLE) {
+                start = 1; end = totalPages;
+            } else {
+                start = Math.max(1, Math.min(currentPage - Math.floor(MAX_VISIBLE / 2), totalPages - MAX_VISIBLE + 1));
+                end = start + MAX_VISIBLE - 1;
+            }
+
+            // Ellipsis kiri + halaman 1
+            if (start > 1) {
+                container.appendChild(pageBtn(1));
+                if (start > 2) container.appendChild(ellipsis());
+            }
+
+            // Tombol nomor jendela
+            for (var i = start; i <= end; i++) container.appendChild(pageBtn(i));
+
+            // Ellipsis kanan + halaman terakhir
+            if (end < totalPages) {
+                if (end < totalPages - 1) container.appendChild(ellipsis());
+                container.appendChild(pageBtn(totalPages));
+            }
+
+            // Tombol Next >
+            var next = document.createElement('button');
+            next.className = 'page-btn' + (currentPage === totalPages ? ' disabled' : '');
+            next.innerHTML = '&gt;';
+            next.disabled = currentPage === totalPages;
+            next.onclick = function () { if (currentPage < totalPages) { currentPage++; renderTable(); } };
+            container.appendChild(next);
+        };
+    })();
+    </script>
 </body>
 </html>

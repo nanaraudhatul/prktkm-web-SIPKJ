@@ -102,7 +102,7 @@ a { text-decoration: none; color: inherit; }
 .logout-btn svg { width: 20px; height: 20px; }
 
 /* =========================================
-   MAIN AREA (DIKECILKAN AGAR LEBIH COMPACT)
+   MAIN AREA
    ========================================= */
 .main-area { 
     margin-left: 280px; 
@@ -111,13 +111,14 @@ a { text-decoration: none; color: inherit; }
     flex-direction: column; 
     min-width: 0;
     background: #eef0f2;
+    transition: margin-left 0.3s ease;
 }
 
 .topbar {
-    height: 56px; /* Dikecilkan dari 60px */
+    height: 56px;
     min-height: 56px;
     background: white; 
-    padding: 0 20px; /* Dikecilkan dari 24px */
+    padding: 0 20px;
     display: flex;
     justify-content: space-between; 
     align-items: center; 
@@ -129,15 +130,27 @@ a { text-decoration: none; color: inherit; }
     font-weight: 700; 
     color: #1e293b; 
 }
+
+/* Menu Toggle (Garis 3) */
 .menu-toggle { 
     border: 0; 
     background: transparent; 
-    color: #64748b;
-    display: none;
+    color: #1A365D;
+    display: flex;
     align-items: center;
     justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
 }
-.menu-toggle svg { width: 24px; height: 24px; }
+.menu-toggle:hover { 
+    background: rgba(26, 54, 93, 0.08); 
+}
+.menu-toggle svg { 
+    width: 24px; 
+    height: 24px; 
+    stroke: #1A365D;
+}
 
 .topbar-right { 
     display: flex; 
@@ -154,7 +167,7 @@ a { text-decoration: none; color: inherit; }
     border: 1px solid #e2e8f0;
 }
 .user-avatar {
-    width: 34px; /* Dikecilkan dari 36px */
+    width: 34px;
     height: 34px; 
     border-radius: 50%; 
     background: #1A365D;
@@ -183,26 +196,26 @@ a { text-decoration: none; color: inherit; }
 
 .content-area { 
     flex: 1; 
-    padding: 16px 20px; /* Dikecilkan dari 24px */
+    padding: 16px 20px;
 }
 
-/* PAGE HEADER (COMPACT) */
+/* PAGE HEADER */
 .page-header {
     background: white;
     border: 1px solid #f0f0f0;
-    border-radius: 10px; /* Dikecilkan dari 12px */
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    padding: 16px 20px; /* Dikecilkan dari 20px 24px */
-    gap: 14px; /* Dikecilkan dari 16px */
-    margin-bottom: 16px; /* Dikecilkan dari 20px */
+    padding: 16px 20px;
+    gap: 14px;
+    margin-bottom: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .page-header-icon {
-    width: 44px; /* Dikecilkan dari 48px */
+    width: 44px;
     height: 44px;
     min-width: 44px;
-    border-radius: 8px; /* Dikecilkan dari 10px */
+    border-radius: 8px;
     background: linear-gradient(135deg, #0F172A 0%, #1A365D 100%);
     color: white;
     display: flex;
@@ -211,51 +224,51 @@ a { text-decoration: none; color: inherit; }
 }
 .page-header-icon svg { width: 22px; height: 22px; stroke-width: 2; }
 .page-header-text h2 { 
-    font-size: 18px; /* Dikecilkan dari 20px */
+    font-size: 18px;
     font-weight: 700; 
     color: #1e293b; 
     margin-bottom: 2px; 
 }
 .page-header-text p { 
-    font-size: 12px; /* Dikecilkan dari 13px */
+    font-size: 12px;
     color: #64748b;
     line-height: 1.4;
 }
 
-/* CONTENT GRID (COMPACT) */
+/* CONTENT GRID */
 .content-grid { 
     display: grid; 
-    grid-template-columns: 1fr 360px; /* Dikecilkan dari 380px */
-    gap: 16px; /* Dikecilkan dari 20px */
+    grid-template-columns: 1fr 360px;
+    gap: 16px;
     align-items: start; 
 }
 
-/* TABLE SECTION (COMPACT) */
+/* TABLE SECTION */
 .task-card {
     background: white;
     border: 1px solid #f0f0f0;
     border-radius: 10px;
     min-width: 0;
-    padding: 16px; /* Dikecilkan dari 20px */
+    padding: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .table-filters { 
     display: flex; 
     align-items: flex-end;
-    gap: 10px; /* Dikecilkan dari 12px */
-    margin-bottom: 16px; /* Dikecilkan dari 20px */
+    gap: 10px;
+    margin-bottom: 16px;
     flex-wrap: wrap;
 }
 .filter-control {
-    height: 34px; /* Dikecilkan dari 36px */
-    min-width: 130px; /* Dikecilkan dari 140px */
+    height: 34px;
+    min-width: 130px;
     border: 1.5px solid #e2e8f0;
-    border-radius: 6px; /* Dikecilkan dari 8px */
+    border-radius: 6px;
     display: flex;
     align-items: center;
-    gap: 6px; /* Dikecilkan dari 8px */
-    padding: 0 10px; /* Dikecilkan dari 0 12px */
+    gap: 6px;
+    padding: 0 10px;
     background: white;
 }
 .filter-control select {
@@ -270,17 +283,18 @@ a { text-decoration: none; color: inherit; }
     cursor: pointer;
 }
 .reset-btn {
-    height: 34px; /* Dikecilkan dari 36px */
-    padding: 0 14px; /* Dikecilkan dari 0 16px */
+    height: 34px;
+    padding: 0 14px;
     border: 1.5px solid #e2e8f0;
     border-radius: 6px;
     background: white;
-    color: #6456fa;
+    color: #1A365D;
     display: flex;
     align-items: center;
     gap: 6px;
     font-size: 12px;
     font-weight: 600;
+    margin-left: auto;
 }
 .reset-btn:hover { background: #f8fafc; }
 .reset-btn svg { width: 14px; height: 14px; }
@@ -293,7 +307,7 @@ a { text-decoration: none; color: inherit; }
 }
 .data-table thead { background: #f8fafc; }
 .data-table th {
-    padding: 10px 12px; /* Dikecilkan dari 12px 16px */
+    padding: 10px 12px;
     color: #64748b;
     font-size: 11px;
     font-weight: 700;
@@ -302,10 +316,10 @@ a { text-decoration: none; color: inherit; }
     border-bottom: 2px solid #e2e8f0;
 }
 .data-table td {
-    padding: 10px 12px; /* Dikecilkan dari 14px 16px */
+    padding: 10px 12px;
     border-bottom: 1px solid #e2e8f0;
     color: #374151;
-    font-size: 12px; /* Dikecilkan dari 13px */
+    font-size: 12px;
     vertical-align: middle;
 }
 .data-table tr { cursor: pointer; transition: background 0.15s; }
@@ -316,32 +330,32 @@ a { text-decoration: none; color: inherit; }
 .data-table td strong { 
     font-weight: 600; 
     color: #1e293b;
-    font-size: 12px; /* Dikecilkan dari 13px */
+    font-size: 12px;
     display: block;
-    margin-bottom: 2px; /* Dikecilkan dari 4px */
+    margin-bottom: 2px;
 }
 .data-table td small { 
     color: #94a3b8; 
-    font-size: 10px; /* Dikecilkan dari 11px */
+    font-size: 10px;
     display: block;
 }
 
 .location {
     display: flex;
     align-items: center;
-    gap: 4px; /* Dikecilkan dari 6px */
+    gap: 4px;
     color: #4b5563;
     font-size: 12px;
 }
-.location svg { width: 12px; height: 12px; color: #3b82f6; }
+.location svg { width: 12px; height: 12px; color: #1A365D; }
 
 .priority {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 3px 8px; /* Dikecilkan dari 4px 10px */
+    padding: 3px 8px;
     border-radius: 20px;
-    font-size: 10px; /* Dikecilkan dari 11px */
+    font-size: 10px;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -350,12 +364,12 @@ a { text-decoration: none; color: inherit; }
 .priority.low { color: #059669; background: #f0fdf4; }
 
 .btn-kerjakan {
-    padding: 5px 10px; /* Dikecilkan dari 6px 12px */
+    padding: 5px 10px;
     border: 1.5px solid #1e3a5f;
-    border-radius: 6px; /* Dikecilkan dari 8px */
+    border-radius: 6px;
     background: white;
     color: #1e3a5f;
-    font-size: 11px; /* Dikecilkan dari 12px */
+    font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
     display: inline-flex;
@@ -371,11 +385,11 @@ a { text-decoration: none; color: inherit; }
     align-items: center;
     justify-content: flex-end;
     gap: 6px;
-    margin-top: 12px; /* Dikecilkan dari 16px */
+    margin-top: 12px;
 }
 .page-btn {
-    width: 30px; /* Dikecilkan dari 32px */
-    height: 30px; /* Dikecilkan dari 32px */
+    width: 30px;
+    height: 30px;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
     background: white;
@@ -395,16 +409,16 @@ a { text-decoration: none; color: inherit; }
 .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .page-btn svg { width: 14px; height: 14px; }
 
-/* DETAIL PANEL (COMPACT) */
+/* DETAIL PANEL */
 .detail-card { 
     background: white;
     border: 1px solid #f0f0f0;
     border-radius: 10px;
     min-width: 0;
-    padding: 16px; /* Dikecilkan dari 20px */
+    padding: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     position: sticky;
-    top: 16px; /* Dikecilkan dari 24px */
+    top: 16px;
 }
 
 .detail-heading {
@@ -412,12 +426,12 @@ a { text-decoration: none; color: inherit; }
     justify-content: space-between;
     align-items: flex-start;
     gap: 8px;
-    padding-bottom: 12px; /* Dikecilkan dari 16px */
+    padding-bottom: 12px;
     border-bottom: 1.5px solid #e2e8f0;
-    margin-bottom: 12px; /* Dikecilkan dari 16px */
+    margin-bottom: 12px;
 }
 .eyebrow {
-    color: #6456fa;
+    color: #1A365D;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -425,131 +439,198 @@ a { text-decoration: none; color: inherit; }
 }
 .detail-heading h3 {
     color: #1e293b;
-    font-size: 16px; /* Dikecilkan dari 18px */
-    margin-top: 4px; /* Dikecilkan dari 6px */
+    font-size: 16px;
+    margin-top: 4px;
     font-weight: 700;
 }
 .detail-priority {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 3px 8px; /* Dikecilkan dari 4px 10px */
+    padding: 3px 8px;
     background: #fef2f2;
     color: #e11d48;
     border-radius: 20px;
-    font-size: 10px; /* Dikecilkan dari 11px */
+    font-size: 10px;
     font-weight: 600;
+    white-space: nowrap;  
+    flex-shrink: 0;  
 }
 
-/* PROGRESS STEPS (COMPACT) */
+/* =========================================
+   PROGRESS STEPS (TIMELINE) - SESUAI FIGMA
+   Ukuran lebih kecil & proporsional
+   ========================================= */
 .progress-card {
     background: #f8fafc;
     border: 1.5px solid #e2e8f0;
-    border-radius: 8px; /* Dikecilkan dari 10px */
-    padding: 12px; /* Dikecilkan dari 16px */
+    border-radius: 8px;
+    padding: 16px 12px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     position: relative;
-    margin-bottom: 12px; /* Dikecilkan dari 16px */
+    margin-bottom: 12px;
 }
+
+/* Garis abu-abu background */
+.progress-card::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    top: 29px;
+    height: 3px;
+    background: #e2e8f0;
+    z-index: 0;
+    border-radius: 2px;
+}
+
+/* Garis hijau progress */
 .progress-track {
     position: absolute;
-    left: 36px; /* Disesuaikan */
-    right: 36px; /* Disesuaikan */
-    top: 20px; /* Disesuaikan */
-    height: 2px;
-    background: #e2e8f0;
+    left: 32px;
+    right: 32px;
+    top: 29px;
+    height: 3px;
+    background: #10b981 !important;
+    z-index: 0;
+    border-radius: 2px;
 }
-.progress-track.done { background: #675cff; }
+
+/* Default step */
 .progress-step {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px; /* Dikecilkan dari 6px */
+    gap: 6px;
     color: #94a3b8;
-    font-size: 10px; /* Dikecilkan dari 11px */
-    min-width: 45px; /* Dikecilkan dari 50px */
+    font-size: 11px;
+    min-width: 50px;
     position: relative;
     z-index: 1;
 }
+
+/* Icon lingkaran - UKURAN SESUAI FIGMA */
 .step-icon {
-    width: 22px; /* Dikecilkan dari 24px */
-    height: 22px; /* Dikecilkan dari 24px */
-    background: #e2e8f0;
-    color: #94a3b8;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
-.step-icon svg { width: 12px; height: 12px; }
-.progress-step.done { color: #1e293b; font-weight: 600; }
-.progress-step.done .step-icon { background: #10b981; color: white; }
-.progress-step.current { color: #1e293b; font-weight: 600; }
-.progress-step.current .step-icon { background: #1e3a5f; color: white; }
+.step-icon svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
 
-/* INFO CARDS (COMPACT) */
+/* STEP DONE (Diajukan, Diverifikasi): HIJAU */
+.progress-step.done {
+    color: #1e293b;
+    font-weight: 600;
+}
+.progress-step.done .step-icon {
+    background: #10b981;
+    color: white;
+}
+.progress-step.done .step-icon svg {
+    stroke: white;
+    stroke-width: 3;
+}
+
+/* STEP CURRENT (Proses): ABU-ABU + CENTANG NAVY */
+.progress-step.current {
+    color: #94a3b8;
+    font-weight: 700;
+}
+.progress-step.current .step-icon {
+    background: #eef2f6;
+}
+.progress-step.current .step-icon svg {
+    stroke: #1A365D;
+    stroke-width: 3;
+}
+
+/* STEP PENDING (Selesai): ABU-ABU PUDAR */
+.progress-step:not(.done):not(.current) {
+    color: #94a3b8;
+}
+.progress-step:not(.done):not(.current) .step-icon {
+    background: #f1f5f9;
+}
+.progress-step:not(.done):not(.current) .step-icon svg {
+    stroke: #94a3b8;
+    stroke-width: 3;
+}
+
+.progress-step .step-icon::after {
+    content: none !important;
+}
+
+/* INFO CARDS */
 .detail-info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px; /* Dikecilkan dari 12px */
-    margin-bottom: 12px; /* Dikecilkan dari 16px */
+    gap: 10px;
+    margin-bottom: 12px;
 }
 .mini-info {
     background: #f8fafc;
     border: 1.5px solid #e2e8f0;
-    border-radius: 6px; /* Dikecilkan dari 8px */
-    padding: 10px; /* Dikecilkan dari 12px */
+    border-radius: 6px;
+    padding: 10px;
 }
 .mini-info > span {
     display: block;
     color: #94a3b8;
-    font-size: 10px; /* Dikecilkan dari 11px */
-    margin-bottom: 4px; /* Dikecilkan dari 6px */
+    font-size: 10px;
+    margin-bottom: 4px;
 }
 .mini-info strong {
     display: flex;
     align-items: center;
-    gap: 4px; /* Dikecilkan dari 6px */
+    gap: 4px;
     color: #1e293b;
-    font-size: 11px; /* Dikecilkan dari 12px */
+    font-size: 11px;
     font-weight: 700;
 }
 .mini-info strong svg { width: 14px; height: 14px; }
-.mini-info .current-status { color: #2563eb; }
+.mini-info .current-status { color: #1A365D; }
 
-/* DESCRIPTION (COMPACT) */
+/* DESCRIPTION */
 .description { 
-    margin-bottom: 12px; /* Dikecilkan dari 16px */
+    margin-bottom: 12px;
 }
 .description h3,
 .location-title h3 {
     color: #1e293b;
-    font-size: 11px; /* Dikecilkan dari 12px */
+    font-size: 11px;
     font-weight: 700;
-    margin-bottom: 6px; /* Dikecilkan dari 8px */
+    margin-bottom: 6px;
 }
 .description p {
     background: #f8fafc;
     border: 1.5px solid #e2e8f0;
-    border-radius: 6px; /* Dikecilkan dari 8px */
-    padding: 10px; /* Dikecilkan dari 12px */
+    border-radius: 6px;
+    padding: 10px;
     color: #475569;
-    font-size: 11px; /* Dikecilkan dari 12px */
-    line-height: 1.5; /* Dikecilkan dari 1.6 */
+    font-size: 11px;
+    line-height: 1.5;
 }
 
-/* LOCATION (COMPACT) */
+/* LOCATION */
 .location-detail { 
-    margin-bottom: 16px; /* Dikecilkan dari 20px */
+    margin-bottom: 16px;
 }
 .location-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 6px; /* Dikecilkan dari 7px */
-    margin-bottom: 6px; /* Dikecilkan dari 8px */
+    gap: 6px;
+    margin-bottom: 6px;
 }
 .location-title h3 {
     display: flex;
@@ -557,43 +638,43 @@ a { text-decoration: none; color: inherit; }
     gap: 6px;
     margin-bottom: 0;
 }
-.location-title h3 svg { width: 14px; height: 14px; color: #3b82f6; }
+.location-title h3 svg { width: 14px; height: 14px; color: #1A365D; }
 .location-title a {
     display: flex;
     align-items: center;
     gap: 4px;
     color: #2563eb;
-    font-size: 10px; /* Dikecilkan dari 11px */
+    font-size: 10px;
     font-weight: 600;
     white-space: nowrap;
 }
 .location-title a:hover { text-decoration: underline; }
 .location-detail > p {
     color: #334155;
-    font-size: 11px; /* Dikecilkan dari 12px */
+    font-size: 11px;
     font-weight: 500;
-    margin-bottom: 2px; /* Dikecilkan dari 4px */
+    margin-bottom: 2px;
 }
 .location-detail > span {
     display: block;
     text-align: right;
     color: #94a3b8;
-    font-size: 8px; /* Dikecilkan dari 11px */
+    font-size: 8px;
 }
 
-/* UPDATE BUTTON (COMPACT) */
+/* UPDATE BUTTON */
 .update-btn {
     width: 100%;
-    height: 33px; /* Dikecilkan dari 40px */
+    height: 33px;
     border: none;
-    border-radius: 6px; /* Dikecilkan dari 8px */
+    border-radius: 6px;
     background: #1e3a5f;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px; /* Dikecilkan dari 8px */
-    font-size: 12px; /* Dikecilkan dari 13px */
+    gap: 6px;
+    font-size: 12px;
     font-weight: 700;
     box-shadow: 0 2px 4px rgba(30, 58, 95, 0.2);
     transition: all 0.2s;
@@ -603,7 +684,7 @@ a { text-decoration: none; color: inherit; }
 
 /* FOOTER */
 .footer {
-    height: 50px; /* Dikecilkan dari 60px */
+    height: 50px;
     min-height: 50px;
     background: white;
     display: flex;
@@ -644,3 +725,83 @@ a { text-decoration: none; color: inherit; }
     .location-title { flex-direction: column; align-items: flex-start; }
     .location-detail > span { text-align: left; margin-top: 4px; }
 }
+
+/* =========================================
+   SIDEBAR COLLAPSE (DESKTOP)
+   ========================================= */
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+.main-area.shifted {
+    margin-left: 0;
+}
+
+/* Badge prioritas detail */
+.detail-priority.medium { background: #fffbeb !important; color: #d97706 !important; }
+.detail-priority.low    { background: #f0fdf4 !important; color: #059669 !important; }
+
+/* =========================================
+   [PERBAIKAN FINAL] OVERIDE & PENYESUAIAN FIGMA
+   (Dipindahkan dari HTML agar kode lebih rapi)
+   ========================================= */
+
+/* 1. Paksa Garis 3 (Hamburger) Tampil di Desktop */
+.menu-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #1A365D !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+}
+.menu-toggle:hover { background: rgba(26, 54, 93, 0.08) !important; }
+.menu-toggle svg {
+    display: block !important;
+    width: 24px !important;
+    height: 24px !important;
+    stroke: #1A365D !important;
+}
+
+/* 2. Penyesuaian Profil Topbar (Avatar & Badge Role) */
+.user-profile {
+    padding: 5px 14px 5px 5px !important;
+    gap: 10px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 50px !important;
+}
+.user-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    background: #1A365D !important;
+}
+.user-avatar svg {
+    width: 20px !important;
+    height: 20px !important;
+    stroke: white !important;
+}
+.user-name {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+}
+.user-role {
+    font-size: 11px !important;
+    color: #1A365D !important;
+    background: #eef2ff !important;
+    padding: 2px 8px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    margin-top: 2px;
+    display: inline-block;
+}
+
+/* 3. Fungsi Collapse Sidebar di Desktop */
+.main-area { transition: margin-left 0.3s ease; }
+.sidebar.collapsed { transform: translateX(-100%); }
+.main-area.shifted { margin-left: 0; }

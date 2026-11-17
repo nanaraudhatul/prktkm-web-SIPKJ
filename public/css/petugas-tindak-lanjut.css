@@ -268,3 +268,51 @@ button { font-family: inherit; cursor: pointer; }
     .content { padding: 16px; }
     .topbar { padding: 0 16px; }
 }
+/* =========================================
+   [PERBAIKAN FINAL] OVERIDE & PENYESUAIAN FIGMA
+   (Dipindahkan dari HTML agar kode lebih rapi)
+   ========================================= */
+
+/* 1. Warna Icon & Link menjadi Navy (#1A365D) */
+.section-title svg { color: #1A365D !important; }
+.heading-icon { 
+    color: #1A365D !important; 
+    background: #eef2ff !important; 
+}
+.maps-link { color: #1A365D !important; }
+
+/* 2. Badge Status (Diterima/Dalam Proses) */
+.received-badge {
+    background: #eef2ff !important;
+    color: #1A365D !important;
+}
+.received-badge .status-dot { background: #1A365D !important; }
+
+/* 3. Timeline / Progress Step */
+.progress-step.completed .step-circle {
+    background: #10b981 !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.progress-step.pending .step-circle {
+    background: #eef2f6 !important;
+    color: #94a3b8 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.tl-track { display: none !important; } /* Hilangkan garis hijau jika ada */
+
+/* 4. Tombol Kerjakan */
+.work-button {
+    background: #1A365D !important;
+    box-shadow: 0 6px 16px rgba(26, 54, 93, 0.25);
+}
+.work-button:hover { background: #0F172A !important; }
+
+/* 5. Icon Profile di Topbar */
+.profile-icon {
+    background: #1A365D !important;
+    color: white !important;
+}
+.profile-icon svg { stroke: white !important; }

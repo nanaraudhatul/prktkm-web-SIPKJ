@@ -706,3 +706,87 @@ body {
         display: none;
     }
 }
+
+/* ============================================================
+   [TAMBAHAN] PENYESUAIAN DESAIN FIGMA — tidak mengubah aturan asli
+   ============================================================ */
+
+.data-table thead th:nth-child(2) {
+    font-size: 0;            
+    color: transparent;
+}
+.data-table thead th:nth-child(2)::after {
+    content: "POLA MASALAH";
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+#filterPriority { min-width: 150px; }
+.priority-badge.priority-high { color: #e11d48; }
+
+/* GARIS 3 */
+.menu-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 8px !important;
+    color: #1e293b !important;
+    padding: 6px !important;
+    margin-right: 8px !important;
+    transition: background 0.2s ease !important;
+}
+.menu-toggle:hover {
+    background: #f1f5f9 !important;
+}
+.menu-toggle svg {
+    width: 22px !important;
+    height: 22px !important;
+    stroke: #1e293b !important;
+    display: block !important;
+}
+.location-cell svg path {
+    fill: #1e3a5f !important;
+}
+
+.problem-tag { 
+    color: #64748b !important; 
+    background: #f1f5f9 !important;
+}
+.problem-tag.pt-fasilitas { 
+    color: #64748b !important; 
+    background: #eff6ff !important;
+}
+.problem-tag.pt-drainase  {
+    color: #64748b !important;
+    background: #f1f5f9 !important;   
+}
+.problem-tag.pt-marka {
+    color: #64748b !important;
+    background: #f1f5f9 !important;   
+}
+.problem-tag.pt-permukaan {
+    color: #64748b !important;
+    background: #f1f5f9 !important;   
+}
+.problem-tag.pt-lainnya   { 
+    color: #64748b !important; 
+    background: #f1f5f9 !important;
+}
+
+/* [TAMBAHAN] ELLIPSIS PAGINATION */
+.page-ellipsis {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+    user-select: none;
+}

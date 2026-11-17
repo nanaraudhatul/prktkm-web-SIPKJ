@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 2. Muat nama petugas
     updatePetugasInfo();
     
+    // 2b. Normalkan select status agar sesuai Figma ("Semua Status", abu, aktif)
+    normalizeStatusFilter();
+    
     // 3. Muat data awal (Hanya yang Selesai)
     await loadRiwayatTugas();
     
@@ -23,28 +26,56 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 function updatePetugasInfo() {
-    const userData = localStorage.getItem('sipkj_user');
-    if (userData) {
-        try {
-            const user = JSON.parse(userData);
-            const el = document.getElementById('petugasName');
-            if (el) el.textContent = user.username || 'Petugas';
-        } catch (e) {
-            console.error('Error parsing user data:', e);
-        }
-    }
+    
 }
 
-// Helper untuk mendapatkan info prioritas (warna & teks)
+// Helper: Normalkan select status (hapus disabled, ubah opsi jadi "Semua Status")
+function normalizeStatusFilter() {
+    const sel = document.getElementById('statusFilter');
+    if (!sel) return;
+    sel.removeAttribute('disabled');
+    sel.style.color = '#1e293b';
+    sel.style.background = '#f8fafc';
+    sel.style.cursor = 'pointer';
+    sel.innerHTML =
+        '<option value="semua">Semua Status</option>' +
+        '<option value="Selesai" selected>Selesai</option>';
+}
+
+// Helper untuk mendapatkan info prioritas (dengan Icon SVG, bukan titik)
 function getPriorityInfo(kategori) {
     const kat = (kategori || '').toLowerCase();
+
+    // Icon Segitiga Peringatan
+    const iconWarning = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+    // Icon Info (untuk rendah)
+    const iconInfo = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+
     if (kat === 'drainase' || kat === 'fasilitas') {
-        return { text: 'Tinggi', color: '#e11d48', bg: '#fef2f2' };
+        return {
+            text: 'Prioritas Tinggi',
+            color: '#e11d48',
+            bg: '#fff0f2',
+            border: '#ffdae1',
+            icon: iconWarning
+        };
     }
     if (kat === 'marka') {
-        return { text: 'Rendah', color: '#059669', bg: '#f0fdf4' };
+        return {
+            text: 'Prioritas Rendah',
+            color: '#059669',
+            bg: '#eafff5',
+            border: '#cdf5e3',
+            icon: iconInfo
+        };
     }
-    return { text: 'Sedang', color: '#d97706', bg: '#fffbeb' };
+    return {
+        text: 'Prioritas Sedang',
+        color: '#c17a00',
+        bg: '#fff8e8',
+        border: '#ffedc5',
+        icon: iconWarning
+    };
 }
 
 async function loadRiwayatTugas() {
@@ -98,14 +129,14 @@ async function loadRiwayatTugas() {
                 <td style="padding: 16px; font-size: 13px; font-weight: 600; color: #1e293b;">${item.judul}</td>
                 <td style="padding: 16px; font-size: 13px; color: #64748b;">${item.lokasi}</td>
                 <td style="padding: 16px;">
-                    <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: ${prio.bg}; color: ${prio.color}; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                        <span style="width: 6px; height: 6px; background: ${prio.color}; border-radius: 50%;"></span>
+                    <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: ${prio.bg}; color: ${prio.color}; border: 1px solid ${prio.border}; border-radius: 20px; font-size: 11px; font-weight: 600;">
+                        ${prio.icon}
                         ${prio.text}
                     </span>
                 </td>
                 <td style="padding: 16px;">
-                    <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #d1fae5; color: #059669; border-radius: 20px; font-size: 11px; font-weight: 600;">
-                        <span style="width: 6px; height: 6px; background: #059669; border-radius: 50%;"></span>
+                    <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #d1fae5; color: #059669; border: 1px solid #c9f4e2; border-radius: 20px; font-size: 11px; font-weight: 600;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                         Selesai
                     </span>
                 </td>

@@ -55,16 +55,6 @@ function handleLogout() {
 }
 
 function updatePetugasInfo() {
-    const userData = localStorage.getItem('sipkj_user');
-    if (userData) {
-        try {
-            const user = JSON.parse(userData);
-            const el = document.getElementById('petugasName');
-            if (el) el.textContent = user.username || 'Petugas';
-        } catch (e) {
-            console.error('Error parsing user data:', e);
-        }
-    }
 }
 
 // 3. Load Data menggunakan DataManager
